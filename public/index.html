@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-    <title>snapshot</title>
+    <title>dev buddies</title>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
 </head>
@@ -10,31 +10,51 @@
         <div class="panel home">
             <div class="search">
                 <div class="container">
-                    <input name="firstname" type="text"/>
-                    <input name="lastname" type="text"/>
-                    <a href="#">search people</a>
+                    <span>
+                        <input name="search" type="text"/>
+                        <span class="clear"></span>
+                    </span>
+                    <a href="#">search</a>
+                    <div class="overlay">
+                        <span class="loader"></span>
+                    </div>
                 </div>
-                <span class="toggle"></span>
+                <span class="toggle"><i></i></span>
             </div>
-            <ul class="items search-result">
+            <ul class="search-results">
             </ul>
             <script type="IN/Login"></script>
         </div>
-        <div class="status-bar">linkedIn</div>
+        <div class="nav">
+            <ul>
+                <li class="home">
+                    <a href="#"><span>home</span></a>
+                </li>
+                <li class="buddies">
+                    <a href="#"><span>buddies</span></a>
+                </li>
+                <li class="settings">
+                    <a href="#"><span>settings</span></a>
+                </li>
+            </ul>
+        </div>
     </div>
     <script src="js/vendors/jquery-1.8.3.js"></script>
     <script src="js/vendors/underscore.js"></script>
-    <script src="js/providers/provider.result.js"></script>
-    <script src="js/providers/provider.js"></script>
-    <script src="js/providers/linkedin.js"></script>
-    <script src="js/providers/github.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/main.js"></script>
     <script type="text/javascript" src="http://platform.linkedin.com/in.js">
         api_key: 8jg1a4imz68k
         onLoad: onLinkedInLoaded
         authorize: true
         scope: r_basicprofile r_network
     </script>
+    <script src="js/providers/provider.result.js"></script>
+    <script src="js/providers/provider.js"></script>
+    <script src="js/providers/linkedin.js"></script>
+    <script src="js/providers/github.js"></script>
+    <script src="js/providers/twitter.js"></script>
+    <script src="js/providers/stack-overflow.js"></script>
+    <script src="js/renderers/search-renderer.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

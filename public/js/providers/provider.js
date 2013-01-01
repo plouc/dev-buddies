@@ -67,6 +67,10 @@ Provider.prototype = {
      */
     formatResults: function(results) {
 
-        return results.map(this.formatResult);
+        var self = this;
+
+        return results.map(function(result) {
+            return self.formatResult(result);
+        });
     }
 };

@@ -6,12 +6,16 @@
 var App = function() {
 
     // define available providers
-    var linkedInProvider = new LinkedInProvider();
-    var githubProvider   = new GithubProvider();
+    var linkedInProvider      = new LinkedInProvider();
+    var githubProvider        = new GithubProvider();
+    var stackOverflowProvider = new StackOverflowProvider();
+    var twitterProvider       = new TwitterProvider();
 
     this.providers = {};
-    this.providers[linkedInProvider.id] = linkedInProvider;
-    this.providers[githubProvider.id]   = githubProvider;
+    this.providers[linkedInProvider.name]      = linkedInProvider;
+    this.providers[githubProvider.name]        = githubProvider;
+    this.providers[stackOverflowProvider.name] = stackOverflowProvider;
+    //this.providers[twitterProvider.name]       = twitterProvider;
 };
 
 App.prototype = {
@@ -73,16 +77,17 @@ App.prototype = {
 
     /**
      *
-     * @param params
+     * @param query
+     * @param callback
      */
-    search: function(params, callback) {
+    search: function(query, callback) {
 
         var self = this,
             provider;
 
         for (var providerId in this.providers) {
             provider = this.providers[providerId];
-            provider.search(params, function() {
+            provider.search(query, function() {
                 self.checkProvidersState('search', 'loaded', function() {
                     callback(self.getProvidersResult('search'));
                 });

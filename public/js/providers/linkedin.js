@@ -9,7 +9,7 @@ var LinkedInProvider = function() {
 
     Provider.call(this);
 
-    this.id = 'linkedin';
+    this.name = 'linkedin';
 
     this.loaded        = false;
     this.authenticated = false;
@@ -33,21 +33,29 @@ LinkedInProvider.prototype.getProfile = function(profileId, callback) {
 
 /**
  *
- * @param params
+ * @param query
  * @param callback
  */
-LinkedInProvider.prototype.search = function(params, callback) {
-    if (!IN.ENV.auth.oauth_token) {
-      alert("You must login w/ LinkedIn to use the Search functionality!");
-      return;
+LinkedInProvider.prototype.search = function(query, callback) {
+
+    // when user is not authenticated, we exit and return an empty result
+    if (!IN.ENV.auth || !IN.ENV.auth.oauth_token || !IN.API) {
+        this.setState('search', 'loaded')
+            .setResponse('search', []);
+
+        callback();
+        return;
     }
 
     // reset search state and response
     this.setState('search', 'loading')
         .setResponse('search', null);
 
-    params.count = 10;
-    params.sort  = 'distance';
+    var params = {
+        'keywords': query,
+        'count':    10,
+        'sort':     'distance'
+    };
 
     var self = this;
 
@@ -55,11 +63,16 @@ LinkedInProvider.prototype.search = function(params, callback) {
         .fields(this.profileFields)
         .params(params)
         .result(function(response) {
-            console.log('LinkedInProvider response length: ' + response.people.values.length);
+            console.log('LinkedInProvider response:');
             console.log(response);
 
-            self.setState('search', 'loaded')
-                .setResponse('search', self.formatResults(response.people.values));
+            self.setState('search', 'loaded');
+            if (response.people.hasOwnProperty('values')) {
+                self.setResponse('search', self.formatResults(response.people.values));
+            } else {
+                self.setResponse('search', []);
+            }
+
 
             callback();
         })
@@ -82,6 +95,10 @@ LinkedInProvider.prototype.search = function(params, callback) {
  */
 LinkedInProvider.prototype.formatResult = function(result) {
 
-    return new ProviderResult(this.id, result.firstName + ' ' + result.lastName, result.headline, {
-    });
+    var picture = null;
+    if (result.hasOwnProperty('pictureUrl')) {
+        picture = result.pictureUrl;
+    }
+
+    return new ProviderResult(this.name, result.firstName + ' ' + result.lastName, result.headline, picture, result);
 };

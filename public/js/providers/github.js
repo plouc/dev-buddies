@@ -9,7 +9,7 @@ var GithubProvider = function() {
 
     Provider.call(this);
 
-    this.id = 'github';
+    this.name = 'github';
 
     this.baseUrls = {
         userSearch: 'https://api.github.com/legacy/user/search/'
@@ -21,26 +21,34 @@ GithubProvider.prototype = Object.create(new Provider(), {});
 
 /**
  *
- * @param params
+ * @param query
  * @param callback
  */
-GithubProvider.prototype.search = function(params, callback) {
+GithubProvider.prototype.search = function(query, callback) {
 
     // reset search state and response
     this.setState('search', 'loading')
         .setResponse('search', null);
 
-    var self  = this,
-        terms = params.keywords;
+    var self = this;
 
     $.ajax({
-        url: this.baseUrls.userSearch + terms,
+        url: this.baseUrls.userSearch + query,
+        dataType: 'json',
         success: function(response) {
-            console.log('GithubProvider response length: ' + response.users.length);
+            console.log('GithubProvider response:');
             console.log(response);
 
             self.setState('search', 'loaded')
                 .setResponse('search', self.formatResults(response.users));
+
+            callback();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log('GithubProvider error: ' + errorThrown);
+
+            self.setState('search', 'loaded')
+                .setResponse('search', []);
 
             callback();
         }
@@ -70,7 +78,15 @@ GithubProvider.prototype.search = function(params, callback) {
  */
 GithubProvider.prototype.formatResult = function(result) {
 
-    return new ProviderResult(this.id, result.login, '', {
-        created_at: result.created_at
-    });
+    var fullname = result.login;
+    if (result.fullname !== null && result.fullname != '') {
+        fullname += ' [' + result.fullname + ']';
+    }
+
+    var description = '';
+    if (result.language !== null) {
+        description = result.language + ' developper';
+    }
+
+    return new ProviderResult(this.name, fullname, description, null, result);
 };

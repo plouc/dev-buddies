@@ -1,54 +1,48 @@
 var app = new App();
 
 /**
- * LinkedIn
+ * LinkedIn event handlers
  */
 var onLinkedInLoaded = function() {
-    app.getProvider('linkedin').loaded = true;
+    //app.getProvider('linkedin').loaded = true;
 };
 var onLinkedInAuth = function() {
-    app.getProvider('linkedin').authenticated = true;
+    //app.getProvider('linkedin').authenticated = true;
 };
+
+var searchSimulator = function(app, renderer, query) {
+    renderer.$container.removeClass('closed');
+    renderer.$query.val('').trigger('focus');
+    var currentQueryIndex = 0;
+    var timer = setInterval(function() {
+        currentQueryIndex++;
+        renderer.$query.val(query.substr(0, currentQueryIndex));
+        if (currentQueryIndex === query.length) {
+            clearInterval(timer);
+            renderer.$query.trigger('blur');
+            renderer.$submit.trigger('focus');
+            setTimeout(function() {
+                renderer.$submit.trigger('click');
+            }, 600);
+        }
+    }, 60);
+};
+
 
 $(document).ready(function() {
 
-    var $currentPanel = $('.home'),
-        $search       = $('.search'),
-        $firstname    = $('input[name="firstname"]'),
-        $lastname     = $('input[name="lastname"]'),
-        $searchButton = $('.search a'),
-        $searchToggle = $('.search .toggle');
+    var $currentPanel  = $('.home');
 
-    var renderResults = function(results) {
-        var $resultContainer = $('.search-result');
+    var searchRenderer = new SearchRenderer('.search');
+    searchRenderer.init();
 
-        $resultContainer.html('');
-
-        results.forEach(function(result) {
-            var $result = $('<li/>');
-            $result.append('<h2>' + result.fullname + '</h2>');
-            $result.append('<p>' + result.description + '</p>');
-
-            $result.click(function(e) {
-                $currentPanel.addClass('closed');
-            });
-
-            $resultContainer.append($result);
+    $(searchRenderer).on('submit', function(e, query) {
+        app.search(query, function(results) {
+            searchRenderer.resultsLoaded().render(results);
         });
-    };
-
-    $searchButton.click(function(e) {
-        e.preventDefault();
-        app.search({
-            keywords: $firstname.val() + ' ' + $lastname.val()
-        }, renderResults);
     });
 
-    $searchToggle.click(function() {
-        if ($search.hasClass('closed')) {
-            $search.removeClass('closed');
-        } else {
-            $search.addClass('closed');
-        }
-    });
+    setTimeout(function() {
+        searchSimulator(app, searchRenderer, 'Paul Irish');
+    }, 1000);
 });

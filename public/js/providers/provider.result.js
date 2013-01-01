@@ -4,19 +4,20 @@
  * @param providerName
  * @param fullname
  * @param description
- * @param extra
+ * @param rawResult
  * @constructor
  */
-var ProviderResult = function(providerName, fullname, description, extra) {
+var ProviderResult = function(providerName, fullname, description, picture, rawResult) {
 
     this.providerName = providerName;
 
     // common properties
     this.fullname    = fullname;
     this.description = description;
+    this.picture     = picture;
 
-    // placeholder for provider specific fields
-    this.extra = extra;
+    // raw result
+    this.raw = rawResult;
 };
 
 ProviderResult.prototype = {
