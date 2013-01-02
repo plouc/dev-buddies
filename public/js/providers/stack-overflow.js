@@ -49,6 +49,14 @@ StackOverflowProvider.prototype.search = function(query, callback) {
                 .setResponse('search', self.formatResults(response.items));
 
             callback();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log('StackOverflowProvider error: ' + errorThrown);
+
+            self.setState('search', 'loaded')
+                .setResponse('search', []);
+
+            callback();
         }
     });
 };

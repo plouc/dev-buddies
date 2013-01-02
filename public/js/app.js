@@ -33,6 +33,14 @@ App.prototype = {
 
     /**
      *
+     * @return {Array}
+     */
+    getProviderNames: function() {
+        return Object.keys(this.providers);
+    },
+
+    /**
+     *
      * @param command
      * @param state
      * @param callback

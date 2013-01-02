@@ -1,40 +1,91 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-    <title>dev buddies</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Dev Buddies</title>
     <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
     <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
 </head>
 <body>
     <div id="container">
-        <div class="panel home">
-            <div class="search">
-                <div class="container">
-                    <span>
-                        <input name="search" type="text"/>
-                        <span class="clear"></span>
-                    </span>
-                    <a href="#">search</a>
-                    <div class="overlay">
-                        <span class="loader"></span>
-                    </div>
+        <div class="panel-slider">
+            <div class="panel-container">
+                <div id="home" class="panel active">
+                    <h1>Home</h1>
                 </div>
-                <span class="toggle"><i></i></span>
+
+                <div id="search" class="panel">
+                    <div class="search">
+                        <div class="container">
+                            <span class="search-wrapper">
+                                <input name="search" type="text"/>
+                                <span class="clear"></span>
+                            </span>
+                            <a href="#">search</a>
+                            <div class="overlay">
+                                <span class="loader"></span>
+                            </div>
+                        </div>
+                        <span class="toggle"></span>
+                    </div>
+                    <p class="notice">Pick up the sources you want to use to build the user's profile</p>
+                    <div class="results-wrapper">
+                        <ul class="selected-results">
+                        </ul>
+                        <p class="build">
+                            <a>Build profile</a>
+                        </p>
+                        <ul class="results">
+                        </ul>
+                    </div>
+                    <script type="IN/Login"></script>
+                </div>
+
+                <div id="buddies" class="panel">
+                    <h1>Buddies</h1>
+                </div>
+
+                <div id="settings" class="panel">
+                    <h1>Settings</h1>
+                    <h2>Providers</h2>
+                    <ul class="providers">
+                        <li class="github">
+                            <span>Github</span>
+                        </li>
+                        <li class="linkedin">
+                            <span>LinkedIn</span>
+                        </li>
+                        <li class="stack-overflow">
+                            <span>Stack Overflow</span>
+                        </li>
+                        <li class="twitter">
+                            <span>Twitter</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="about" class="panel">
+                    <h1>About</h1>
+                </div>
             </div>
-            <ul class="search-results">
-            </ul>
-            <script type="IN/Login"></script>
         </div>
         <div class="nav">
             <ul>
                 <li class="home">
-                    <a href="#"><span>home</span></a>
+                    <a href="#home"><span>home</span></a>
+                </li>
+                <li class="search-button">
+                    <a href="#search"><span>search</span></a>
                 </li>
                 <li class="buddies">
-                    <a href="#"><span>buddies</span></a>
+                    <a href="#buddies"><span>buddies</span></a>
                 </li>
                 <li class="settings">
-                    <a href="#"><span>settings</span></a>
+                    <a href="#settings"><span>settings</span></a>
+                </li>
+                <li class="about">
+                    <a href="#about"><span>about</span></a>
                 </li>
             </ul>
         </div>

@@ -11,27 +11,62 @@ body {
 h1, h2, h3, h4, h5, h6 {
     color: #000;
 }
+h1 {
+    padding: 9px;
+    border-bottom: 1px solid #ddd;
+    margin: 0;
+}
 h2 {
     font-size: 15px;
 }
 
 #container {
     position: relative;
-    width: 360px;
-    height: 540px;
-    margin-left: -210px;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    /*
+    width: 320px;
+    height: 480px;
+    margin-left: -160px;
     margin-top: 20px;
     left: 50%;
-    background: #fff;
-    box-shadow: 0 0 5px rgba(0,0,0,0.8);
-    border: 1px solid #000;
+    */
+    background: #8eefc0;
+    box-shadow: 0 0 3px rgba(0,0,0,18);
+    -webkit-perspective: 1000px;
+    -moz-perspective:    1000px;
+    perspective:         1000px;
+}
+.panel-slider {
+    position: relative;
+    overflow: hidden;
+    width: 500%;
+    height: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing:      border-box;
+}
+.panel-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
 }
 .panel {
+    background: #fff;
+    float: left;
+    z-index: 10;
     height: 100%;
-    width: 100%;
+    width: 20%;
 }
-.panel.closed {
+
+
+.notice {
+    padding: 9px;
+    margin: 0;
+    font-style: italic;
+    background: #baf9ce;
 }
+
 
 /*******************************************************************************
  * Search form
@@ -39,20 +74,15 @@ h2 {
 .search {
     width: 100%;
     height: 104px;
-    padding-bottom: 30px;
+    padding-bottom: 32px;
     position: relative;
     overflow: hidden;
-    -webkit-transition: all 0.2s linear;
-    -moz-transition:    all 0.2s linear;
-    transition:         all 0.2s linear;
-    transition-property:         height;
-    -moz-transition-property:    height;
-    -webkit-transition-property: height;
-    box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+    -webkit-transition: height 0.2s linear;
+    -moz-transition:    height 0.2s linear;
+    transition:         height 0.2s linear;
 }
 .search.closed {
     height: 0;
-    padding-bottom: 30px;
 }
 .search .container {
     position: relative;
@@ -60,7 +90,7 @@ h2 {
     padding: 9px;
     width: 100%;
     -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    box-sizing:      border-box;
 }
 .search .overlay {
     display: none;
@@ -87,38 +117,24 @@ h2 {
     position: absolute;
     bottom: 0;
     display: block;
-    height: 30px;
-    background: #bbb;
-    background: -moz-linear-gradient(top, #ccc 0%, #bbb 50%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ccc), color-stop(50%,#bbb));
-    background: -webkit-linear-gradient(top, #ccc 0%,#bbb 50%);
-    background: linear-gradient(to bottom, #ccc 0%,#bbb 50%);
+    height: 32px;
     width: 100%;
-    border-top: 1px solid #bbb;
-    border-bottom: 1px solid #aaa;
     text-align: center;
+    background: #ddd url("../imgs/collapse-icon.png") no-repeat center center;
 }
-.search .toggle i {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    background: url("../imgs/collapse-icon.png") no-repeat top left;
-    margin-top: 7px;
+.search.closed .toggle {
+    background-image: url("../imgs/expand-icon.png");
 }
-.search.closed .toggle i {
-    margin-top: 3px;
-    width: 24px;
-    height: 24px;
-    background-image: url("../imgs/search-icon.png");
+.search-wrapper {
+    position: relative;
+    top: 0;
+    display: block;
 }
 .search input[type="text"] {
+    display: block;
     padding: 9px;
     background: #eee;
-    background: -moz-linear-gradient(top, #ddd 0%, #eee 8%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ddd), color-stop(8%,#eee));
-    background: -webkit-linear-gradient(top, #ddd 0%,#eee 8%);
-    background: linear-gradient(to bottom, #ddd 0%,#eee 8%);
-    border: 1px solid #bbb;
+    border: 2px solid #eee;
     border-radius: 2px;
     outline: none;
     -moz-box-sizing: border-box;
@@ -129,11 +145,17 @@ h2 {
 }
 .search input[type="text"]:focus {
     background: #fff;
-    background: -moz-linear-gradient(top, #eee 0%, #fff 8%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eee), color-stop(8%,#fff));
-    background: -webkit-linear-gradient(top, #eee 0%,#fff 8%);
-    background: linear-gradient(to bottom, #eee 0%,#fff 8%);
     color: #000;
+}
+.search .clear {
+    position: absolute;
+    cursor: pointer;
+    display: none;
+    width: 36px;
+    height: 36px;
+    background: url("../imgs/glyphicons_197_remove.png") no-repeat center center;
+    top: 0;
+    right: 0;
 }
 .search a {
     display: block;
@@ -147,25 +169,14 @@ h2 {
     text-decoration: none;
     text-transform: uppercase;
     outline: none;
-    border: 1px solid #63ac85;
-    background: #8eefc0;
-    background: -moz-linear-gradient(top,#c7ffdb 0%,#8eefc0 7%,#5bd098 100%);
-    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#c7ffdb),color-stop(7%,#8eefc0)color-stop(100%,#5bd098));
-    background: -webkit-linear-gradient(top,#c7ffdb 0%,#8eefc0 7%,#5bd098 100%);
-    background: linear-gradient(to bottom,#c7ffdb 0%,#8eefc0 7%,#5bd098 100%);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    text-shadow: 0 1px 0 #bfffd9;
+    background: #32b587;
+    color: #baf9ce;
 
 }
 .search a:focus,
 .search a:hover,
 .search a:active {
-    background: #98ffcd;
-    background: -moz-linear-gradient(top, #98ffcd 0%, #81e1b2 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#98ffcd), color-stop(100%,#81e1b2));
-    background: -webkit-linear-gradient(top, #98ffcd 0%,#81e1b2 100%);
-    background: linear-gradient(to bottom, #98ffcd 0%,#81e1b2 100%);
-    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    background: #6fddb9;
 }
 
 
@@ -173,12 +184,44 @@ h2 {
 /*******************************************************************************
  * Search results
  ******************************************************************************/
-.search-results {
+#search .notice {
+    display: none;
+    text-align: center;
+}
+#search .build {
+    padding: 9px 0;
+    margin: 0;
+    display: block;
+    text-align: center;
+    background: #baf9ce;
+    display: none;
+}
+#search .build a {
+    display: inline-block;
+    padding: 9px;
+    color: #baf9ce;
+    background: #32b587;
+    border-radius: 2px;
+    cursor: pointer;
+}
+#search .build a:hover {
+    background: #6fddb9;
+}
+#search .results-wrapper {
+    overflow-y: auto;
+    height: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing:      border-box;
+    padding-bottom: 40px;
+}
+#search .selected-results,
+#search .results {
     list-style: none;
     padding: 0;
     margin: 0;
 }
-.search-results li {
+#search .selected-results li,
+#search .results li {
     position: relative;
     margin: 0;
     min-height: 36px;
@@ -188,33 +231,46 @@ h2 {
     background-repeat: no-repeat;
     background-position: 9px center;
 }
-.search-results li.provider-github {
+#search .selected-results li:last-child {
+    border-bottom: none;
+}
+#search .selected-results li.provider-github,
+#search .results li.provider-github {
     background-image: url("../imgs/github-icon-16.png");
 }
-.search-results li.provider-linkedin {
+#search .selected-results li.provider-linkedin,
+#search .results li.provider-linkedin {
     background-image: url("../imgs/linkedin-icon-16.png");
 }
-.search-results li.provider-stack-overflow {
+#search .selected-results li.provider-stack-overflow,
+#search .results li.provider-stack-overflow {
     background-image: url("../imgs/stack-overflow-icon-16.png");
 }
-.search-results li.no-picture {
+#search .selected-results li.no-picture,
+#search .results li.no-picture {
     padding-left: 84px;
 }
-.search-results li:hover {
+#search .selected-results li:hover,
+#search .selected-results li:focus,
+#search .results li:hover,
+#search .results li:focus {
     background-color: #eee;
 }
-.search-results .picture {
+#search .selected-results img,
+#search .results img {
     float: left;
     width: 36px;
     margin-right: 12px;
 }
-.search-results h2 {
+#search .selected-results h2,
+#search .results h2 {
     margin: 0 0 9px 0;
 }
-.search-results p {
+#search .selected-results p,
+#search .results p {
     margin: 0;
 }
-.search-results .validate {
+#search .results .validate {
     outline: none;
     position: absolute;
     top: 15px;
@@ -223,34 +279,46 @@ h2 {
     height: 24px;
     width: 24px;
     line-height: 24px;
-    text-decoration: none;
-    border: 1px solid #63ac85;
     border-radius: 2px;
-    color: #444;
-    background: #8eefc0;
-    background: -moz-linear-gradient(top,#c7ffdb 0%,#8eefc0 7%,#5bd098 100%);
-    background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#c7ffdb),color-stop(7%,#8eefc0)color-stop(100%,#5bd098));
-    background: -webkit-linear-gradient(top,#c7ffdb 0%,#8eefc0 7%,#5bd098 100%);
-    background: linear-gradient(to bottom,#c7ffdb 0%,#8eefc0 7%,#5bd098 100%);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-    text-shadow: 0 1px 0 #bfffd9;
+    background: #32b587 url("../imgs/check-icon.png") no-repeat center center;
 }
-.search-results .validate:hover,
-.search-results .validate:active {
-    background: #98ffcd;
-    background: -moz-linear-gradient(top, #98ffcd 0%, #81e1b2 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#98ffcd), color-stop(100%,#81e1b2));
-    background: -webkit-linear-gradient(top, #98ffcd 0%,#81e1b2 100%);
-    background: linear-gradient(to bottom, #98ffcd 0%,#81e1b2 100%);
-    box-shadow: 0 0 3px rgba(0,0,0,0.2);
-}
-.search-results .validate i {
-    display: block;
-    width: 24px;
-    height: 24px;
-    background: url("../imgs/check-icon.png") no-repeat top left;
+#search .results li:hover .validate {
+    background-color: #6fddb9;
 }
 
+
+
+/*******************************************************************************
+ * Settings panel
+ ******************************************************************************/
+#settings h2 {
+    padding: 9px;
+    margin: 0;
+    background: #baf9ce;
+}
+#settings .providers {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+#settings .providers li {
+    padding: 9px 9px 9px 32px;
+    border-bottom: 1px solid #eee;
+    background-repeat: no-repeat;
+    background-position: 9px center;
+}
+#settings .providers li span {
+    font-weight: bold;
+}
+#settings .providers li.github {
+    background-image: url("../imgs/github-icon-16.png");
+}
+#settings .providers li.linkedin {
+    background-image: url("../imgs/linkedin-icon-16.png");
+}
+#settings .providers li.stack-overflow {
+    background-image: url("../imgs/stack-overflow-icon-16.png");
+}
 
 
 
@@ -258,15 +326,14 @@ h2 {
  * Nav bar
  ******************************************************************************/
 .nav {
-    border-top: 1px solid #999;
+    z-index: 9999;
     position: absolute;
     bottom: 0;
-    background: #bbb;
+    background: #ddd;
     height: 40px;
     width: 100%;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    box-shadow: 0 -2px 3px rgba(0,0,0,0.2);
 }
 .nav ul {
     list-style: none;
@@ -276,26 +343,44 @@ h2 {
 }
 .nav li {
     float: left;
-    width: 33.333%;
+    width: 20%;
     height: 100%;
     text-align: center;
-    border-left: 1px solid #999;
+    border-left: 1px solid #fff;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+.nav li:first-child {
+    border-left: none;
+}
 .nav a {
+    outline: none;
     display: block;
     width: 100%;
     height: 100%;
     background-repeat: no-repeat;
     background-position: center center;
 }
+.nav a:hover,
+.nav a:focus,
+.nav a.active {
+    background-color: #eee;
+}
 .nav a span {
     display: none;
+}
+.nav .home a {
+    background-image: url("../imgs/glyphicons_020_home.png");
+}
+.nav .search-button a {
+    background-image: url("../imgs/glyphicons_027_search.png");
 }
 .nav .buddies a {
     background-image: url("../imgs/glyphicons_088_adress_book.png");
 }
 .nav .settings a {
-    background-image: url("../imgs/glyphicons_136_cogwheel.png");
+    background-image: url("../imgs/glyphicons_280_settings.png");
+}
+.nav .about a {
+    background-image: url("../imgs/glyphicons_195_circle_info.png");
 }
