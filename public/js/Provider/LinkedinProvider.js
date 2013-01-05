@@ -68,7 +68,7 @@ LinkedInProvider.prototype.search = function(query, callback) {
 
             self.setState('search', 'loaded');
             if (response.people.hasOwnProperty('values')) {
-                self.setResponse('search', self.formatResults(response.people.values));
+                self.setResponse('search', self.formatSearchResults(response.people.values));
             } else {
                 self.setResponse('search', []);
             }
@@ -111,7 +111,7 @@ LinkedInProvider.prototype.getUserProfile = function(result, callback) {
  * @param result
  * @return {Object}
  */
-LinkedInProvider.prototype.formatResult = function(result) {
+LinkedInProvider.prototype.formatSearchResult = function(result) {
 
     var picture = null;
     if (result.hasOwnProperty('pictureUrl')) {

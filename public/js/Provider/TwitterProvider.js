@@ -49,7 +49,7 @@ TwitterProvider.prototype.search = function(query, callback) {
                 console.log(response);
 
                 self.setState('search', 'loaded')
-                    .setResponse('search', self.formatResults(response.users));
+                    .setResponse('search', self.formatSearchResults(response.users));
 
                 callback(response.users);
             },
@@ -74,7 +74,7 @@ TwitterProvider.prototype.search = function(query, callback) {
  * @param result
  * @return {Object}
  */
-TwitterProvider.prototype.formatResult = function(result) {
+TwitterProvider.prototype.formatSearchResult = function(result) {
 
     var fullname = result.login;
     if (result.fullname !== null && result.fullname != '') {

@@ -98,3 +98,22 @@ Storage.prototype.dumpStore = function(storeName, callback) {
     console.log('Storage error while reading store ' + storeName, error);
   };
 };
+
+/**
+ * @param {String}   storeName
+ * @param {String}   id
+ * @param {Function} callback
+ */
+Storage.prototype.remove = function(storeName, id, callback) {
+  var trans   = this.db.transaction([storeName], "readwrite")
+    , store   = trans.objectStore(storeName)
+    , request = store['delete'](id);
+
+  request.onsuccess = function(e) {
+    callback();
+  };
+
+  request.onerror = function(e) {
+    console.log(e);
+  };
+};

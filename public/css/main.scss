@@ -1,8 +1,9 @@
-$darkGrey:   #554d4c;
-$lightGrey:  #9f9b9b;
-$accent:     #299e83;
-$accentOver: #29c7ab;
-$lightGreen: #baf9ce;
+$darkGrey:    #554d4c;
+$lightGrey:   #9f9b9b;
+$accent:      #299e83;
+$accentOver:  #29c7ab;
+$lightGreen:  #baf9ce;
+$removeColor: #ff3726;
 
 $hSpacing: 12px;
 
@@ -11,7 +12,7 @@ html, body {
 }
 body {
   width: 100%;
-  font-family: helvetica;
+  font-family: helvetica, arial;
   font-size: 15px;
   color: darken($darkGrey, 10);
   background: #333;
@@ -24,11 +25,14 @@ h1, h2, h3, h4, h5, h6 {
   color: $darkGrey;
 }
 h1 {
-  font-weight: 400;
+  font-weight: 100;
   text-transform: uppercase;
   font-size: 25px;
   padding: 12px $hSpacing;
   margin: 0;
+  background: $darkGrey;
+  color: lighten($lightGrey, 25);
+  position: relative;
 }
 h2 {
   color: darken($darkGrey, 10);
@@ -152,7 +156,6 @@ ul.items {
   background: $darkGrey;
   color: lighten($lightGrey, 8);
   h1 {
-    color: lighten($lightGrey, 8);
     border-bottom: 1px solid darken($darkGrey, 7);
   }
   .presentation {
@@ -185,7 +188,6 @@ ul.items {
   background: $darkGrey;
   color: lighten($lightGrey, 8);
   h1 {
-    color: lighten($lightGrey, 8);
     border-bottom: 1px solid darken($darkGrey, 7);
   }
 }
@@ -370,7 +372,7 @@ ul.items {
       border-radius: 2px;
       cursor: pointer;
       box-shadow: 0 1px 3px rgba(0,0,0,0.5),
-      0 1px 1px lighten($accent, 10) inset;;
+                  0 1px 1px lighten($accent, 10) inset;
       &:hover {
         background: $accentOver;
       }
@@ -449,7 +451,7 @@ ul.items {
 #search .selected-results li:focus,
 #search .results li:hover,
 #search .results li:focus {
-  background-color: #eee;
+  background: lighten($lightGrey, 27);
 }
 
 
@@ -458,7 +460,47 @@ ul.items {
  ******************************************************************************/
 #buddies-list {
   h1 {
-    border-bottom: 1px solid lighten($lightGrey, 25);
+    a {
+      position: absolute;
+      top: 6px;
+      right: $hSpacing;
+      display: inline-block;
+      height: 30px;
+      line-height: 30px;
+      border-radius: 2px;
+      background: $removeColor;
+      font-size: 13px;
+      text-transform: none;
+      text-decoration: none;
+      padding: 0 $hSpacing;
+      box-shadow: 0 1px 1px lighten($removeColor, 12) inset,
+                  0 1px 2px rgba(0,0,0,0.5);
+      color: darken($darkGrey, 12);
+      font-weight: bold;
+      &:hover {
+        background: lighten($removeColor, 10);
+      }
+    }
+  }
+  li {
+    position: relative;
+    min-height: 32px;
+    &:hover {
+      background: lighten($lightGrey, 27);
+    }
+  }
+  h3 {
+    background: none;
+    padding: 0;
+  }
+  .remove {
+    display: none;
+    position: absolute;
+    top: 7px;
+    right: $hSpacing;
+    width: 32px;
+    height: 32px;
+    background: url("../imgs/glyphicons_197_remove.png") no-repeat center center;
   }
 }
 

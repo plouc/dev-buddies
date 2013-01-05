@@ -20,6 +20,7 @@ new compressor.minify({
     , "public/js/Renderer/SearchRenderer.js"
     , "public/js/Renderer/GithubRenderer.js"
     , "public/js/Renderer/StackOverflowRenderer.js"
+    , "public/js/Renderer/BuddyRenderer.js"
     , "public/js/Renderer/BuddiesRenderer.js"
 
     , "public/js/App.js"

@@ -31,10 +31,25 @@ App.prototype.setStorage = function(storage) {
 };
 
 /**
- * @param {String} profileName
+ * @param {Profile} profile
  */
-App.prototype.storeProfileResult = function(profileName, result) {
-  console.log(result);
+App.prototype.storeProfile = function(profile) {
+  console.log('Store profile', profile, 'with id', profile.id);
+
+  this.storage.store('buddies', profile, function() {
+    console.log('Profile stored');
+  });
+};
+
+/**
+ * @param {Profile} profile
+ */
+App.prototype.removeProfile = function(profile) {
+  console.log('Remove profile', profile);
+
+  this.storage.remove('buddies', profile.id, function() {
+    console.log('Profile ' + profile.id + ' removed');
+  });
 };
 
 /**
@@ -120,7 +135,8 @@ App.prototype.search = function(query, callback) {
     provider = this.providers[providerId];
     provider.search(query, function() {
       self.checkProvidersState(self.providers, 'search', 'loaded', function() {
-        callback(query, self.getProvidersResult(self.providers, 'search'));
+        var results = self.getProvidersResult(self.providers, 'search');
+        callback(query, results);
       });
     });
   }
@@ -136,31 +152,36 @@ App.prototype.getProviderRenderer = function(providerName) {
 
 /**
  *
- * @param {Object} searchResults
+ * @param {String}   profileId
+ * @param {Object}   searchResults
  * @param {Function} callback
  */
-App.prototype.getUserProfile = function(searchResults, callback) {
+App.prototype.getUserProfile = function(profileId, searchResults, callback) {
 
   var self = this
     , result
     , selectedProviders = {}
-    , responses = {}
-    , provider;
+    , provider
+    , profile = new Profile(profileId);
 
   for (var resultId in searchResults) {
     result = searchResults[resultId];
     selectedProviders[result.providerName] = this.getProvider(result.providerName);
   }
 
-  console.log('Selected user profile providers: ', Object.keys(selectedProviders));
+  console.log('Selected user profile providers to build profile: ', Object.keys(selectedProviders).join(', '));
 
   for (resultId in searchResults) {
-    result = searchResults[resultId];
+
+    result   = searchResults[resultId];
     provider = this.getProvider(result.providerName);
-    provider.getUserProfile(result, function(userProfile) {
-      responses[this.name] = userProfile;
+
+    provider.getUserProfile(result, function(oResult, userProfile) {
+
+      profile.addProviderData(this.name, oResult.userId, userProfile);
+
       self.checkProvidersState(selectedProviders, 'getUserProfile', 'loaded', function() {
-        callback(responses);
+        callback(profile);
       });
     });
   }

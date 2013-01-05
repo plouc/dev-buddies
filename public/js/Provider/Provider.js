@@ -75,7 +75,7 @@ Provider.prototype = {
     throw 'You must implement the getUserProfile method';
   }
 
-  , formatResult: function() {
+  , formatSearchResult: function() {
     throw 'You must implement the formatResult method';
   }
 
@@ -83,12 +83,12 @@ Provider.prototype = {
    *
    * @param {Array} results
    */
-  , formatResults: function(results) {
+  , formatSearchResults: function(results) {
 
     var self = this;
 
     return results.map(function(result) {
-      return self.formatResult(result);
+      return self.formatSearchResult(result);
     });
   }
 };

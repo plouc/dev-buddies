@@ -6,6 +6,7 @@ $(document).ready(function() {
   var app             = new App()
     , searchRenderer  = new SearchRenderer(app, '.search')
     , buddiesRenderer = new BuddiesRenderer($('#buddies-list'))
+    , buddyRenderer   = new BuddyRenderer($('buddy-profile'))
     , $panelContainer = $('.panel-container')
     , storage         = new Storage()
     , $buddyProfile   = $('#buddy-profile');
@@ -14,6 +15,21 @@ $(document).ready(function() {
   searchRenderer.init();
   buddiesRenderer.init();
 
+  $(buddiesRenderer).on('buddy.details', function(e, profile) {
+    _.each(profile.providerData, function(providerProfileData, providerName) {
+      app.getProviderRenderer(providerName).render(providerProfileData.data);
+      gotoPanel('#buddy-profile');
+    });
+  }).on('buddy.remove', function(e, profile) {
+    app.removeProfile(profile);
+  });
+
+  $('#home .presentation a').on('click', function(e) {
+    e.preventDefault();
+    gotoPanel('#search', function() {
+      searchRenderer.$query.focus();
+    });
+  });
 
   storage.init(function() {
     app.setStorage(storage);
@@ -45,18 +61,21 @@ $(document).ready(function() {
       searchRenderer.resultsLoaded().render(results);
     });
   }).on('build.init', function(e, results) {
-    app.getUserProfile(results, function(results) {
+    app.getUserProfile('test-user', results, function(profile) {
+
       searchRenderer.$mainOverlay.css('display', 'none');
-      app.storeProfileResult(results);
-      _.each(results, function(providerUserProfile, providerName) {
-        app.getProviderRenderer(providerName).render(providerUserProfile);
+      app.storeProfile(profile);
+
+      _.each(profile.providerData, function(providerProfileData, providerName) {
+        app.getProviderRenderer(providerName).render(providerProfileData.data);
       });
+
       gotoPanel('#buddy-profile');
     });
   });
 
 
-  var gotoPanel = function(selector) {
+  var gotoPanel = function(selector, callback) {
 
     var $panel    = $(selector)
       , $subpanel = null;
@@ -68,7 +87,11 @@ $(document).ready(function() {
 
     $panelContainer.animate({
       'left': '-' + ($panel.index() * 20) + '%'
-    }, 400);
+    }, 400, function() {
+      if ($subpanel === null && callback) {
+        callback();
+      }
+    });
 
     if ($subpanel !== null) {
       var $subpanelContainer = $panel.find('.subpanel-container');
@@ -76,7 +99,11 @@ $(document).ready(function() {
       setTimeout(function() {
         $subpanelContainer.animate({
           'top': '-' + ($subpanel.index() * 100) + '%'
-        }, 400);
+        }, 400, function() {
+          if (callback) {
+            callback();
+          }
+        });
       }, 400);
     }
   };

@@ -42,7 +42,7 @@ GithubProvider.prototype.search = function(query, callback) {
       console.log(response);
 
       self.setState('search', 'loaded')
-        .setResponse('search', self.formatResults(response.data.users));
+        .setResponse('search', self.formatSearchResults(response.data.users));
 
       callback(response);
     }
@@ -78,12 +78,12 @@ GithubProvider.prototype.getUserProfile = function(result, callback) {
       self.setState('getUserProfile', 'loaded')
           .setResponse('getUserProfile', compositeResponse);
 
-      callback.call(self, compositeResponse);
+      callback.call(self, result, compositeResponse);
     }
   };
 
   $.ajax({
-      "url": this.baseUrls.userEvents.replace(':user', result.raw.login)
+      "url": this.baseUrls.userEvents.replace(':user', result.userId)
     , "dataType": "jsonp"
     , "success": function(response) {
       compositeResponse.events = response.data;
@@ -134,7 +134,7 @@ GithubProvider.prototype.getUserProfile = function(result, callback) {
  * @param {Object} result
  * @return {ProviderResult}
  */
-GithubProvider.prototype.formatResult = function(result) {
+GithubProvider.prototype.formatSearchResult = function(result) {
 
   var fullname = result.login;
   if (result.fullname !== null && result.fullname != '') {
@@ -146,5 +146,5 @@ GithubProvider.prototype.formatResult = function(result) {
     description = result.language + ' developper';
   }
 
-  return new ProviderResult(this.name, fullname, description, null, result);
+  return new ProviderResult(this.name, result.login, fullname, description, null, result);
 };

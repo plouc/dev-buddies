@@ -46,7 +46,7 @@ StackOverflowProvider.prototype.search = function(query, callback) {
             console.log(response);
 
             self.setState('search', 'loaded')
-                .setResponse('search', self.formatResults(response.items));
+                .setResponse('search', self.formatSearchResults(response.items));
 
             callback();
         },
@@ -76,7 +76,7 @@ StackOverflowProvider.prototype.getUserProfile = function(result, callback) {
   this.setState('getUserProfile', 'loaded')
       .setResponse('getUserProfile', response);
 
-  callback.call(this, response);
+  callback.call(this, result, response);
 };
 
 /**
@@ -105,7 +105,7 @@ StackOverflowProvider.prototype.getUserProfile = function(result, callback) {
  * @param result
  * @return {Object}
  */
-StackOverflowProvider.prototype.formatResult = function(result) {
+StackOverflowProvider.prototype.formatSearchResult = function(result) {
 
-    return new ProviderResult(this.name, result.display_name, '', result.profile_image, result);
+    return new ProviderResult(this.name, result.user_id, result.display_name, '', result.profile_image, result);
 };
