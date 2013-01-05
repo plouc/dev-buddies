@@ -2,6 +2,7 @@
  * Stack Overflow specific provider.
  *
  * @copyright 2012-2013 Raphaël Benitte (http://rbenitte.com)
+ * @augments Provider
  * @constructor
  */
 var StackOverflowProvider = function() {

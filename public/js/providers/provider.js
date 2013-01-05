@@ -23,9 +23,9 @@ Provider.prototype = {
   /**
    * Set command state.
    *
-   * @param command
-   * @param state
-   * @return Provider
+   * @param {String} command
+   * @param {String} state
+   * @return {Provider}
    */
   setState: function(command, state) {
     if (!this.states.hasOwnProperty(command)) {
@@ -39,8 +39,8 @@ Provider.prototype = {
 
   /**
    *
-   * @param command
-   * @return {*}
+   * @param {String} command
+   * @return {String}
    */
   , getState: function(command) {
     if (!this.states.hasOwnProperty(command)) {
@@ -53,9 +53,9 @@ Provider.prototype = {
   /**
    * Set command response.
    *
-   * @param command
-   * @param response
-   * @return Provider
+   * @param {String} command
+   * @param {Object} response
+   * @return {Provider}
    */
   , setResponse: function(command, response) {
     if (!this.responses.hasOwnProperty(command)) {
@@ -81,7 +81,7 @@ Provider.prototype = {
 
   /**
    *
-   * @param results
+   * @param {Array} results
    */
   , formatResults: function(results) {
 

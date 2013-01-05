@@ -14,21 +14,30 @@ var GithubRenderer = function(app, selector) {
 
 /**
  *
- * @return {*}
+ * @return {GithubRenderer}
  */
 GithubRenderer.prototype.init = function() {
+
+  var self = this;
 
   this.$container.append('<h3>Activity</h3>');
 
   this.$activity = $('<ul class="activity items"/>');
+  this.$moreActivity = $('<div class="more"><span>more...</span></span>');
   this.$container.append(this.$activity);
+  this.$container.append(this.$moreActivity);
+
+  this.$container.find('.more span').on('click', function(e) {
+      e.preventDefault();
+      self.$activity.find('li:gt(2)').show();
+  });
 
   return this;
 };
 
 /**
  *
- * @return {*}
+ * @return {jQueryObject}
  */
 GithubRenderer.prototype.getContainer = function() {
   return this.$container;
@@ -36,7 +45,7 @@ GithubRenderer.prototype.getContainer = function() {
 
 /**
  *
- * @return {*}
+ * @return {GithubRenderer}
  */
 GithubRenderer.prototype.render = function(profile) {
 
@@ -82,5 +91,13 @@ GithubRenderer.prototype.render = function(profile) {
       }
       self.$activity.append('<li>' + eventDescription + '</li>');
     });
+
+    var $items = self.$activity.find('li');
+    if ($items.length > 3) {
+      this.$moreActivity.css('display', 'block');
+      $items.filter(':gt(2)').css('display', 'none');
+    }
   }
+
+  return this;
 };

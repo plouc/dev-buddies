@@ -2,6 +2,7 @@
  * LinkedIn specific provider.
  *
  * @copyright 2012-2013 Raphaël Benitte (http://rbenitte.com)
+ * @augments Provider
  * @constructor
  */
 var LinkedInProvider = function() {

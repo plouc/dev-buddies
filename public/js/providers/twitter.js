@@ -2,6 +2,7 @@
  * Twitter specific provider.
  *
  * @copyright 2012-2013 Raphaël Benitte (http://rbenitte.com)
+ * @augments Provider
  * @constructor
  */
 var TwitterProvider = function() {
@@ -22,6 +23,11 @@ TwitterProvider.prototype = Object.create(new Provider(), {});
  *
  * @param query
  * @param callback
+ * @example
+ * var twitterProvider = new TwitterProvider();
+ * twitterProvider.search('Douglas Crockford', function(result) {
+ *   console.log(result);
+ * });
  */
 TwitterProvider.prototype.search = function(query, callback) {
 
@@ -45,7 +51,7 @@ TwitterProvider.prototype.search = function(query, callback) {
                 self.setState('search', 'loaded')
                     .setResponse('search', self.formatResults(response.users));
 
-                callback();
+                callback(response.users);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log('TwitterProvider error: ' + errorThrown);
@@ -53,7 +59,7 @@ TwitterProvider.prototype.search = function(query, callback) {
                 self.setState('search', 'loaded')
                     .setResponse('search', []);
 
-                callback();
+                callback({});
             }
         });
     } catch (error) {

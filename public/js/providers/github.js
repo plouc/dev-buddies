@@ -2,6 +2,7 @@
  * Github specific provider.
  *
  * @copyright 2012-2013 Raphaël Benitte (http://rbenitte.com)
+ * @augments Provider
  * @constructor
  */
 var GithubProvider = function() {
@@ -22,8 +23,8 @@ GithubProvider.prototype = Object.create(new Provider(), {});
 
 /**
  *
- * @param query
- * @param callback
+ * @param {String} query
+ * @param {Function} callback
  */
 GithubProvider.prototype.search = function(query, callback) {
 
@@ -57,8 +58,10 @@ GithubProvider.prototype.search = function(query, callback) {
 };
 
 /**
+ * Retrieve informations about an user from a search result.
  *
- * @param result
+ * @param {Object} result
+ * @param {Function} callback
  */
 GithubProvider.prototype.getUserProfile = function(result, callback) {
 
@@ -128,8 +131,8 @@ GithubProvider.prototype.getUserProfile = function(result, callback) {
  *   type:              "user"
  *   username:          "undefined"
  *
- * @param result
- * @return {Object}
+ * @param {Object} result
+ * @return {ProviderResult}
  */
 GithubProvider.prototype.formatResult = function(result) {
 

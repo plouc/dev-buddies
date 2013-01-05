@@ -5,33 +5,36 @@ body {
   width: 100%;
   font-family: helvetica;
   font-size: 15px;
-  color: #555;
+  color: #3a3534;
   background: #333;
   line-height: 20px; }
 
 a {
-  color: #000; }
+  color: #3a3534; }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #000; }
+  color: #554d4c; }
 
 h1 {
+  font-weight: 400;
+  text-transform: uppercase;
   font-size: 25px;
-  padding: 9px;
+  padding: 12px 12px;
   margin: 0; }
 
 h2 {
+  color: #3a3534;
   font-size: 17px;
   background-color: #9f9b9b;
   background-repeat: no-repeat;
-  background-position: 9px center;
-  padding: 7px 9px;
+  background-position: 12px center;
+  padding: 7px 12px;
   margin: 0; }
 
 h3 {
   font-size: 15px;
   background-color: #c4c2c2;
-  padding: 5px 9px;
+  padding: 5px 12px;
   margin: 0;
   font-weight: 400; }
 
@@ -87,11 +90,10 @@ h3 {
   width: 100%;
   height: 100%;
   -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  border: 1px solid #9f9b9b; }
+  box-sizing: border-box; }
 
 .notice {
-  padding: 7px 9px;
+  padding: 7px 12px;
   font-size: 13px;
   margin: 0;
   font-style: italic;
@@ -108,8 +110,55 @@ ul.items {
   padding: 0;
   margin: 0; }
   ul.items li {
-    padding: 7px 9px;
+    padding: 7px 12px;
     border-bottom: 1px solid #dddcdc; }
+
+.more {
+  border-top: 1px solid #dddcdc;
+  padding: 5px 12px;
+  margin: 0;
+  display: block;
+  display: none; }
+  .more span {
+    font-style: italic;
+    color: #000;
+    cursor: pointer; }
+
+/*******************************************************************************
+ * Home
+ ******************************************************************************/
+#home {
+  background: #554d4c;
+  color: #b3b0b0; }
+  #home h1 {
+    color: #b3b0b0;
+    border-bottom: 1px solid #423c3b; }
+  #home .presentation {
+    padding: 12px 12px;
+    margin: 0;
+    line-height: 22px; }
+    #home .presentation a {
+      margin-top: 15px;
+      display: block;
+      background: #299e83;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 9px 0;
+      text-align: center;
+      border-radius: 2px;
+      box-shadow: 0 1px 1px #30ba9b inset, 0 1px 2px rgba(0, 0, 0, 0.5); }
+      #home .presentation a:hover {
+        background: #29c7ab; }
+
+/*******************************************************************************
+ * About
+ ******************************************************************************/
+#about {
+  background: #554d4c;
+  color: #b3b0b0; }
+  #about h1 {
+    color: #b3b0b0;
+    border-bottom: 1px solid #423c3b; }
 
 /*******************************************************************************
  * Search form
@@ -127,7 +176,7 @@ ul.items {
   .search .container {
     position: relative;
     top: 0;
-    padding: 9px;
+    padding: 9px 12px;
     width: 100%;
     -moz-box-sizing: border-box;
     box-sizing: border-box; }
@@ -243,7 +292,7 @@ ul.items {
   display: none;
   text-align: center; }
 #search .build {
-  padding: 5px 0;
+  padding: 7px 0;
   margin: 0;
   display: block;
   text-align: center;
@@ -269,10 +318,10 @@ ul.items {
 #search .results li {
   position: relative;
   min-height: 36px;
-  padding: 9px 9px 9px 36px;
+  padding: 12px 12px 12px 36px;
   overflow: hidden;
   background-repeat: no-repeat;
-  background-position: 9px center; }
+  background-position: 12px center; }
 #search .selected-results img,
 #search .results img {
   float: left;
@@ -294,7 +343,7 @@ ul.items {
   outline: none;
   position: absolute;
   top: 15px;
-  right: 9px;
+  right: 12px;
   display: block;
   height: 24px;
   width: 24px;
@@ -336,9 +385,9 @@ ul.items {
  * Settings panel
  ******************************************************************************/
 #settings .providers li {
-  padding: 9px 9px 9px 32px;
+  padding-left: 32px;
   background-repeat: no-repeat;
-  background-position: 9px center; }
+  background-position: 12px center; }
   #settings .providers li span {
     font-weight: bold; }
   #settings .providers li.github {

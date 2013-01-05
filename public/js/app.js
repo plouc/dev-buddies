@@ -34,6 +34,7 @@ App.prototype = {
 
   /**
    * @param {String} profileName
+   * @method
    */
   , storeProfileResult: function(profileName, result) {
     console.log(result);
@@ -122,7 +123,7 @@ App.prototype = {
       provider = this.providers[providerId];
       provider.search(query, function() {
         self.checkProvidersState(self.providers, 'search', 'loaded', function() {
-          callback(self.getProvidersResult(self.providers, 'search'));
+          callback(query, self.getProvidersResult(self.providers, 'search'));
         });
       });
     }

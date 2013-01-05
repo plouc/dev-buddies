@@ -1,9 +1,9 @@
 /**
  * @copyright 2012-2013 Raphaël Benitte (http://rbenitte.com)
- * @param {String} providerName
- * @param {String} fullname
- * @param {String} description
- * @param {object} rawResult
+ * @param {String} providerName  Name of the provider
+ * @param {String} fullname      Fullname of the user
+ * @param {String} description   Description of the user
+ * @param {object} rawResult     Raw provider API response
  * @constructor
  */
 var ProviderResult = function(providerName, fullname, description, picture, rawResult) {
@@ -21,7 +21,6 @@ var ProviderResult = function(providerName, fullname, description, picture, rawR
 
 ProviderResult.prototype = {
     /**
-     *
      * @return {String}
      */
     toString: function() {

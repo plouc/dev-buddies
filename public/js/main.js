@@ -41,7 +41,7 @@ $(document).ready(function() {
 
 
   $(searchRenderer).on('submit', function(e, query) {
-    app.search(query, function(results) {
+    app.search(query, function(query, results) {
       searchRenderer.resultsLoaded().render(results);
     });
   }).on('build.init', function(e, results) {

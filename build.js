@@ -10,6 +10,8 @@ new compressor.minify({
 
     , "public/js/storage.js"
 
+    , "public/js/provider.js"
+
     , "public/js/providers/provider.result.js"
     , "public/js/providers/provider.js"
     , "public/js/providers/github.js"
