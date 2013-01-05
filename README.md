@@ -4,7 +4,7 @@ Dev Buddies
 Dev server
 ----------
 
-There is an available ndejs based server, to start it, simply type
+There is an available nodejs based server, to start it, simply type
 
     node app.js
 
