@@ -11,62 +11,82 @@
     <div id="container">
         <div class="panel-slider">
             <div class="panel-container">
-                <div id="home" class="panel active">
-                    <h1>Home</h1>
+                <div class="panel active">
+                    <div class="subpanel-container">
+                        <div id="home" class="subpanel">
+                            <h1>Home</h1>
+                        </div>
+                    </div>
                 </div>
 
-                <div id="search" class="panel">
-                    <div class="search">
-                        <div class="container">
-                            <span class="search-wrapper">
-                                <input name="search" type="text"/>
-                                <span class="clear"></span>
-                            </span>
-                            <a href="#">search</a>
+                <div class="panel">
+                    <div class="subpanel-container">
+                        <div id="search" class="subpanel">
+                            <div class="search">
+                                <div class="container">
+                                    <span class="search-wrapper">
+                                        <input name="search" type="text"/>
+                                        <span class="clear"></span>
+                                        <a href="#"></a>
+                                    </span>
+                                    <div class="overlay">
+                                        <span class="loader"></span>
+                                    </div>
+                                </div>
+                                <span class="toggle"></span>
+                            </div>
+                            <p class="notice">Pick up items to build profile</p>
+                            <div class="results-wrapper">
+                                <ul class="selected-results items">
+                                </ul>
+                                <p class="build">
+                                    <a>Build profile</a>
+                                </p>
+                                <ul class="results items">
+                                </ul>
+                            </div>
+                            <script type="IN/Login"></script>
                             <div class="overlay">
                                 <span class="loader"></span>
                             </div>
                         </div>
-                        <span class="toggle"></span>
                     </div>
-                    <p class="notice">Pick up the sources you want to use to build the user's profile</p>
-                    <div class="results-wrapper">
-                        <ul class="selected-results">
-                        </ul>
-                        <p class="build">
-                            <a>Build profile</a>
-                        </p>
-                        <ul class="results">
-                        </ul>
-                    </div>
-                    <script type="IN/Login"></script>
                 </div>
 
                 <div id="buddies" class="panel">
-                    <h1>Buddies</h1>
+                    <div class="subpanel-container">
+                        <div id="buddies-list" class="subpanel">
+                        </div>
+
+                        <div id="buddy-profile" class="subpanel">
+                            <h1>Buddy</h1>
+                        </div>
+                    </div>
                 </div>
 
-                <div id="settings" class="panel">
-                    <h1>Settings</h1>
-                    <h2>Providers</h2>
-                    <ul class="providers">
-                        <li class="github">
-                            <span>Github</span>
-                        </li>
-                        <li class="linkedin">
-                            <span>LinkedIn</span>
-                        </li>
-                        <li class="stack-overflow">
-                            <span>Stack Overflow</span>
-                        </li>
-                        <li class="twitter">
-                            <span>Twitter</span>
-                        </li>
-                    </ul>
+                <div class="panel">
+                    <div class="subpanel-container">
+                        <div id="settings" class="subpanel">
+                            <h1>Settings</h1>
+                            <h2>Providers</h2>
+                            <ul class="providers items">
+                                <li class="github">
+                                    <span>Github</span>
+                                </li>
+                                <li class="stack-overflow">
+                                    <span>Stack Overflow</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
-                <div id="about" class="panel">
-                    <h1>About</h1>
+                <div class="panel">
+                    <div id="about" class="subpanel-container">
+                        <div class="subpanel">
+                            <h1>About</h1>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -79,7 +99,7 @@
                     <a href="#search"><span>search</span></a>
                 </li>
                 <li class="buddies">
-                    <a href="#buddies"><span>buddies</span></a>
+                    <a href="#buddies-list"><span>buddies</span></a>
                 </li>
                 <li class="settings">
                     <a href="#settings"><span>settings</span></a>
@@ -90,22 +110,14 @@
             </ul>
         </div>
     </div>
-    <script src="js/vendors/jquery-1.8.3.js"></script>
-    <script src="js/vendors/underscore.js"></script>
+    <script src="js/dev-buddies.pack.js"></script>
+    <!--
     <script type="text/javascript" src="http://platform.linkedin.com/in.js">
         api_key: 8jg1a4imz68k
         onLoad: onLinkedInLoaded
         authorize: true
         scope: r_basicprofile r_network
     </script>
-    <script src="js/providers/provider.result.js"></script>
-    <script src="js/providers/provider.js"></script>
-    <script src="js/providers/linkedin.js"></script>
-    <script src="js/providers/github.js"></script>
-    <script src="js/providers/twitter.js"></script>
-    <script src="js/providers/stack-overflow.js"></script>
-    <script src="js/renderers/search-renderer.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/main.js"></script>
+    -->
 </body>
 </html>

@@ -1,8 +1,7 @@
 /**
- * (c) 2012-2013 Raphaël Benitte
- *
  * Stack Overflow specific provider.
  *
+ * @copyright 2012-2013 Raphaël Benitte (http://rbenitte.com)
  * @constructor
  */
 var StackOverflowProvider = function() {
@@ -59,6 +58,24 @@ StackOverflowProvider.prototype.search = function(query, callback) {
             callback();
         }
     });
+};
+
+/**
+ *
+ * @param result
+ * @param callback
+ */
+StackOverflowProvider.prototype.getUserProfile = function(result, callback) {
+
+  var response = {};
+
+  console.log('StackOverflowProvider.getUserProfile() response:');
+  console.log(response);
+
+  this.setState('getUserProfile', 'loaded')
+      .setResponse('getUserProfile', response);
+
+  callback.call(this, response);
 };
 
 /**

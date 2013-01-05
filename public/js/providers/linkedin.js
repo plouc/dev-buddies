@@ -1,8 +1,7 @@
 /**
- * (c) 2012-2013 Raphaël Benitte
- *
  * LinkedIn specific provider.
  *
+ * @copyright 2012-2013 Raphaël Benitte (http://rbenitte.com)
  * @constructor
  */
 var LinkedInProvider = function() {
@@ -79,6 +78,24 @@ LinkedInProvider.prototype.search = function(query, callback) {
         .error(function error(e) {
         }
     );
+};
+
+/**
+ *
+ * @param result
+ * @param callback
+ */
+LinkedInProvider.prototype.getUserProfile = function(result, callback) {
+
+  var response = {};
+
+  console.log('LinkedInProvider.getUserProfile() response:');
+  console.log(response);
+
+  this.setState('getUserProfile', 'loaded')
+      .setResponse('getUserProfile', response);
+
+  callback.call(self, response);
 };
 
 /**

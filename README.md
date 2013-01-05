@@ -1,0 +1,1 @@
+./node_modules/jsdoc/jsdoc -r --destination public/doc public/js

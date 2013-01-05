@@ -1,6 +1,6 @@
-var connect = require('connect'),
-    http    = require('http'),
-    sass    = require('node-sass');
+var connect = require('connect')
+  , http    = require('http')
+  , sass    = require('node-sass');
 
 var app = connect()
   .use(connect.favicon())

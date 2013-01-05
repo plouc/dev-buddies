@@ -1,0 +1,488 @@
+$darkGrey:  #554d4c;
+$lightGrey: #9f9b9b;
+$green:     #299e83;
+$greenOver: #29c7ab;
+
+html, body {
+    height: 100%;
+}
+body {
+    width: 100%;
+    font-family: helvetica;
+    font-size: 15px;
+    color: #555;
+    background: #333;
+    line-height: 20px;
+}
+a {
+  color: #000;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #000;
+}
+h1 {
+    font-size: 25px;
+    padding: 9px;
+    margin: 0;
+}
+h2 {
+    font-size: 17px;
+    background-color: $lightGrey;
+    background-repeat: no-repeat;
+    background-position: 9px center;
+    padding: 7px 9px;
+    margin: 0;
+}
+h3 {
+    font-size: 15px;
+    background-color: lighten($lightGrey, 15);
+    padding: 5px 9px;
+    margin: 0;
+    font-weight: 400;
+}
+
+#container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    /*
+    width: 320px;
+    height: 480px;
+    margin-left: -160px;
+    margin-top: 20px;
+    left: 50%;
+    */
+    background: #8eefc0;
+    box-shadow: 0 0 3px rgba(0,0,0,0.8);
+    -webkit-perspective: 1000px;
+    -moz-perspective:    1000px;
+    perspective:         1000px;
+}
+.panel-slider {
+    position: relative;
+    overflow: hidden;
+    width: 500%;
+    height: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing:      border-box;
+}
+.panel-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.panel {
+    position: relative;
+    background: #fff;
+    float: left;
+    z-index: 10;
+    height: 100%;
+    width: 20%;
+    overflow: hidden;
+}
+.subpanel-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.subpanel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid $lightGrey;
+}
+
+.notice {
+    padding: 7px 9px;
+    font-size: 13px;
+    margin: 0;
+    font-style: italic;
+    background: #baf9ce;
+}
+
+
+#buddies .subpanel-container {
+    height: 200%;
+}
+#buddies .subpanel {
+    height: 50%;
+}
+
+
+ul.items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  li {
+    padding: 7px 9px;
+    border-bottom: 1px solid lighten($lightGrey, 25);
+  }
+}
+
+
+/*******************************************************************************
+ * Search form
+ ******************************************************************************/
+.search {
+    width: 100%;
+    height: 60px;
+    padding-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+    background-color: $darkGrey;
+    -webkit-transition: height 0.1s linear;
+    -moz-transition:    height 0.1s linear;
+    transition:         height 0.1s linear;
+    .container {
+        position: relative;
+        top: 0;
+        padding: 9px;
+        width: 100%;
+        -moz-box-sizing: border-box;
+        box-sizing:      border-box;
+    }
+    .toggle {
+        cursor: pointer;
+        position: absolute;
+        bottom: 0;
+        display: block;
+        height: 32px;
+        width: 100%;
+        text-align: center;
+        background: $lightGrey url("../imgs/collapse-icon.png") no-repeat center center;
+    }
+    &.closed {
+        height: 0;
+        .toggle {
+            background-image: url("../imgs/expand-icon.png");
+        }
+    }
+    .search-wrapper {
+        position: relative;
+        top: 0;
+        display: block;
+    }
+    input[type="text"] {
+        display: block;
+        padding: 0 12px;
+        height: 40px;
+        background: $lightGrey;
+        color: $darkGrey;
+        border: none;
+        border-radius: 2px;
+        outline: none;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 100%;
+        margin-bottom: 12px;
+        box-shadow:
+            0 1px 3px rgba(0,0,0,0.5),
+            0 1px 1px lighten($lightGrey, 10) inset;
+        &:hover {
+            background-color: #b3afaf;
+        }
+        &:focus {
+            background: lighten($lightGrey, 15);
+            color: darken($darkGrey, 15);
+        }
+    }
+    .clear {
+        position: absolute;
+        cursor: pointer;
+        display: none;
+        width: 40px;
+        height: 40px;
+        background: url("../imgs/cross-dark.png") no-repeat center center;
+        top: 0;
+        right: 40px;
+    }
+    a {
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+        display: block;
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+        height: 40px;
+        width: 40px;
+        outline: none;
+        background: $green;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-image: url("../imgs/search-dark-grey.png");
+        box-shadow: 0 1px 1px lighten($green, 7) inset;
+        color: #baf9ce;
+        &:focus,
+        &:hover,
+        &:active {
+            background-color: $greenOver;
+        }
+    }
+}
+
+
+
+.overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.7);
+    .loader {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: block;
+        height: 14px;
+        margin-top: -7px;
+        width: 48px;
+        margin-left: -24px;
+        background: url("../imgs/loader.gif") no-repeat top left;
+    }
+}
+
+
+
+/*******************************************************************************
+ * Buddy profile
+ ******************************************************************************/
+#buddy-profile {
+  overflow-y: auto;
+  h2 {
+    padding-left: 32px;
+  }
+  .github-profile h2 {
+    background-image: url("../imgs/github-icon-16.png");
+  }
+  .linkedin-profile h2 {
+    background-image: url("../imgs/linkedin-icon-16.png");
+  }
+  .stack-overflow-profile h2 {
+    background-image: url("../imgs/stack-overflow-icon-16.png");
+  }
+  ul.activity {
+    font-size: 13px;
+    .date {
+      font-style: italic;
+      color: #888;
+    }
+  }
+}
+
+
+
+/*******************************************************************************
+ * Search results
+ ******************************************************************************/
+#search {
+    .notice {
+        display: none;
+        text-align: center;
+    }
+    .build {
+        padding: 5px 0;
+        margin: 0;
+        display: block;
+        text-align: center;
+        background-color: $darkGrey;
+        display: none;
+        a {
+            display: inline-block;
+            padding: 7px 25px;
+            color: darken($darkGrey, 10);
+            background: $green;
+            border-radius: 2px;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.5),
+                        0 1px 1px lighten($green, 10) inset;;
+            &:hover {
+                background: $greenOver;
+            }
+        }
+    }
+    .results-wrapper {
+        overflow-y: auto;
+        height: 100%;
+        -moz-box-sizing: border-box;
+        box-sizing:      border-box;
+        padding-bottom: 40px;
+    }
+    .selected-results,
+    .results {
+        li {
+            position: relative;
+            min-height: 36px;
+            padding: 9px 9px 9px 36px;
+            overflow: hidden;
+            background-repeat: no-repeat;
+            background-position: 9px center;
+        }
+        img {
+            float: left;
+            width: 36px;
+            margin-right: 12px;
+        }
+        h2 {
+            font-size: 15px;
+            margin: 0 0 9px 0;
+            background: transparent;
+            padding: 0;
+        }
+        p {
+            margin: 0;
+        }
+    }
+    .selected-results li:last-child {
+        border-bottom: none;
+    }
+    .results .validate,
+    .selected-results .validate {
+        outline: none;
+        position: absolute;
+        top: 15px;
+        right: 9px;
+        display: block;
+        height: 24px;
+        width: 24px;
+        line-height: 24px;
+        border-radius: 2px;
+        background: url("../imgs/tick-dark-grey.png") no-repeat center center;
+    }
+    .selected-results .validate {
+        background-image: url("../imgs/tick-green.png");
+    }
+}
+
+#search .selected-results li.provider-github,
+#search .results li.provider-github {
+    background-image: url("../imgs/github-icon-16.png");
+}
+#search .selected-results li.provider-linkedin,
+#search .results li.provider-linkedin {
+    background-image: url("../imgs/linkedin-icon-16.png");
+}
+#search .selected-results li.provider-stack-overflow,
+#search .results li.provider-stack-overflow {
+    background-image: url("../imgs/stack-overflow-icon-16.png");
+}
+#search .selected-results li.no-picture,
+#search .results li.no-picture {
+    padding-left: 84px;
+}
+#search .selected-results li:hover,
+#search .selected-results li:focus,
+#search .results li:hover,
+#search .results li:focus {
+    background-color: #eee;
+}
+
+
+/*******************************************************************************
+ * Settings panel
+ ******************************************************************************/
+#buddies-list {
+  h1 {
+    border-bottom: 1px solid lighten($lightGrey, 25);
+  }
+}
+
+
+/*******************************************************************************
+ * Settings panel
+ ******************************************************************************/
+#settings {
+    .providers {
+        li {
+            padding: 9px 9px 9px 32px;
+            background-repeat: no-repeat;
+            background-position: 9px center;
+            span {
+                font-weight: bold;
+            }
+            &.github {
+                background-image: url("../imgs/github-icon-16.png");
+            }
+            &.linkedin {
+                background-image: url("../imgs/linkedin-icon-16.png");
+            }
+            &.stack-overflow {
+                background-image: url("../imgs/stack-overflow-icon-16.png");
+            }
+        }
+    }
+}
+
+
+
+/*******************************************************************************
+ * Nav bar
+ ******************************************************************************/
+.nav {
+    z-index: 9999;
+    position: absolute;
+    bottom: 0;
+    background: #ddd;
+    height: 40px;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+    li {
+        float: left;
+        width: 20%;
+        height: 100%;
+        text-align: center;
+        border-left: 1px solid #fff;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        &:first-child {
+            border-left: none;
+        }
+    }
+    a {
+        outline: none;
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-position: center center;
+        span {
+            display: none;
+        }
+        &:hover,
+        &:focus,
+        &.active {
+            background-color: #eee;
+        }
+    }
+    .home a {
+        background-image: url("../imgs/glyphicons_020_home.png");
+    }
+    .search-button a {
+        background-image: url("../imgs/glyphicons_027_search.png");
+    }
+    .buddies a {
+        background-image: url("../imgs/glyphicons_088_adress_book.png");
+    }
+    .settings a {
+        background-image: url("../imgs/glyphicons_280_settings.png");
+    }
+    .about a {
+        background-image: url("../imgs/glyphicons_195_circle_info.png");
+    }
+}

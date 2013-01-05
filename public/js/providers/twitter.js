@@ -1,8 +1,7 @@
 /**
- * (c) 2012-2013 Raphaël Benitte
- *
  * Twitter specific provider.
  *
+ * @copyright 2012-2013 Raphaël Benitte (http://rbenitte.com)
  * @constructor
  */
 var TwitterProvider = function() {

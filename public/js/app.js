@@ -1,105 +1,170 @@
 /**
- * (c) 2012-2013 Raphaël Benitte
- *
+ * @copyright 2012-2013 Raphaël Benitte (http://rbenitte.com)
+ * @author    Raphaël Benitte
  * @constructor
  */
 var App = function() {
 
-    // define available providers
-    var linkedInProvider      = new LinkedInProvider();
-    var githubProvider        = new GithubProvider();
-    var stackOverflowProvider = new StackOverflowProvider();
-    var twitterProvider       = new TwitterProvider();
+  // define available providers
+  var githubProvider        = new GithubProvider();
+  var stackOverflowProvider = new StackOverflowProvider();
 
-    this.providers = {};
-    this.providers[linkedInProvider.name]      = linkedInProvider;
-    this.providers[githubProvider.name]        = githubProvider;
-    this.providers[stackOverflowProvider.name] = stackOverflowProvider;
-    //this.providers[twitterProvider.name]       = twitterProvider;
+  this.providers = {};
+  this.providers[githubProvider.name]        = githubProvider;
+  this.providers[stackOverflowProvider.name] = stackOverflowProvider;
+
+  this.providerRenderers = {};
+  this.providerRenderers[githubProvider.name] = new GithubRenderer();
+  this.providerRenderers[githubProvider.name].init();
+  this.providerRenderers[stackOverflowProvider.name] = new StackOverflowRenderer();
+  this.providerRenderers[stackOverflowProvider.name].init();
+
+  this.storage = null;
 };
 
+
 App.prototype = {
-    /**
-     *
-     * @param providerId
-     * @return {*}
-     */
-    getProvider: function(providerId) {
-        if (!this.providers.hasOwnProperty(providerId)) {
-            throw 'Invalid provider requested, there is no provider defined for id "' + providerId + '"';
-        }
-        return this.providers[providerId];
-    },
+  /**
+   *
+   * @param {Storage} storage
+   */
+  setStorage: function(storage) {
+    this.storage = storage;
+  }
 
-    /**
-     *
-     * @return {Array}
-     */
-    getProviderNames: function() {
-        return Object.keys(this.providers);
-    },
+  /**
+   * @param {String} profileName
+   */
+  , storeProfileResult: function(profileName, result) {
+    console.log(result);
+  }
 
-    /**
-     *
-     * @param command
-     * @param state
-     * @param callback
-     * @return {Boolean}
-     */
-    checkProvidersState: function(command, state, callback) {
-        var provider;
-        for (var providerId in this.providers) {
-            provider = this.providers[providerId];
-            if (provider.states[command] !== state) {
-                return false;
-            }
-        }
-
-        callback();
-    },
-
-    /**
-     *
-     * @param command
-     * @return {Array}
-     */
-    getProvidersResult: function(command) {
-
-        var results = [],
-            provider,
-            response;
-
-        for (var providerId in this.providers) {
-            provider = this.providers[providerId];
-            response = provider.responses[command];
-            response.forEach(function(result) {
-                result.provider = providerId;
-                results.push(result);
-            });
-        }
-
-        results.sort();
-
-        return results;
-    },
-
-    /**
-     *
-     * @param query
-     * @param callback
-     */
-    search: function(query, callback) {
-
-        var self = this,
-            provider;
-
-        for (var providerId in this.providers) {
-            provider = this.providers[providerId];
-            provider.search(query, function() {
-                self.checkProvidersState('search', 'loaded', function() {
-                    callback(self.getProvidersResult('search'));
-                });
-            });
-        }
+  /**
+   * Returns a provider by its name.
+   *
+   * @param {String} providerId
+   * @return {Provider}
+   */
+  , getProvider: function(providerName) {
+    if (!this.providers.hasOwnProperty(providerName)) {
+      throw 'Invalid provider requested, there is no provider defined for id "' + providerName + '"';
     }
+    return this.providers[providerName];
+  }
+
+  /**
+   *
+   * @return {Array}
+   */
+  , getProviderNames: function() {
+    return Object.keys(this.providers);
+  }
+
+  /**
+   *
+   * @param {Array} providers
+   * @param {String} command
+   * @param {String} state
+   * @param {Function} callback
+   * @return {Boolean}
+   */
+  , checkProvidersState: function(providers, command, state, callback) {
+
+    var provider;
+
+    for (var providerId in providers) {
+      provider = providers[providerId];
+      if (provider.states[command] !== state) {
+        return false;
+      }
+    }
+
+    callback();
+  }
+
+  /**
+   *
+   * @param {Array} providers
+   * @param {String} command
+   * @return {Array}
+   */
+  , getProvidersResult: function(providers, command) {
+
+    var results = []
+      , provider
+      , response;
+
+    for (var providerId in providers) {
+      provider = providers[providerId];
+      response = provider.responses[command];
+      response.forEach(function(result) {
+        result.provider = providerId;
+        results.push(result);
+      });
+    }
+
+    results.sort();
+
+    return results;
+  }
+
+  /**
+   *
+   * @param {String} query
+   * @param {Function} callback
+   */
+  , search: function(query, callback) {
+
+    var self = this
+      , provider;
+
+    for (var providerId in this.providers) {
+      provider = this.providers[providerId];
+      provider.search(query, function() {
+        self.checkProvidersState(self.providers, 'search', 'loaded', function() {
+          callback(self.getProvidersResult(self.providers, 'search'));
+        });
+      });
+    }
+  }
+
+  /**
+   * @param {String} providerName
+   * @param {Provider}
+   */
+  , getProviderRenderer: function(providerName) {
+    return this.providerRenderers[providerName];
+  }
+
+  /**
+   *
+   * @param {Object} searchResults
+   * @param {Function} callback
+   */
+  , getUserProfile: function(searchResults, callback) {
+
+    var self = this
+      , result
+      , selectedProviders = {}
+      , responses = {}
+      , provider;
+
+    for (var resultId in searchResults) {
+      result = searchResults[resultId];
+      selectedProviders[result.providerName] = this.getProvider(result.providerName);
+    }
+
+    console.log('Selected user profile providers: ', Object.keys(selectedProviders));
+
+    for (resultId in searchResults) {
+      result = searchResults[resultId];
+      provider = this.getProvider(result.providerName);
+      provider.getUserProfile(result, function(userProfile) {
+        responses[this.name] = userProfile;
+        self.checkProvidersState(selectedProviders, 'getUserProfile', 'loaded', function() {
+          callback(responses);
+        });
+      });
+    }
+  }
 };

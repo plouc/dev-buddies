@@ -1,10 +1,9 @@
 /**
- * (c) 2012-2013 Raphaël Benitte
- *
- * @param providerName
- * @param fullname
- * @param description
- * @param rawResult
+ * @copyright 2012-2013 Raphaël Benitte (http://rbenitte.com)
+ * @param {String} providerName
+ * @param {String} fullname
+ * @param {String} description
+ * @param {object} rawResult
  * @constructor
  */
 var ProviderResult = function(providerName, fullname, description, picture, rawResult) {
@@ -23,7 +22,7 @@ var ProviderResult = function(providerName, fullname, description, picture, rawR
 ProviderResult.prototype = {
     /**
      *
-     * @return {*}
+     * @return {String}
      */
     toString: function() {
         return this.fullname;
