@@ -27,6 +27,7 @@ var App = function() {
  * @param {Storage} storage STorage used to store user profiles and settings
  */
 App.prototype.setStorage = function(storage) {
+  console.log('Setting app storage', storage);
   this.storage = storage;
 };
 
@@ -36,7 +37,7 @@ App.prototype.setStorage = function(storage) {
 App.prototype.storeProfile = function(profile) {
   console.log('Store profile', profile, 'with id', profile.id);
 
-  this.storage.store('buddies', profile, function() {
+  this.storage.set('buddies', profile.id, profile, function() {
     console.log('Profile stored');
   });
 };
@@ -69,10 +70,10 @@ App.prototype.getProvider = function(providerName) {
 
 /**
  *
- * @return {Array}
+ * @return {Array} Returns all provider names
  */
 App.prototype.getProviderNames = function() {
-  return Object.keys(this.providers);
+  return _.keys(this.providers);
 };
 
 /**
@@ -106,17 +107,15 @@ App.prototype.checkProvidersState = function(providers, command, state, callback
 App.prototype.getProvidersResult = function(providers, command) {
 
   var results = []
-    , provider
     , response;
 
-  for (var providerId in providers) {
-    provider = providers[providerId];
+  _.each(providers, function(provider) {
     response = provider.responses[command];
     response.forEach(function(result) {
-      result.provider = providerId;
+      result.provider = provider.name;
       results.push(result);
     });
-  }
+  });
 
   results.sort();
 
@@ -130,18 +129,16 @@ App.prototype.getProvidersResult = function(providers, command) {
  */
 App.prototype.search = function(query, callback) {
 
-  var self = this
-    , provider;
+  var self = this;
 
-  for (var providerId in this.providers) {
-    provider = this.providers[providerId];
+  _.each(this.providers, function(provider) {
     provider.search(query, function() {
       self.checkProvidersState(self.providers, 'search', 'loaded', function() {
         var results = self.getProvidersResult(self.providers, 'search');
-        callback(query, results);
+        if (_.isFunction(callback)) callback(query, results);
       });
     });
-  }
+  });
 };
 
 /**
@@ -153,6 +150,7 @@ App.prototype.getProviderRenderer = function(providerName) {
 };
 
 /**
+ * Collect user info on all selected APIs.
  *
  * @param {String}   profileId     The profile identifier
  * @param {Object}   searchResults An object of ProviderResult

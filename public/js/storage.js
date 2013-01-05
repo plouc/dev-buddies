@@ -4,11 +4,13 @@
  */
 var Storage = function() {
 
+  /*
   this.indexedDb         = window.indexedDB||window.webkitIndexedDB||window.mozIndexedDB||window.oIndexedDB||window.msIndexedDB;
   this.indexedDbKeyRange = window.IDBKeyRange||window.webkitIDBKeyRange;
   this.dbName            = 'buddies';
   this.dbVersion         = '1.0';
   this.db                = null;
+  */
 };
 
 /**
@@ -17,9 +19,8 @@ var Storage = function() {
  * @param {Function} callback
  */
 Storage.prototype.init = function(callback) {
-
+  /*
   var self = this;
-
   var request = this.indexedDb.open(this.dbName);
 
   request.onsuccess = function(e) {
@@ -43,18 +44,34 @@ Storage.prototype.init = function(callback) {
       callback();
     }
   };
-
-  return this;
+  */
+  if (_.isFunction(callback)) {
+    callback();
+  }
 };
 
 /**
  *
- * @param {String} storeName
+ * @param {String} collectionName
+ * @param {String} key
  * @param value
  * @param {Function} callback
  */
-Storage.prototype.store = function(storeName, value, callback) {
+Storage.prototype.set = function(collectionName, key, value, callback) {
 
+  var collection = localStorage.getItem(collectionName);
+  if (collection === null) {
+    console.log('Creating new collection');
+    collection = {};
+  } else {
+    collection = JSON.parse(collection);
+    console.log('Fetched existing collection', collection);
+  }
+
+  collection[key] = value;
+
+  localStorage.setItem(collectionName, JSON.stringify(collection));
+  /*
   var self = this;
 
   var trans   = this.db.transaction([storeName], "readwrite")
@@ -68,15 +85,29 @@ Storage.prototype.store = function(storeName, value, callback) {
   request.onerror = function(e) {
     console.log('error', e);
   };
+  */
 };
 
 /**
  *
- * @param {String} storeName
+ * @param {String}   collectionName
  * @param {Function} callback
  */
-Storage.prototype.dumpStore = function(storeName, callback) {
+Storage.prototype.getAll = function(collectionName, callback) {
 
+  var collection = localStorage.getItem(collectionName);
+  if (collection === null) {
+    console.log('No collection named ' + collectionName);
+    collection = {};
+  } else {
+    collection = JSON.parse(collection);
+    console.log('Fetched existing collection ' + collectionName, collection);
+  }
+
+  if (_.isFunction(callback)) {
+    callback(collection);
+  }
+  /*
   var trans         = this.db.transaction([storeName], "readwrite")
     , store         = trans.objectStore(storeName)
     , keyRange      = this.indexedDbKeyRange.lowerBound(0)
@@ -97,14 +128,16 @@ Storage.prototype.dumpStore = function(storeName, callback) {
   cursorRequest.onerror = function(error) {
     console.log('Storage error while reading store ' + storeName, error);
   };
+  */
 };
 
 /**
- * @param {String}   storeName
- * @param {String}   id
+ * @param {String}   collection
+ * @param {String}   key
  * @param {Function} callback
  */
-Storage.prototype.remove = function(storeName, id, callback) {
+Storage.prototype.remove = function(collection, key, callback) {
+  /*
   var trans   = this.db.transaction([storeName], "readwrite")
     , store   = trans.objectStore(storeName)
     , request = store['delete'](id);
@@ -116,4 +149,5 @@ Storage.prototype.remove = function(storeName, id, callback) {
   request.onerror = function(e) {
     console.log(e);
   };
+  */
 };

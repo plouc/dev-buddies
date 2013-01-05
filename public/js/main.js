@@ -15,6 +15,8 @@ $(document).ready(function() {
   searchRenderer.init();
   buddiesRenderer.init();
 
+
+  // buddies list bindings
   $(buddiesRenderer).on('buddy.details', function(e, profile) {
     _.each(profile.providerData, function(providerProfileData, providerName) {
       app.getProviderRenderer(providerName).render(providerProfileData.data);
@@ -28,26 +30,30 @@ $(document).ready(function() {
     });
   });
 
+
+  // home action buttons bindings
   $('#home .presentation a.go-search').on('click', function(e) {
     e.preventDefault();
     gotoPanel('#search', function() {
       searchRenderer.$query.focus();
     });
   });
-
   $('#home .presentation a.go-list').on('click', function(e) {
     e.preventDefault();
     gotoPanel('#buddies-list');
   });
 
+
+  // storage initialization
   storage.init(function() {
     app.setStorage(storage);
-    storage.dumpStore('buddies', function(buddies) {
+    storage.getAll('buddies', function(buddies) {
       buddiesRenderer.render(buddies);
     });
   });
 
 
+  // nav buttons bindings
   $('.nav').on('click', 'a', function(e) {
     e.preventDefault();
 
@@ -84,6 +90,7 @@ $(document).ready(function() {
   });
 
 
+  // generic bindings for switch components
   $('.switch').on('click', function(e) {
     var $switch = $(this);
     if ($switch.hasClass('on')) {
