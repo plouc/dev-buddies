@@ -8,21 +8,21 @@ new compressor.minify({
       "public/js/vendors/jquery-1.8.3.js"
     , "public/js/vendors/underscore.js"
 
-    , "public/js/storage.js"
+    , "public/js/Storage.js"
 
-    , "public/js/provider.js"
+    , "public/js/Profile.js"
 
-    , "public/js/providers/provider.result.js"
-    , "public/js/providers/provider.js"
-    , "public/js/providers/github.js"
-    , "public/js/providers/stack-overflow.js"
+    , "public/js/Provider/ProviderResult.js"
+    , "public/js/Provider/provider.js"
+    , "public/js/Provider/GithubProvider.js"
+    , "public/js/Provider/StackOverflowProvider.js"
 
-    , "public/js/renderers/search.js"
-    , "public/js/renderers/github.js"
-    , "public/js/renderers/stack-overflow.js"
-    , "public/js/renderers/buddies.js"
+    , "public/js/Renderer/SearchRenderer.js"
+    , "public/js/Renderer/GithubRenderer.js"
+    , "public/js/Renderer/StackOverflowRenderer.js"
+    , "public/js/Renderer/BuddiesRenderer.js"
 
-    , "public/js/app.js"
+    , "public/js/App.js"
     , "public/js/main.js"
   ]
   , fileOut: "public/js/dev-buddies.pack.js"
