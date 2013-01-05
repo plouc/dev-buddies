@@ -125,8 +125,8 @@ App.prototype.getProvidersResult = function(providers, command) {
 
 /**
  *
- * @param {String} query
- * @param {Function} callback
+ * @param {String}   query    Term to search on various APIs
+ * @param {Function} callback Function to call when complete
  */
 App.prototype.search = function(query, callback) {
 
@@ -154,9 +154,9 @@ App.prototype.getProviderRenderer = function(providerName) {
 
 /**
  *
- * @param {String}   profileId
- * @param {Object}   searchResults
- * @param {Function} callback
+ * @param {String}   profileId     The profile identifier
+ * @param {Object}   searchResults An object of ProviderResult
+ * @param {Function} callback      Function to call when profile fetched
  */
 App.prototype.getUserProfile = function(profileId, searchResults, callback) {
 
@@ -183,7 +183,7 @@ App.prototype.getUserProfile = function(profileId, searchResults, callback) {
       profile.addProviderData(this.name, oResult.userId, userProfile);
 
       self.checkProvidersState(selectedProviders, 'getUserProfile', 'loaded', function() {
-        callback(profile);
+        if (_.isFunction(callback)) callback(profile);
       });
     });
   }
