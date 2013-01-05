@@ -10,7 +10,8 @@ body {
   line-height: 20px; }
 
 a {
-  color: #3a3534; }
+  color: #3a3534;
+  outline: none; }
 
 h1, h2, h3, h4, h5, h6 {
   color: #554d4c; }
@@ -139,18 +140,44 @@ ul.items {
     padding: 12px 12px;
     margin: 0;
     line-height: 22px; }
+    #home .presentation strong {
+      color: #fff6ba;
+      font-weight: normal; }
     #home .presentation a {
+      -webkit-transition: background-color 0.3s linear, color 0.3s linear;
+      -moz-transition: background-color 0.3s linear, color 0.3s linear;
+      transition: background-color 0.3s linear, color 0.3s linear;
+      position: relative;
       margin-top: 15px;
       display: block;
-      background: #299e83;
+      background-color: #e1cf5f;
       font-weight: bold;
       text-decoration: none;
-      padding: 9px 0;
-      text-align: center;
+      padding-left: 52px;
+      height: 40px;
+      line-height: 40px;
+      text-align: left;
       border-radius: 2px;
-      box-shadow: 0 1px 1px #30ba9b inset, 0 1px 2px rgba(0, 0, 0, 0.5); }
+      box-shadow: 0 1px 1px #fff38b inset, 0 1px 2px rgba(0, 0, 0, 0.75); }
+      #home .presentation a i {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 40px;
+        width: 40px;
+        background-color: #fff6ba;
+        background-repeat: no-repeat;
+        background-position: center center;
+        display: block;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px; }
+      #home .presentation a.go-search i {
+        background-image: url("../imgs/search-dark-grey.png"); }
+      #home .presentation a.go-list i {
+        background-image: url("../imgs/glyphicons_114_list.png"); }
       #home .presentation a:hover {
-        background: #29c7ab; }
+        color: #040404;
+        background-color: #fff6ba; }
 
 /*******************************************************************************
  * About
@@ -317,10 +344,14 @@ ul.items {
   padding-bottom: 40px; }
 #search .selected-results li,
 #search .results li {
+  -webkit-transition: background-color 0.3s linear;
+  -moz-transition: background-color 0.3s linear;
+  transition: background-color 0.3s linear;
   position: relative;
   min-height: 36px;
   padding: 12px 12px 12px 36px;
   overflow: hidden;
+  background-color: #fff;
   background-repeat: no-repeat;
   background-position: 12px center; }
 #search .selected-results img,
@@ -374,54 +405,92 @@ ul.items {
 #search .selected-results li:focus,
 #search .results li:hover,
 #search .results li:focus {
-  background: #e2e1e1; }
+  background-color: #e2e1e1; }
 
 /*******************************************************************************
  * Settings panel
  ******************************************************************************/
 #buddies-list h1 a {
+  -webkit-transition: width 0.1s linear;
+  -moz-transition: width 0.1s linear;
+  transition: width 0.1s linear;
   position: absolute;
   top: 6px;
   right: 12px;
   display: inline-block;
   height: 30px;
+  width: 50px;
+  text-align: center;
   line-height: 30px;
   border-radius: 2px;
   background: #ff3726;
   font-size: 13px;
   text-transform: none;
   text-decoration: none;
-  padding: 0 12px;
   box-shadow: 0 1px 1px #ff6f63 inset, 0 1px 2px rgba(0, 0, 0, 0.5);
   color: #35302f;
   font-weight: bold; }
   #buddies-list h1 a:hover {
     background: #ff6659; }
+  #buddies-list h1 a.editing {
+    width: 70px; }
 #buddies-list li {
+  -webkit-transition: background-color 0.3s linear;
+  -moz-transition: background-color 0.3s linear;
+  transition: background-color 0.3s linear;
   position: relative;
-  min-height: 32px; }
+  min-height: 32px;
+  background-color: #fff; }
   #buddies-list li:hover {
-    background: #e2e1e1; }
+    background-color: #e2e1e1; }
 #buddies-list h3 {
   background: none;
   padding: 0; }
 #buddies-list .remove {
-  display: none;
+  -webkit-transition: width 0.1s linear, opacity 0.1s linear;
+  -moz-transition: width 0.1s linear, opacity 0.1s linear;
+  transition: width 0.1s linear, opacity 0.1s linear;
+  opacity: 0;
+  display: block;
   position: absolute;
   top: 7px;
   right: 12px;
   width: 32px;
   height: 32px;
-  background: url("../imgs/glyphicons_197_remove.png") no-repeat center center; }
+  border-radius: 2px;
+  background: #ff3726 url("../imgs/glyphicons_197_remove.png") no-repeat center center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  color: #35302f;
+  overflow: hidden; }
+  #buddies-list .remove.active {
+    opacity: 1; }
+  #buddies-list .remove span {
+    line-height: 32px;
+    height: 32px;
+    width: 70px;
+    display: block;
+    visibility: hidden; }
+  #buddies-list .remove.pending {
+    width: 70px;
+    background: #ff3726; }
+    #buddies-list .remove.pending span {
+      visibility: visible; }
+  #buddies-list .remove:hover {
+    background-color: #ff6659; }
 
 /*******************************************************************************
  * Settings panel
  ******************************************************************************/
 #settings .providers li {
+  position: relative;
   padding-left: 32px;
   background-repeat: no-repeat;
   background-position: 12px center; }
-  #settings .providers li span {
+  #settings .providers li .name {
     font-weight: bold; }
   #settings .providers li.github {
     background-image: url("../imgs/github-icon-16.png"); }
@@ -473,8 +542,67 @@ ul.items {
   .nav .search-button a {
     background-image: url("../imgs/glyphicons_027_search.png"); }
   .nav .buddies a {
-    background-image: url("../imgs/glyphicons_088_adress_book.png"); }
+    background-image: url("../imgs/glyphicons_114_list.png"); }
   .nav .settings a {
-    background-image: url("../imgs/glyphicons_280_settings.png"); }
+    background-image: url("../imgs/glyphicons_136_cogwheel.png"); }
   .nav .about a {
     background-image: url("../imgs/glyphicons_195_circle_info.png"); }
+
+.switch {
+  cursor: pointer;
+  font-size: 13px;
+  position: absolute;
+  top: 5px;
+  right: 12px;
+  display: block;
+  border-radius: 2px;
+  width: 70px;
+  height: 24px;
+  line-height: 24px; }
+  .switch span {
+    position: relative;
+    display: block; }
+    .switch span span {
+      font-weight: bold;
+      display: block;
+      float: left;
+      width: 35px;
+      height: 24px;
+      line-height: 24px;
+      text-align: center;
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.25) inset; }
+      .switch span span:nth-child(1) {
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+        background: #fff6ba; }
+      .switch span span:nth-child(2) {
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+        background: #e1cf5f; }
+    .switch span i {
+      -webkit-transition: left 0.1s linear;
+      -moz-transition: left 0.1s linear;
+      transition: left 0.1s linear;
+      z-index: 10;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      background: #554d4c;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.85) inset;
+      height: 24px;
+      width: 35px; }
+  .switch.on {
+    text-align: left; }
+    .switch.on i {
+      left: 35px;
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px; }
+  .switch.off {
+    text-align: right; }
+    .switch.off i {
+      left: 0;
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px; }
+  .switch:hover i {
+    background-color: #706564; }

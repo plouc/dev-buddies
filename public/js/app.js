@@ -42,13 +42,15 @@ App.prototype.storeProfile = function(profile) {
 };
 
 /**
- * @param {Profile} profile
+ * @param {Profile}  profile
+ * @param {Function} callback
  */
-App.prototype.removeProfile = function(profile) {
-  console.log('Remove profile', profile);
+App.prototype.removeProfile = function(profile, callback) {
+  console.log('Removing profile', profile);
 
   this.storage.remove('buddies', profile.id, function() {
     console.log('Profile ' + profile.id + ' removed');
+    callback();
   });
 };
 

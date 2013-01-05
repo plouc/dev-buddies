@@ -279,7 +279,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>App.js, line 69</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>App.js, line 86</li></ul></dd>
 	
     
     
@@ -408,7 +408,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>App.js, line 46</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>App.js, line 63</li></ul></dd>
 	
     
     
@@ -485,7 +485,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>App.js, line 57</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>App.js, line 74</li></ul></dd>
 	
     
     
@@ -633,7 +633,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>App.js, line 133</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>App.js, line 151</li></ul></dd>
 	
     
     
@@ -763,7 +763,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>App.js, line 89</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>App.js, line 106</li></ul></dd>
 	
     
     
@@ -804,7 +804,7 @@
         
             
 <dt>
-    <h4 class="name" id="getUserProfile"><span class="type-signature"></span>getUserProfile<span class="signature">(searchResults, callback)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="getUserProfile"><span class="type-signature"></span>getUserProfile<span class="signature">(profileId, searchResults, callback)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -838,6 +838,29 @@
 	</thead>
 	
 	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>profileId</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
 	
 	
         <tr>
@@ -911,7 +934,137 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>App.js, line 142</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>App.js, line 161</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="removeProfile"><span class="type-signature"></span>removeProfile<span class="signature">(profile, callback)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>profile</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Profile.html">Profile</a></span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Function</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>App.js, line 48</li></ul></dd>
 	
     
     
@@ -1041,7 +1194,7 @@
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>App.js, line 114</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>App.js, line 131</li></ul></dd>
 	
     
     
@@ -1171,7 +1324,7 @@
         
             
 <dt>
-    <h4 class="name" id="storeProfileResult"><span class="type-signature"></span>storeProfileResult<span class="signature">(profileName)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="storeProfile"><span class="type-signature"></span>storeProfile<span class="signature">(profile)</span><span class="type-signature"></span></h4>
     
     
 </dt>
@@ -1209,13 +1362,13 @@
 	
         <tr>
             
-                <td class="name"><code>profileName</code></td>
+                <td class="name"><code>profile</code></td>
             
             
             <td class="type">
             
                 
-<span class="param-type">String</span>
+<span class="param-type"><a href="Profile.html">Profile</a></span>
 
 
             
@@ -1291,13 +1444,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="BuddiesRenderer.html">BuddiesRenderer</a></li><li><a href="GithubProvider.html">GithubProvider</a></li><li><a href="GithubRenderer.html">GithubRenderer</a></li><li><a href="LinkedInProvider.html">LinkedInProvider</a></li><li><a href="Profile.html">Profile</a></li><li><a href="Provider.html">Provider</a></li><li><a href="ProviderResult.html">ProviderResult</a></li><li><a href="SearchRenderer.html">SearchRenderer</a></li><li><a href="StackOverflowProvider.html">StackOverflowProvider</a></li><li><a href="StackOverflowRenderer.html">StackOverflowRenderer</a></li><li><a href="Storage.html">Storage</a></li><li><a href="TwitterProvider.html">TwitterProvider</a></li></ul>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="BuddiesRenderer.html">BuddiesRenderer</a></li><li><a href="BuddyRenderer.html">BuddyRenderer</a></li><li><a href="GithubProvider.html">GithubProvider</a></li><li><a href="GithubRenderer.html">GithubRenderer</a></li><li><a href="LinkedInProvider.html">LinkedInProvider</a></li><li><a href="Profile.html">Profile</a></li><li><a href="Provider.html">Provider</a></li><li><a href="ProviderResult.html">ProviderResult</a></li><li><a href="SearchRenderer.html">SearchRenderer</a></li><li><a href="StackOverflowProvider.html">StackOverflowProvider</a></li><li><a href="StackOverflowRenderer.html">StackOverflowRenderer</a></li><li><a href="Storage.html">Storage</a></li><li><a href="TwitterProvider.html">TwitterProvider</a></li></ul>
 </nav>
 
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3</a> on Sat Jan 05 2013 12:40:57 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3</a> on Sat Jan 05 2013 18:12:54 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

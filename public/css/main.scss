@@ -20,6 +20,7 @@ body {
 }
 a {
   color: darken($darkGrey, 10);
+  outline: none;
 }
 h1, h2, h3, h4, h5, h6 {
   color: $darkGrey;
@@ -162,19 +163,49 @@ ul.items {
     padding: 12px $hSpacing;
     margin: 0;
     line-height: 22px;
+    strong {
+      color: #fff6ba;
+      font-weight: normal;
+    }
     a {
+      -webkit-transition: background-color 0.3s linear, color 0.3s linear;
+      -moz-transition:    background-color 0.3s linear, color 0.3s linear;
+      transition:         background-color 0.3s linear, color 0.3s linear;
+      position: relative;
       margin-top: 15px;
       display: block;
-      background: $accent;
+      background-color: #e1cf5f;
       font-weight: bold;
       text-decoration: none;
-      padding: 9px 0;
-      text-align: center;
+      padding-left: 52px;
+      height: 40px;
+      line-height: 40px;
+      text-align: left;
       border-radius: 2px;
-      box-shadow: 0 1px 1px lighten($accent, 7) inset,
-                  0 1px 2px rgba(0,0,0,0.5);
+      box-shadow: 0 1px 1px #fff38b inset,
+                  0 1px 2px rgba(0,0,0,0.75);
+      i {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 40px;
+        width: 40px;
+        background-color: #fff6ba;
+        background-repeat: no-repeat;
+        background-position: center center;
+        display: block;
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+      }
+      &.go-search i {
+        background-image: url("../imgs/search-dark-grey.png");
+      }
+      &.go-list i {
+        background-image: url("../imgs/glyphicons_114_list.png");
+      }
       &:hover {
-        background: $accentOver;
+        color: darken($darkGrey, 30);
+        background-color: #fff6ba;
       }
     }
   }
@@ -388,10 +419,14 @@ ul.items {
   .selected-results,
   .results {
     li {
+      -webkit-transition: background-color 0.3s linear;
+      -moz-transition:    background-color 0.3s linear;
+      transition:         background-color 0.3s linear;
       position: relative;
       min-height: 36px;
       padding: $hSpacing $hSpacing $hSpacing 36px;
       overflow: hidden;
+      background-color: #fff;
       background-repeat: no-repeat;
       background-position: $hSpacing center;
     }
@@ -451,7 +486,7 @@ ul.items {
 #search .selected-results li:focus,
 #search .results li:hover,
 #search .results li:focus {
-  background: lighten($lightGrey, 27);
+  background-color: lighten($lightGrey, 27);
 }
 
 
@@ -461,18 +496,22 @@ ul.items {
 #buddies-list {
   h1 {
     a {
+      -webkit-transition: width 0.1s linear;
+      -moz-transition:    width 0.1s linear;
+      transition:         width 0.1s linear;
       position: absolute;
       top: 6px;
       right: $hSpacing;
       display: inline-block;
       height: 30px;
+      width: 50px;
+      text-align: center;
       line-height: 30px;
       border-radius: 2px;
       background: $removeColor;
       font-size: 13px;
       text-transform: none;
       text-decoration: none;
-      padding: 0 $hSpacing;
       box-shadow: 0 1px 1px lighten($removeColor, 12) inset,
                   0 1px 2px rgba(0,0,0,0.5);
       color: darken($darkGrey, 12);
@@ -480,13 +519,20 @@ ul.items {
       &:hover {
         background: lighten($removeColor, 10);
       }
+      &.editing {
+        width: 70px;
+      }
     }
   }
   li {
+    -webkit-transition: background-color 0.3s linear;
+    -moz-transition:    background-color 0.3s linear;
+    transition:         background-color 0.3s linear;
     position: relative;
     min-height: 32px;
+    background-color: #fff;
     &:hover {
-      background: lighten($lightGrey, 27);
+      background-color: lighten($lightGrey, 27);
     }
   }
   h3 {
@@ -494,13 +540,45 @@ ul.items {
     padding: 0;
   }
   .remove {
-    display: none;
+    -webkit-transition: width 0.1s linear, opacity 0.1s linear;
+    -moz-transition:    width 0.1s linear, opacity 0.1s linear;
+    transition:         width 0.1s linear, opacity 0.1s linear;
+    opacity: 0;
+    display: block;
     position: absolute;
     top: 7px;
     right: $hSpacing;
     width: 32px;
     height: 32px;
-    background: url("../imgs/glyphicons_197_remove.png") no-repeat center center;
+    border-radius: 2px;
+    background: $removeColor url("../imgs/glyphicons_197_remove.png") no-repeat center center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.35);
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    color: darken($darkGrey, 12);
+    overflow: hidden;
+    &.active {
+      opacity: 1;
+    }
+    span {
+      line-height: 32px;
+      height: 32px;
+      width: 70px;
+      display: block;
+      visibility: hidden;
+    }
+    &.pending {
+      width: 70px;
+      background: $removeColor;
+      span {
+        visibility: visible;
+      }
+    }
+    &:hover {
+      background-color: lighten($removeColor, 10);
+    }
   }
 }
 
@@ -511,10 +589,11 @@ ul.items {
 #settings {
   .providers {
     li {
+      position: relative;
       padding-left: 32px;
       background-repeat: no-repeat;
       background-position: $hSpacing center;
-      span {
+      .name {
         font-weight: bold;
       }
       &.github {
@@ -585,12 +664,87 @@ ul.items {
     background-image: url("../imgs/glyphicons_027_search.png");
   }
   .buddies a {
-    background-image: url("../imgs/glyphicons_088_adress_book.png");
+    background-image: url("../imgs/glyphicons_114_list.png");
   }
   .settings a {
-    background-image: url("../imgs/glyphicons_280_settings.png");
+    background-image: url("../imgs/glyphicons_136_cogwheel.png");
   }
   .about a {
     background-image: url("../imgs/glyphicons_195_circle_info.png");
+  }
+}
+
+
+
+
+.switch {
+  cursor: pointer;
+  font-size: 13px;
+  position: absolute;
+  top: 5px;
+  right: $hSpacing;
+  display: block;
+  border-radius: 2px;
+  width: 70px;
+  height: 24px;
+  line-height: 24px;
+  span {
+    position: relative;
+    display: block;
+    span {
+      font-weight: bold;
+      display: block;
+      float: left;
+      width: 35px;
+      height: 24px;
+      line-height: 24px;
+      text-align: center;
+      box-shadow: 0 0 4px rgba(0,0,0,0.25) inset;
+      &:nth-child(1) {
+        border-top-left-radius: 2px;
+        border-bottom-left-radius: 2px;
+        background: #fff6ba;
+      }
+      &:nth-child(2) {
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+        background: #e1cf5f;
+      }
+    }
+    i {
+      -webkit-transition: left 0.1s linear;
+      -moz-transition:    left 0.1s linear;
+      transition:         left 0.1s linear;
+      z-index: 10;
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      background: $darkGrey;
+      box-shadow: 0 0 3px rgba(0,0,0,0.85) inset;
+      height: 24px;
+      width: 35px;
+    }
+  }
+  &.on {
+    text-align: left;
+    i {
+      left: 35px;
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
+    }
+  }
+  &.off {
+    text-align: right;
+    i {
+      left: 0;
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
+    }
+  }
+  &:hover {
+    i {
+      background-color: lighten($darkGrey, 10);
+    }
   }
 }

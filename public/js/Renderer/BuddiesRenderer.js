@@ -19,13 +19,11 @@ BuddiesRenderer.prototype.init = function() {
   this.$editButton.on('click', function(e) {
     e.preventDefault();
     if (!self.$editButton.hasClass('editing')) {
-      console.log('Entering buddies edit mode');
       self.$editButton.text('done').addClass('editing');
-      self.$list.find('li .remove').css('display', 'inline-block');
+      self.$list.find('li .remove').addClass('active');
     } else {
-      console.log('Exiting buddies edit mode');
       self.$editButton.text('edit').removeClass('editing');
-      self.$list.find('li .remove').css('display', 'none');
+      self.$list.find('li .remove').removeClass('active').removeClass('pending');
     }
   });
 
@@ -50,12 +48,16 @@ BuddiesRenderer.prototype.render = function(buddies) {
     var $buddy = $('<li/>');
     $buddy.append('<h3>' + buddy.id + '</h3>');
 
-    var $remove = $('<a href="#" class="remove"/>');
+    // two step removal
+    var $remove = $('<a href="#" class="remove"><span>remove</span></a>');
     $remove.on('click', function(e) {
       e.preventDefault();
-      e.stopPropagation();
-      console.log('Remove buddy');
-      //$(self).trigger('buddy.remove', [buddy]);
+      e.stopPropagation(); // prevent parent li from triggering buddy.details event
+      if ($remove.hasClass('pending')) {
+        $(self).trigger('buddy.remove', [$buddy, buddy]);
+      } else {
+        $remove.addClass('pending');
+      }
     });
     $buddy.append($remove);
 

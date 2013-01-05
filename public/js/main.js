@@ -20,15 +20,24 @@ $(document).ready(function() {
       app.getProviderRenderer(providerName).render(providerProfileData.data);
       gotoPanel('#buddy-profile');
     });
-  }).on('buddy.remove', function(e, profile) {
-    app.removeProfile(profile);
+  }).on('buddy.remove', function(e, $item, profile) {
+    app.removeProfile(profile, function() {
+      $item.fadeOut(200, function() {
+        $item.remove();
+      });
+    });
   });
 
-  $('#home .presentation a').on('click', function(e) {
+  $('#home .presentation a.go-search').on('click', function(e) {
     e.preventDefault();
     gotoPanel('#search', function() {
       searchRenderer.$query.focus();
     });
+  });
+
+  $('#home .presentation a.go-list').on('click', function(e) {
+    e.preventDefault();
+    gotoPanel('#buddies-list');
   });
 
   storage.init(function() {
@@ -72,6 +81,16 @@ $(document).ready(function() {
 
       gotoPanel('#buddy-profile');
     });
+  });
+
+
+  $('.switch').on('click', function(e) {
+    var $switch = $(this);
+    if ($switch.hasClass('on')) {
+      $switch.removeClass('on').addClass('off');
+    } else {
+      $switch.removeClass('off').addClass('on');
+    }
   });
 
 
