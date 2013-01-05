@@ -1,6 +1,20 @@
 Dev Buddies
 ===========
 
+Dev server
+----------
+
+There is an available ndejs based server, to start it, simply type
+
+    node app.js
+
+Build
+-----
+
+assets are minified, you can regenerate it using
+
+    node build.js
+
 Documentation
 -------------
 
