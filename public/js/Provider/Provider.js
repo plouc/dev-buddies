@@ -83,7 +83,7 @@ Provider.prototype.getUserProfile = function (result) {
 
 Provider.prototype.formatSearchResult = function () {
   "use strict";
-  throw 'You must implement the formatResult method';
+  throw 'You must implement the formatSearchResult method';
 };
 
 /**

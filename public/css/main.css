@@ -42,7 +42,7 @@ h3 {
   overflow: hidden;
   width: 100%;
   height: 100%;
-  max-width: 600px;
+  max-width: 800px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -154,15 +154,16 @@ ul.items {
     border-bottom: 1px solid #dddcdc; }
 
 .more {
-  padding: 5px 12px;
+  cursor: pointer;
+  padding: 0;
   margin: 0;
   display: block;
   display: none;
-  background: #fff6ba;
-  text-align: center; }
-  .more span {
-    color: #000;
-    cursor: pointer; }
+  text-align: center;
+  background: #e1cf5f url("../imgs/glyphicons_187_more.png") no-repeat center center;
+  height: 32px; }
+  .more:hover {
+    background-color: #fff6ba; }
 
 /*******************************************************************************
  * Home
@@ -342,6 +343,14 @@ ul.items {
   background-image: url("../imgs/stack-overflow-icon-16.png"); }
 #buddy-profile ul.activity {
   font-size: 13px; }
+  #buddy-profile ul.activity a {
+    text-decoration: none;
+    font-weight: bold; }
+  #buddy-profile ul.activity .day {
+    font-size: 13px;
+    font-weight: bold;
+    padding: 3px 12px;
+    background-color: #e2e1e1; }
   #buddy-profile ul.activity .date {
     font-style: italic;
     color: #888; }
