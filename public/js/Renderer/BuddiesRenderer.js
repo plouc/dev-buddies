@@ -49,10 +49,29 @@ BuddiesRenderer.prototype.render = function (buddies) {
 
   var self = this;
 
+  buddies = _.values(buddies);
+  buddies.sort(function compare(a, b) {
+    if (a.id.toLowerCase() < b.id.toLowerCase()) {
+      return -1;
+    }
+    if (a.id.toLowerCase() > b.id.toLowerCase()) {
+      return 1;
+    }
+    return 0;
+  });
+
+  var currentStartLetter;
+
   _.each(buddies, function (buddy) {
 
-    var $buddy = $('<li/>'),
-      $remove  = $('<a href="#" class="remove"><span>remove</span></a>');
+    var buddyStartLetter = buddy.id.substr(0, 1).toLocaleUpperCase(),
+      $buddy             = $('<li/>'),
+      $remove            = $('<a href="#" class="remove"><span>remove</span></a>');
+
+    if (buddyStartLetter !== currentStartLetter) {
+      self.$list.append('<li class="letter">' + buddyStartLetter + '</li>');
+      currentStartLetter = buddyStartLetter;
+    }
 
     $buddy.append('<h3>' + buddy.id + '</h3>');
 
