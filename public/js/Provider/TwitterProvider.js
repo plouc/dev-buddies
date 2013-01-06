@@ -5,15 +5,16 @@
  * @augments Provider
  * @constructor
  */
-var TwitterProvider = function() {
+var TwitterProvider = function () {
+  "use strict";
 
-    Provider.call(this);
+  Provider.call(this);
 
-    this.name = 'twitter';
+  this.name = 'twitter';
 
-    this.baseUrls = {
-        userSearch: 'https://api.twitter.com/1.1/users/search.json'
-    };
+  this.baseUrls = {
+    userSearch: 'https://api.twitter.com/1.1/users/search.json'
+  };
 };
 
 // extend base provider
@@ -29,62 +30,65 @@ TwitterProvider.prototype = Object.create(new Provider(), {});
  *   console.log(result);
  * });
  */
-TwitterProvider.prototype.search = function(query, callback) {
+TwitterProvider.prototype.search = function (query, callback) {
+  "use strict";
 
-    // reset search state and response
-    this.setState('search', 'loading')
-        .setResponse('search', null);
+  // reset search state and response
+  this.setState('search', 'loading')
+      .setResponse('search', null);
 
-    var self = this;
+  var self = this;
 
-    try {
-        $.ajax({
-            url: this.baseUrls.userSearch,
-            data: {
-                'q': query
-            },
-            dataType: 'jsonp',
-            success: function(response) {
-                console.log('TwitterProvider response:');
-                console.log(response);
+  try {
+    $.ajax({
+      url: this.baseUrls.userSearch,
+      data: {
+        'q': query
+      },
+      dataType: 'jsonp',
+      success: function (response) {
+        console.log('TwitterProvider response:');
+        console.log(response);
 
-                self.setState('search', 'loaded')
-                    .setResponse('search', self.formatSearchResults(response.users));
+        self.setState('search', 'loaded')
+            .setResponse('search', self.formatSearchResults(response.users));
 
-                callback(response.users);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log('TwitterProvider error: ' + errorThrown);
+        callback(response.users);
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log('TwitterProvider error: ' + errorThrown);
 
-                self.setState('search', 'loaded')
-                    .setResponse('search', []);
+        self.setState('search', 'loaded')
+            .setResponse('search', []);
 
-                callback({});
-            }
-        });
-    } catch (error) {
-        console.log(Error, error);
-    }
+        callback({});
+      }
+    });
+  } catch (error) {
+      console.log(Error, error);
+  }
 };
 
 /**
  * Format a result to conform App requirements,
  * typical github result fields:
  *
- * @param result
- * @return {Object}
+ * @param {Object} result
+ * @return {ProviderResult}
  */
-TwitterProvider.prototype.formatSearchResult = function(result) {
+TwitterProvider.prototype.formatSearchResult = function (result) {
+  "use strict";
 
-    var fullname = result.login;
-    if (result.fullname !== null && result.fullname != '') {
-        fullname += ' [' + result.fullname + ']';
-    }
+  var fullname  = result.login,
+    description = '';
 
-    var description = '';
-    if (result.language !== null) {
-        description = result.language + ' developper';
-    }
+  if (result.fullname !== null && result.fullname !== '') {
+    fullname += ' [' + result.fullname + ']';
+  }
 
-    return new ProviderResult(this.name, fullname, description, null, result);
+  if (result.language !== null) {
+    description = result.language + ' developper';
+  }
+
+  return new ProviderResult(this.name, fullname, description, null, result);
 };

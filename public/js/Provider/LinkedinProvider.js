@@ -5,16 +5,17 @@
  * @augments Provider
  * @constructor
  */
-var LinkedInProvider = function() {
+var LinkedInProvider = function () {
+  "use strict";
 
-    Provider.call(this);
+  Provider.call(this);
 
-    this.name = 'linkedin';
+  this.name = 'linkedin';
 
-    this.loaded        = false;
-    this.authenticated = false;
+  this.loaded        = false;
+  this.authenticated = false;
 
-    this.profileFields = ['firstName', 'lastName', 'headline', 'id', 'summary', 'picture-url'];
+  this.profileFields = ['firstName', 'lastName', 'headline', 'id', 'summary', 'picture-url'];
 };
 
 // extend base provider
@@ -25,10 +26,12 @@ LinkedInProvider.prototype = Object.create(new Provider(), {});
  * @param profileId
  * @param callback
  */
-LinkedInProvider.prototype.getProfile = function(profileId, callback) {
-    IN.API.Profile(profileId)
-        .fields(this.profileFields)
-        .result(callback);
+LinkedInProvider.prototype.getProfile = function (profileId, callback) {
+  "use strict";
+
+  IN.API.Profile(profileId)
+    .fields(this.profileFields)
+    .result(callback);
 };
 
 /**
@@ -36,49 +39,50 @@ LinkedInProvider.prototype.getProfile = function(profileId, callback) {
  * @param query
  * @param callback
  */
-LinkedInProvider.prototype.search = function(query, callback) {
+LinkedInProvider.prototype.search = function (query, callback) {
+  "use strict";
 
-    // when user is not authenticated, we exit and return an empty result
-    if (!IN.ENV.auth || !IN.ENV.auth.oauth_token || !IN.API) {
-        this.setState('search', 'loaded')
-            .setResponse('search', []);
+  // when user is not authenticated, we exit and return an empty result
+  if (!IN.ENV.auth || !IN.ENV.auth.oauth_token || !IN.API) {
+    this.setState('search', 'loaded')
+        .setResponse('search', []);
 
-        callback();
-        return;
+    callback();
+    return;
+  }
+
+  // reset search state and response
+  this.setState('search', 'loading')
+      .setResponse('search', null);
+
+  var params = {
+    'keywords': query,
+    'count':    10,
+    'sort':     'distance'
+  };
+
+  var self = this;
+
+  IN.API.PeopleSearch()
+    .fields(this.profileFields)
+    .params(params)
+    .result(function (response) {
+      console.log('LinkedInProvider response:');
+      console.log(response);
+
+      self.setState('search', 'loaded');
+      if (response.people.hasOwnProperty('values')) {
+        self.setResponse('search', self.formatSearchResults(response.people.values));
+      } else {
+        self.setResponse('search', []);
+      }
+
+      callback();
+    })
+    .error(function error(e) {
+      console.log(e);
     }
-
-    // reset search state and response
-    this.setState('search', 'loading')
-        .setResponse('search', null);
-
-    var params = {
-        'keywords': query,
-        'count':    10,
-        'sort':     'distance'
-    };
-
-    var self = this;
-
-    IN.API.PeopleSearch()
-        .fields(this.profileFields)
-        .params(params)
-        .result(function(response) {
-            console.log('LinkedInProvider response:');
-            console.log(response);
-
-            self.setState('search', 'loaded');
-            if (response.people.hasOwnProperty('values')) {
-                self.setResponse('search', self.formatSearchResults(response.people.values));
-            } else {
-                self.setResponse('search', []);
-            }
-
-
-            callback();
-        })
-        .error(function error(e) {
-        }
-    );
+  );
 };
 
 /**
@@ -86,7 +90,8 @@ LinkedInProvider.prototype.search = function(query, callback) {
  * @param result
  * @param callback
  */
-LinkedInProvider.prototype.getUserProfile = function(result, callback) {
+LinkedInProvider.prototype.getUserProfile = function (result, callback) {
+  "use strict";
 
   var response = {};
 
@@ -111,12 +116,13 @@ LinkedInProvider.prototype.getUserProfile = function(result, callback) {
  * @param result
  * @return {Object}
  */
-LinkedInProvider.prototype.formatSearchResult = function(result) {
+LinkedInProvider.prototype.formatSearchResult = function (result) {
+  "use strict";
 
-    var picture = null;
-    if (result.hasOwnProperty('pictureUrl')) {
-        picture = result.pictureUrl;
-    }
+  var picture = null;
+  if (result.hasOwnProperty('pictureUrl')) {
+    picture = result.pictureUrl;
+  }
 
-    return new ProviderResult(this.name, result.firstName + ' ' + result.lastName, result.headline, picture, result);
+  return new ProviderResult(this.name, result.firstName + ' ' + result.lastName, result.headline, picture, result);
 };

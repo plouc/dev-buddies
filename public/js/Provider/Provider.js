@@ -4,91 +4,98 @@
  * @copyright 2012-2013 Raphaël Benitte (http://rbenitte.com)
  * @constructor
  */
-var Provider = function() {
+var Provider = function () {
+  "use strict";
 
   this.states = {
-      "search":         "idle"
-    , "getUserProfile": "idle"
+    "search":         "idle",
+    "getUserProfile": "idle"
   };
 
   this.responses = {
-      "search":         null
-    , "getUserProfile": null
+    "search":         null,
+    "getUserProfile": null
   };
 };
 
+/**
+ * Set command state.
+ *
+ * @param {String} command
+ * @param {String} state
+ * @return {Provider}
+ */
+Provider.prototype.setState = function (command, state) {
+  "use strict";
 
-Provider.prototype = {
-
-  /**
-   * Set command state.
-   *
-   * @param {String} command
-   * @param {String} state
-   * @return {Provider}
-   */
-  setState: function(command, state) {
-    if (!this.states.hasOwnProperty(command)) {
-      throw 'Invalid command ' + command;
-    }
-
-    this.states[command] = state;
-
-    return this;
+  if (!this.states.hasOwnProperty(command)) {
+    throw 'Invalid command ' + command;
   }
 
-  /**
-   *
-   * @param {String} command
-   * @return {String}
-   */
-  , getState: function(command) {
-    if (!this.states.hasOwnProperty(command)) {
-      throw 'Invalid command ' + command;
-    }
+  this.states[command] = state;
 
-    return this.states[command];
+  return this;
+};
+
+/**
+ *
+ * @param {String} command
+ * @return {String}
+ */
+Provider.prototype.getState = function (command) {
+  "use strict";
+
+  if (!this.states.hasOwnProperty(command)) {
+    throw 'Invalid command ' + command;
   }
 
-  /**
-   * Set command response.
-   *
-   * @param {String} command
-   * @param {Object} response
-   * @return {Provider}
-   */
-  , setResponse: function(command, response) {
-    if (!this.responses.hasOwnProperty(command)) {
-      throw 'Invalid command ' + command;
-    }
+  return this.states[command];
+};
 
-    this.responses[command] = response;
+/**
+ * Set command response.
+ *
+ * @param {String} command
+ * @param {Object} response
+ * @return {Provider}
+ */
+Provider.prototype.setResponse = function (command, response) {
+  "use strict";
 
-    return this;
+  if (!this.responses.hasOwnProperty(command)) {
+    throw 'Invalid command ' + command;
   }
 
-  , search: function() {
-    throw 'You must implement the search method';
-  }
+  this.responses[command] = response;
 
-  , getUserProfile: function(result) {
-    throw 'You must implement the getUserProfile method';
-  }
+  return this;
+};
 
-  , formatSearchResult: function() {
-    throw 'You must implement the formatResult method';
-  }
+Provider.prototype.search = function () {
+  "use strict";
+  throw 'You must implement the search method';
+};
 
-  /**
-   *
-   * @param {Array} results
-   */
-  , formatSearchResults: function(results) {
+Provider.prototype.getUserProfile = function (result) {
+  "use strict";
+  throw 'You must implement the getUserProfile method';
+};
 
-    var self = this;
+Provider.prototype.formatSearchResult = function () {
+  "use strict";
+  throw 'You must implement the formatResult method';
+};
 
-    return results.map(function(result) {
-      return self.formatSearchResult(result);
-    });
-  }
+/**
+ *
+ * @param {Array} results
+ */
+Provider.prototype.formatSearchResults = function (results) {
+  "use strict";
+
+  var self = this;
+
+  return results.map(function (result) {
+    return self.formatSearchResult(result);
+  });
 };

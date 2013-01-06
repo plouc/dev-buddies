@@ -5,15 +5,16 @@
  * @augments Provider
  * @constructor
  */
-var StackOverflowProvider = function() {
+var StackOverflowProvider = function () {
+  "use strict";
 
-    Provider.call(this);
+  Provider.call(this);
 
-    this.name = 'stack-overflow';
+  this.name = 'stack-overflow';
 
-    this.baseUrls = {
-        userSearch: 'https://api.stackexchange.com/2.1/users' //?order=desc&sort=reputation&inname=mlarcher&site=stackoverflow
-    };
+  this.baseUrls = {
+    userSearch: 'https://api.stackexchange.com/2.1/users' //?order=desc&sort=reputation&inname=mlarcher&site=stackoverflow
+  };
 };
 
 // extend base provider
@@ -24,41 +25,42 @@ StackOverflowProvider.prototype = Object.create(new Provider(), {});
  * @param query
  * @param callback
  */
-StackOverflowProvider.prototype.search = function(query, callback) {
+StackOverflowProvider.prototype.search = function (query, callback) {
+  "use strict";
 
-    // reset search state and response
-    this.setState('search', 'loading')
-        .setResponse('search', null);
+  // reset search state and response
+  this.setState('search', 'loading')
+      .setResponse('search', null);
 
-    var self = this;
+  var self = this;
 
-    $.ajax({
-        url: this.baseUrls.userSearch,
-        dataType: 'json',
-        data: {
-            'order':  'asc',
-            'sort':   'name',
-            'site':   'stackoverflow',
-            'inname': query
-        },
-        success: function(response) {
-            console.log('StackOverflowProvider response:');
-            console.log(response);
+  $.ajax({
+    url: this.baseUrls.userSearch,
+    dataType: 'json',
+    data: {
+      'order':  'asc',
+      'sort':   'name',
+      'site':   'stackoverflow',
+      'inname': query
+    },
+    success: function (response) {
+      console.log('StackOverflowProvider response:');
+      console.log(response);
 
-            self.setState('search', 'loaded')
-                .setResponse('search', self.formatSearchResults(response.items));
+      self.setState('search', 'loaded')
+          .setResponse('search', self.formatSearchResults(response.items));
 
-            callback();
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log('StackOverflowProvider error: ' + errorThrown);
+      callback();
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log('StackOverflowProvider error: ' + errorThrown);
 
-            self.setState('search', 'loaded')
-                .setResponse('search', []);
+      self.setState('search', 'loaded')
+          .setResponse('search', []);
 
-            callback();
-        }
-    });
+      callback();
+    }
+  });
 };
 
 /**
@@ -106,6 +108,7 @@ StackOverflowProvider.prototype.getUserProfile = function(result, callback) {
  * @return {Object}
  */
 StackOverflowProvider.prototype.formatSearchResult = function(result) {
+  "use strict";
 
-    return new ProviderResult(this.name, result.user_id, result.display_name, '', result.profile_image, result);
+  return new ProviderResult(this.name, result.user_id, result.display_name, '', result.profile_image, result);
 };

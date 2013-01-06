@@ -7,6 +7,8 @@
  */
 var GithubProvider = function() {
 
+  "use strict";
+
   Provider.call(this);
 
   this.name = "github";
@@ -28,6 +30,8 @@ GithubProvider.prototype = Object.create(new Provider(), {});
  */
 GithubProvider.prototype.search = function(query, callback) {
 
+  "use strict";
+
   // reset search state and response
   this.setState('search', 'loading')
       .setResponse('search', null);
@@ -40,6 +44,8 @@ GithubProvider.prototype.search = function(query, callback) {
       success: function(response) {
       console.log('GithubProvider response:');
       console.log(response);
+
+
 
       self.setState('search', 'loaded')
         .setResponse('search', self.formatSearchResults(response.data.users));
@@ -64,6 +70,8 @@ GithubProvider.prototype.search = function(query, callback) {
  * @param {Function} callback
  */
 GithubProvider.prototype.getUserProfile = function(result, callback) {
+
+  "use strict";
 
   var self = this;
 
@@ -136,8 +144,10 @@ GithubProvider.prototype.getUserProfile = function(result, callback) {
  */
 GithubProvider.prototype.formatSearchResult = function(result) {
 
+  "use strict";
+
   var fullname = result.login;
-  if (result.fullname !== null && result.fullname != '') {
+  if (result.fullname !== null && result.fullname !== '') {
     fullname += ' [' + result.fullname + ']';
   }
 

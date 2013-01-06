@@ -3,11 +3,12 @@
  * @author    Raphaël Benitte
  * @constructor
  */
-var App = function() {
+var App = function () {
+  "use strict";
 
   // define available providers
-  var githubProvider        = new GithubProvider();
-  var stackOverflowProvider = new StackOverflowProvider();
+  var githubProvider      = new GithubProvider(),
+    stackOverflowProvider = new StackOverflowProvider();
 
   this.providers = {};
   this.providers[githubProvider.name]        = githubProvider;
@@ -26,7 +27,9 @@ var App = function() {
  *
  * @param {Storage} storage STorage used to store user profiles and settings
  */
-App.prototype.setStorage = function(storage) {
+App.prototype.setStorage = function (storage) {
+  "use strict";
+
   console.log('Setting app storage', storage);
   this.storage = storage;
 };
@@ -34,10 +37,12 @@ App.prototype.setStorage = function(storage) {
 /**
  * @param {Profile} profile
  */
-App.prototype.storeProfile = function(profile) {
+App.prototype.storeProfile = function (profile) {
+  "use strict";
+
   console.log('Store profile', profile, 'with id', profile.id);
 
-  this.storage.set('buddies', profile.id, profile, function() {
+  this.storage.set('buddies', profile.id, profile, function () {
     console.log('Profile stored');
   });
 };
@@ -46,10 +51,12 @@ App.prototype.storeProfile = function(profile) {
  * @param {Profile}  profile
  * @param {Function} callback
  */
-App.prototype.removeProfile = function(profile, callback) {
+App.prototype.removeProfile = function (profile, callback) {
+  "use strict";
+
   console.log('Removing profile', profile);
 
-  this.storage.remove('buddies', profile.id, function() {
+  this.storage.remove('buddies', profile.id, function () {
     console.log('Profile ' + profile.id + ' removed');
     callback();
   });
@@ -61,7 +68,9 @@ App.prototype.removeProfile = function(profile, callback) {
  * @param {String} providerId
  * @return {Provider}
  */
-App.prototype.getProvider = function(providerName) {
+App.prototype.getProvider = function (providerName) {
+  "use strict";
+
   if (!this.providers.hasOwnProperty(providerName)) {
     throw 'Invalid provider requested, there is no provider defined for id "' + providerName + '"';
   }
@@ -72,7 +81,9 @@ App.prototype.getProvider = function(providerName) {
  *
  * @return {Array} Returns all provider names
  */
-App.prototype.getProviderNames = function() {
+App.prototype.getProviderNames = function () {
+  "use strict";
+
   return _.keys(this.providers);
 };
 
@@ -84,16 +95,14 @@ App.prototype.getProviderNames = function() {
  * @param {Function} callback
  * @return {Boolean}
  */
-App.prototype.checkProvidersState = function(providers, command, state, callback) {
+App.prototype.checkProvidersState = function (providers, command, state, callback) {
+  "use strict";
 
-  var provider;
-
-  for (var providerId in providers) {
-    provider = providers[providerId];
+  _.each(providers, function (provider) {
     if (provider.states[command] !== state) {
       return false;
     }
-  }
+  });
 
   callback();
 };
@@ -104,17 +113,20 @@ App.prototype.checkProvidersState = function(providers, command, state, callback
  * @param {String} command
  * @return {Array}
  */
-App.prototype.getProvidersResult = function(providers, command) {
+App.prototype.getProvidersResult = function (providers, command) {
+  "use strict";
 
-  var results = []
-    , response;
+  var results = [],
+    response;
 
-  _.each(providers, function(provider) {
+  _.each(providers, function (provider) {
     response = provider.responses[command];
-    response.forEach(function(result) {
-      result.provider = provider.name;
-      results.push(result);
-    });
+    if (response !== null) {
+      response.forEach(function (result) {
+        result.provider = provider.name;
+        results.push(result);
+      });
+    }
   });
 
   results.sort();
@@ -127,12 +139,13 @@ App.prototype.getProvidersResult = function(providers, command) {
  * @param {String}   query    Term to search on various APIs
  * @param {Function} callback Function to call when complete
  */
-App.prototype.search = function(query, callback) {
+App.prototype.search = function (query, callback) {
+  "use strict";
 
   var self = this;
 
-  _.each(this.providers, function(provider) {
-    provider.search(query, function() {
+  _.each(this.providers, function (provider) {
+    provider.search(query, function () {
       self.checkProvidersState(self.providers, 'search', 'loaded', function() {
         var results = self.getProvidersResult(self.providers, 'search');
         if (_.isFunction(callback)) {
@@ -147,7 +160,9 @@ App.prototype.search = function(query, callback) {
  * @param {String} providerName
  * @param {Provider}
  */
-App.prototype.getProviderRenderer = function(providerName) {
+App.prototype.getProviderRenderer = function (providerName) {
+  "use strict";
+
   return this.providerRenderers[providerName];
 };
 
@@ -158,33 +173,32 @@ App.prototype.getProviderRenderer = function(providerName) {
  * @param {Object}   searchResults An object of ProviderResult
  * @param {Function} callback      Function to call when profile fetched
  */
-App.prototype.getUserProfile = function(profileId, searchResults, callback) {
+App.prototype.getUserProfile = function (profileId, searchResults, callback) {
+  "use strict";
 
-  var self = this
-    , result
-    , selectedProviders = {}
-    , provider
-    , profile = new Profile(profileId);
+  var self = this,
+    result,
+    selectedProviders = {},
+    provider,
+    profile = new Profile(profileId);
 
-  for (var resultId in searchResults) {
-    result = searchResults[resultId];
-    selectedProviders[result.providerName] = this.getProvider(result.providerName);
-  }
+  _.each(searchResults, function (result) {
+    selectedProviders[result.providerName] = self.getProvider(result.providerName);
+  });
 
   console.log('Selected user profile providers to build profile: ', Object.keys(selectedProviders).join(', '));
 
-  for (resultId in searchResults) {
+  _.each(searchResults, function (result) {
+    provider = self.getProvider(result.providerName);
 
-    result   = searchResults[resultId];
-    provider = this.getProvider(result.providerName);
-
-    provider.getUserProfile(result, function(oResult, userProfile) {
-
+    provider.getUserProfile(result, function (oResult, userProfile) {
       profile.addProviderData(this.name, oResult.userId, userProfile);
 
-      self.checkProvidersState(selectedProviders, 'getUserProfile', 'loaded', function() {
-        if (_.isFunction(callback)) callback(profile);
+      self.checkProvidersState(selectedProviders, 'getUserProfile', 'loaded', function () {
+        if (_.isFunction(callback)) {
+          callback(profile);
+        }
       });
     });
-  }
+  });
 };

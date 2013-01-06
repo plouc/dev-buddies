@@ -7,26 +7,27 @@
  * @param {object} rawResult     Raw provider API response
  * @constructor
  */
-var ProviderResult = function(providerName, userId, fullname, description, picture, rawResult) {
+var ProviderResult = function (providerName, userId, fullname, description, picture, rawResult) {
+  "use strict";
 
-    this.providerName = providerName;
+  this.providerName = providerName;
 
-    this.userId = userId;
+  this.userId = userId;
 
-    // common properties
-    this.fullname    = fullname;
-    this.description = description;
-    this.picture     = picture;
+  // common properties
+  this.fullname    = fullname;
+  this.description = description;
+  this.picture     = picture;
 
-    // raw result
-    this.raw = rawResult;
+  // raw result
+  this.raw = rawResult;
 };
 
-ProviderResult.prototype = {
-    /**
-     * @return {String}
-     */
-    toString: function() {
-        return this.fullname;
-    }
+/**
+ * @return {String}
+ */
+ProviderResult.prototype.toString = function () {
+  "use strict";
+
+  return this.fullname;
 };
