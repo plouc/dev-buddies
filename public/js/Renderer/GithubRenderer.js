@@ -22,8 +22,11 @@ GithubRenderer.prototype.init = function () {
 
   var self = this;
 
-  this.$container.append('<h3>Activity</h3>');
+  this.$container.append('<h3>Repositories</h3>');
+  this.$repos = $('<ul class="repositories items"></ul>');
+  this.$container.append(this.$repos);
 
+  this.$container.append('<h3>Activity</h3>');
   this.$activity = $('<ul class="activity items"/>');
   this.$moreActivity = $('<div class="more"></span>');
   this.$container.append(this.$activity);
@@ -56,10 +59,19 @@ GithubRenderer.prototype.render = function (profile) {
 
   var self = this,
     eventDescription,
-    messages = [],
     currentDateDay = null;
 
   this.$activity.html('');
+  this.$repos.html('');
+
+  if (profile.repos) {
+    _.each(profile.repos, function (repo) {
+      self.$repos.append('<li>' +
+          '<a href="' + repo.html_url + '">' + repo.name + '</a>' +
+          ' <span class="meta">' + repo.description + '</span>' +
+        '</li>');
+    });
+  }
 
   if (profile.events) {
     _.each(profile.events, function (event) {

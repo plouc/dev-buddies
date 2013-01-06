@@ -354,6 +354,13 @@ ul.items {
   #buddy-profile ul.activity .date {
     font-style: italic;
     color: #888; }
+#buddy-profile ul.repositories {
+  font-size: 13px; }
+  #buddy-profile ul.repositories a {
+    text-decoration: none;
+    font-weight: bold; }
+  #buddy-profile ul.repositories .meta {
+    font-style: italic; }
 
 /*******************************************************************************
  * Search results
@@ -485,6 +492,7 @@ ul.items {
     padding: 0 12px;
     border-bottom: none; }
 #buddies-list h3 {
+  font-size: 16px;
   font-weight: bold;
   background: none;
   padding: 0;

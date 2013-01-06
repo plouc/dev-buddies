@@ -5,8 +5,7 @@
  * @augments Provider
  * @constructor
  */
-var GithubProvider = function() {
-
+var GithubProvider = function () {
   "use strict";
 
   Provider.call(this);
@@ -14,9 +13,10 @@ var GithubProvider = function() {
   this.name = "github";
 
   this.baseUrls = {
-      "userSearch":  "https://api.github.com/legacy/user/search/:query"
-    , "userProfile": "https://api.github.com/users/:user"
-    , "userEvents":  "https://api.github.com/users/:user/events/public"
+    "userSearch":  "https://api.github.com/legacy/user/search/:query",
+    "userProfile": "https://api.github.com/users/:user",
+    "userEvents":  "https://api.github.com/users/:user/events/public",
+    "userRepos":   "https://api.github.com/users/:user/repos"
   };
 };
 
@@ -28,8 +28,7 @@ GithubProvider.prototype = Object.create(new Provider(), {});
  * @param {String} query
  * @param {Function} callback
  */
-GithubProvider.prototype.search = function(query, callback) {
-
+GithubProvider.prototype.search = function (query, callback) {
   "use strict";
 
   // reset search state and response
@@ -69,17 +68,15 @@ GithubProvider.prototype.search = function(query, callback) {
  * @param {Object} result
  * @param {Function} callback
  */
-GithubProvider.prototype.getUserProfile = function(result, callback) {
-
+GithubProvider.prototype.getUserProfile = function (result, callback) {
   "use strict";
 
-  var self = this;
+  var self            = this,
+    responseCount     = 0,
+    compositeResponse = {};
 
-  var responseCount = 0,
-      compositeResponse = {};
-
-  var onResponse = function() {
-    if (responseCount === 2) {
+  var onResponse = function () {
+    if (responseCount === 3) {
       console.log('GithubProvider.getUserProfile() response:');
       console.log(compositeResponse);
 
@@ -91,14 +88,14 @@ GithubProvider.prototype.getUserProfile = function(result, callback) {
   };
 
   $.ajax({
-      "url": this.baseUrls.userEvents.replace(':user', result.userId)
-    , "dataType": "jsonp"
-    , "success": function(response) {
+    "url": this.baseUrls.userEvents.replace(':user', result.userId),
+    "dataType": "jsonp",
+    "success": function (response) {
       compositeResponse.events = response.data;
       responseCount++;
       onResponse();
-    }
-    , "error": function(jqXHR, textStatus, errorThrown) {
+    },
+    "error": function(jqXHR, textStatus, errorThrown) {
       compositeResponse.events = null;
       responseCount++;
       onResponse();
@@ -106,14 +103,29 @@ GithubProvider.prototype.getUserProfile = function(result, callback) {
   });
 
   $.ajax({
-      "url": this.baseUrls.userProfile.replace(':user', result.raw.login)
-    , "dataType": "jsonp"
-    , "success": function(response) {
-      compositeResponse.profile = response.data;
+    "url": this.baseUrls.userRepos.replace(':user', result.raw.login),
+    "dataType": "jsonp",
+    "success": function (response) {
+      compositeResponse.repos = response.data;
+      responseCount++;
+      onResponse();
+    },
+    "error": function (jqXHR, textStatus, errorThrown) {
+      compositeResponse.repos = null;
       responseCount++;
       onResponse();
     }
-    , "error": function(jqXHR, textStatus, errorThrown) {
+  });
+
+  $.ajax({
+    "url": this.baseUrls.userProfile.replace(':user', result.raw.login),
+    "dataType": "jsonp",
+    "success": function (response) {
+      compositeResponse.profile = response.data;
+      responseCount++;
+      onResponse();
+    },
+    "error": function (jqXHR, textStatus, errorThrown) {
       compositeResponse.profile = null;
       responseCount++;
       onResponse();
@@ -142,8 +154,7 @@ GithubProvider.prototype.getUserProfile = function(result, callback) {
  * @param {Object} result
  * @return {ProviderResult}
  */
-GithubProvider.prototype.formatSearchResult = function(result) {
-
+GithubProvider.prototype.formatSearchResult = function (result) {
   "use strict";
 
   var fullname = result.login;
