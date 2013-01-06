@@ -66,7 +66,6 @@ BuddiesRenderer.prototype.render = function(buddies) {
       $(self).trigger('buddy.details', [buddy]);
     });
 
-    console.log('Rendering buddy', buddy);
     self.$list.append($buddy);
   });
 };

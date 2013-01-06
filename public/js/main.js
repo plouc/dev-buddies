@@ -73,10 +73,11 @@ $(document).ready(function() {
 
   $(searchRenderer).on('submit', function(e, query) {
     app.search(query, function(query, results) {
-      searchRenderer.resultsLoaded().render(results);
+      searchRenderer.resultsLoaded().render(query, results);
     });
-  }).on('build.init', function(e, results) {
-    app.getUserProfile('test-user', results, function(profile) {
+  }).on('build.init', function(e, query, results) {
+
+    app.getUserProfile(query, results, function(profile) {
 
       searchRenderer.$mainOverlay.css('display', 'none');
       app.storeProfile(profile);

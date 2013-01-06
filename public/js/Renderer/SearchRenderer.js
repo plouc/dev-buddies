@@ -19,6 +19,7 @@ var SearchRenderer = function(app, selector) {
   this.$build           = $('#search .build');
   this.$mainOverlay     = $('#search > .overlay');
 
+  this.searchId        = null;
   this.selectedResults = {};
 };
 
@@ -60,7 +61,7 @@ SearchRenderer.prototype.init = function() {
   this.$build.find('a').on('click', function(e) {
     e.preventDefault();
     self.$mainOverlay.css('display', 'block');
-    $(self).trigger('build.init', [self.selectedResults]);
+    $(self).trigger('build.init', [self.searchId, self.selectedResults]);
   });
 
   return this;
@@ -68,7 +69,7 @@ SearchRenderer.prototype.init = function() {
 
 /**
  *
- * @return {*}
+ * @return {SearchRenderer}
  */
 SearchRenderer.prototype.resultsLoaded = function() {
 
@@ -81,9 +82,12 @@ SearchRenderer.prototype.resultsLoaded = function() {
 
 /**
  *
+ * @param {String} searchId
  * @param results
  */
-SearchRenderer.prototype.render = function(results) {
+SearchRenderer.prototype.render = function(searchId, results) {
+
+  this.searchId = searchId;
 
   this.$results.html('');
   this.$selectedResults.html('');
@@ -135,12 +139,11 @@ SearchRenderer.prototype.render = function(results) {
 
 /**
  *
- * @param result
- * @return {*}
+ * @param {String} resultId
+ * @param {Object} result
+ * @return {SearchRenderer}
  */
 SearchRenderer.prototype.addSelectedResult = function(resultId, result) {
-
-  var self = this;
 
   this.selectedResults[resultId] = result;
 

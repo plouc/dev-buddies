@@ -262,14 +262,14 @@ ul.items {
     height: 40px;
     width: 40px;
     outline: none;
-    background: #299e83;
+    background-color: #e1cf5f;
     background-repeat: no-repeat;
     background-position: center center;
     background-image: url("../imgs/search-dark-grey.png");
-    box-shadow: 0 1px 1px #30ba9b inset;
+    box-shadow: 0 1px 1px #fff38b inset;
     color: #baf9ce; }
     .search a:focus, .search a:hover, .search a:active {
-      background-color: #29c7ab; }
+      background-color: #fff6ba; }
 
 .overlay {
   display: none;
@@ -483,7 +483,7 @@ ul.items {
  ******************************************************************************/
 #settings .providers li {
   position: relative;
-  padding-left: 32px;
+  padding: 11px 12px 11px 32px;
   background-repeat: no-repeat;
   background-position: 12px center; }
   #settings .providers li .name {
@@ -553,8 +553,8 @@ ul.items {
   display: block;
   border-radius: 2px;
   width: 70px;
-  height: 24px;
-  line-height: 24px; }
+  height: 30px;
+  line-height: 30px; }
   .switch span {
     position: relative;
     display: block; }
@@ -563,8 +563,7 @@ ul.items {
       display: block;
       float: left;
       width: 35px;
-      height: 24px;
-      line-height: 24px;
+      height: 30px;
       text-align: center;
       box-shadow: 0 0 4px rgba(0, 0, 0, 0.25) inset; }
       .switch span span:nth-child(1) {
@@ -574,7 +573,7 @@ ul.items {
       .switch span span:nth-child(2) {
         border-top-right-radius: 2px;
         border-bottom-right-radius: 2px;
-        background: #e1cf5f; }
+        background: #9f9b9b; }
     .switch span i {
       -webkit-transition: left 0.1s linear;
       -moz-transition: left 0.1s linear;
@@ -586,7 +585,7 @@ ul.items {
       display: block;
       background: #554d4c;
       box-shadow: 0 0 3px rgba(0, 0, 0, 0.85) inset;
-      height: 24px;
+      height: 30px;
       width: 35px; }
   .switch.on {
     text-align: left; }

@@ -135,7 +135,9 @@ App.prototype.search = function(query, callback) {
     provider.search(query, function() {
       self.checkProvidersState(self.providers, 'search', 'loaded', function() {
         var results = self.getProvidersResult(self.providers, 'search');
-        if (_.isFunction(callback)) callback(query, results);
+        if (_.isFunction(callback)) {
+          callback(query, results);
+        }
       });
     });
   });

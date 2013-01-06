@@ -309,16 +309,16 @@ ul.items {
     height: 40px;
     width: 40px;
     outline: none;
-    background: $accent;
+    background-color: #e1cf5f;
     background-repeat: no-repeat;
     background-position: center center;
     background-image: url("../imgs/search-dark-grey.png");
-    box-shadow: 0 1px 1px lighten($accent, 7) inset;
+    box-shadow: 0 1px 1px #fff38b inset;
     color: #baf9ce;
     &:focus,
     &:hover,
     &:active {
-      background-color: $accentOver;
+      background-color: #fff6ba;
     }
   }
 }
@@ -586,7 +586,7 @@ ul.items {
   .providers {
     li {
       position: relative;
-      padding-left: 32px;
+      padding: 11px $hSpacing 11px 32px;
       background-repeat: no-repeat;
       background-position: $hSpacing center;
       .name {
@@ -682,8 +682,8 @@ ul.items {
   display: block;
   border-radius: 2px;
   width: 70px;
-  height: 24px;
-  line-height: 24px;
+  height: 30px;
+  line-height: 30px;
   span {
     position: relative;
     display: block;
@@ -692,8 +692,7 @@ ul.items {
       display: block;
       float: left;
       width: 35px;
-      height: 24px;
-      line-height: 24px;
+      height: 30px;
       text-align: center;
       box-shadow: 0 0 4px rgba(0,0,0,0.25) inset;
       &:nth-child(1) {
@@ -704,7 +703,7 @@ ul.items {
       &:nth-child(2) {
         border-top-right-radius: 2px;
         border-bottom-right-radius: 2px;
-        background: #e1cf5f;
+        background: $lightGrey;
       }
     }
     i {
@@ -718,7 +717,7 @@ ul.items {
       display: block;
       background: $darkGrey;
       box-shadow: 0 0 3px rgba(0,0,0,0.85) inset;
-      height: 24px;
+      height: 30px;
       width: 35px;
     }
   }
