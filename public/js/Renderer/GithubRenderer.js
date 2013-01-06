@@ -14,6 +14,7 @@ var GithubRenderer = function (app, selector) {
 };
 
 /**
+ * Initialize base markup
  *
  * @return {GithubRenderer}
  */
@@ -22,15 +23,46 @@ GithubRenderer.prototype.init = function () {
 
   var self = this;
 
-  this.$container.append('<h3>Repositories</h3>');
-  this.$repos = $('<ul class="repositories items"></ul>');
-  this.$container.append(this.$repos);
+  var $repositoriesHeader = $('<h3>Repositories<i></i></h3>'),
+    $repositoriesWrapper  = $('<div/>');
 
-  this.$container.append('<h3>Activity</h3>');
+  $repositoriesHeader.on('click', function (e) {
+    if ($repositoriesHeader.hasClass('collapsed')) {
+      $repositoriesHeader.removeClass('collapsed');
+      $repositoriesWrapper.css('display', 'block');
+    } else {
+      $repositoriesHeader.addClass('collapsed');
+      $repositoriesWrapper.css('display', 'none');
+    }
+  });
+
+  this.$repos = $('<ul class="repositories items"></ul>');
+  $repositoriesWrapper.append(this.$repos);
+
+  var $activityHeader = $('<h3>Recent Activity<i></i></h3>'),
+    $activityWrapper  = $('<div/>');
+
   this.$activity = $('<ul class="activity items"/>');
   this.$moreActivity = $('<div class="more"></span>');
-  this.$container.append(this.$activity);
-  this.$container.append(this.$moreActivity);
+  $activityWrapper
+    .append(this.$activity)
+    .append(this.$moreActivity);
+
+  $activityHeader.on('click', function (e) {
+    if ($activityHeader.hasClass('collapsed')) {
+      $activityHeader.removeClass('collapsed');
+      $activityWrapper.css('display', 'block');
+    } else {
+      $activityHeader.addClass('collapsed');
+      $activityWrapper.css('display', 'none');
+    }
+  });
+
+  this.$container
+    .append($repositoriesHeader)
+    .append($repositoriesWrapper)
+    .append($activityHeader)
+    .append($activityWrapper);
 
   this.$container.find('.more').on('click', function (e) {
     e.preventDefault();

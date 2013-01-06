@@ -186,6 +186,23 @@ ul.items {
 
 
 /*******************************************************************************
+ * Popin
+ ******************************************************************************/
+#popin {
+  display: none;
+  position: absolute;
+  background: #FFF;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 50px;
+  box-shadow: 0 0 7px rgba(0,0,0,0.75);
+  z-index: 9999;
+  border-radius: 2px;
+}
+
+
+/*******************************************************************************
  * Home
  ******************************************************************************/
 #home {
@@ -403,6 +420,29 @@ ul.items {
   .stack-overflow-profile h2 {
     background-image: url("../imgs/stack-overflow-icon-16.png");
   }
+  h3 {
+    position: relative;
+    cursor: pointer;
+    i {
+      position: absolute;
+      top: 3px;
+      right: $hSpacing;
+      height: 24px;
+      width: 24px;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-image: url("../imgs/collapse-icon.png");
+    }
+    &:hover {
+      background-color: lighten($lightGrey, 20);
+    }
+    &.collapsed {
+      border-bottom: 1px solid $lightGrey;
+      i {
+        background-image: url("../imgs/expand-icon.png");
+      }
+    }
+  }
   ul.activity {
     font-size: 13px;
     a {
@@ -422,13 +462,17 @@ ul.items {
   }
   ul.repositories {
     font-size: 13px;
+    li {
+      padding: 5px $hSpacing;
+      border-bottom: none;
+    }
     a {
       text-decoration: none;
       font-weight: bold;
       color: darken($darkGrey, 15);
       background: $yellow;
       display: inline-block;
-      padding: 3px 7px;
+      padding: 2px 6px;
       border-radius: 2px;
       &:hover {
         background-color: $lightYellow;

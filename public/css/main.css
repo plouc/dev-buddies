@@ -166,6 +166,21 @@ ul.items {
     background-color: #fff6ba; }
 
 /*******************************************************************************
+ * Popin
+ ******************************************************************************/
+#popin {
+  display: none;
+  position: absolute;
+  background: #FFF;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 50px;
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.75);
+  z-index: 9999;
+  border-radius: 2px; }
+
+/*******************************************************************************
  * Home
  ******************************************************************************/
 #home {
@@ -341,6 +356,24 @@ ul.items {
   background-image: url("../imgs/linkedin-icon-16.png"); }
 #buddy-profile .stack-overflow-profile h2 {
   background-image: url("../imgs/stack-overflow-icon-16.png"); }
+#buddy-profile h3 {
+  position: relative;
+  cursor: pointer; }
+  #buddy-profile h3 i {
+    position: absolute;
+    top: 3px;
+    right: 12px;
+    height: 24px;
+    width: 24px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url("../imgs/collapse-icon.png"); }
+  #buddy-profile h3:hover {
+    background-color: #d1cfcf; }
+  #buddy-profile h3.collapsed {
+    border-bottom: 1px solid #9f9b9b; }
+    #buddy-profile h3.collapsed i {
+      background-image: url("../imgs/expand-icon.png"); }
 #buddy-profile ul.activity {
   font-size: 13px; }
   #buddy-profile ul.activity a {
@@ -356,13 +389,16 @@ ul.items {
     color: #888; }
 #buddy-profile ul.repositories {
   font-size: 13px; }
+  #buddy-profile ul.repositories li {
+    padding: 5px 12px;
+    border-bottom: none; }
   #buddy-profile ul.repositories a {
     text-decoration: none;
     font-weight: bold;
     color: #2d2828;
     background: #e1cf5f;
     display: inline-block;
-    padding: 3px 7px;
+    padding: 2px 6px;
     border-radius: 2px; }
     #buddy-profile ul.repositories a:hover {
       background-color: #fff6ba; }

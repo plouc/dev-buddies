@@ -52,7 +52,7 @@ $(document).ready(function () {
 
   $(app).on('buddies.result', function (e, buddies) {
     buddiesRenderer.render(buddies);
-  }).on('buddy.saved', function(e) {
+  }).on('buddy.saved', function (e) {
     app.getBuddies();
   });
 
