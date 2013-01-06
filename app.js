@@ -13,7 +13,7 @@ var app = connect()
     debug: true
   }))
   .use(function(req, res){
-    res.end('Hello from Connect!\n');
+    res.end('No static resource found\n');
   });
 
 http.createServer(app).listen(3000);
