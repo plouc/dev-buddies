@@ -32,6 +32,12 @@ $(document).ready(function () {
   });
 
 
+  $buddyProfile.find('.back-list').on('click', function (e) {
+    e.preventDefault();
+    gotoPanel('#buddies-list');
+  });
+
+
   // home action buttons bindings
   $('#home .presentation a.go-search').on('click', function (e) {
     e.preventDefault();
@@ -68,7 +74,7 @@ $(document).ready(function () {
 
 
   _.each(app.providers, function (provider, providerName) {
-    $buddyProfile.find('.wrapper').append(app.getProviderRenderer(providerName).getContainer());
+    $buddyProfile.find('.panel-wrapper').append(app.getProviderRenderer(providerName).getContainer());
   });
 
 

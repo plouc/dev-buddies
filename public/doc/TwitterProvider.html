@@ -129,7 +129,7 @@
         <dl>
             
 <dt>
-    <h4 class="name" id="formatSearchResult"><span class="type-signature"></span>formatSearchResult<span class="signature">(result)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+    <h4 class="name" id="formatSearchResult"><span class="type-signature"></span>formatSearchResult<span class="signature">(result)</span><span class="type-signature"> &rarr; {<a href="ProviderResult.html">ProviderResult</a>}</span></h4>
     
     
 </dt>
@@ -177,6 +177,11 @@ typical github result fields:
             
             <td class="type">
             
+                
+<span class="param-type">Object</span>
+
+
+            
             </td>
             
             
@@ -213,7 +218,7 @@ typical github result fields:
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>TwitterProvider.js, line 77</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>TwitterProvider.js, line 79</li></ul></dd>
 	
     
     
@@ -240,7 +245,249 @@ typical github result fields:
 	</dt>
 	<dd>
 		
-<span class="param-type">Object</span>
+<span class="param-type"><a href="ProviderResult.html">ProviderResult</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="formatSearchResults"><span class="type-signature"></span>formatSearchResults<span class="signature">(results)</span><span class="type-signature"></span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>results</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+
+	
+	<dt class="inherited-from">Inherited From:</dt>
+	<dd class="inherited-from"><ul class="dummy"><li>
+		<a href="Provider.html#formatSearchResults">Provider#formatSearchResults</a>
+	</li></dd>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>Provider.js, line 93</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getState"><span class="type-signature"></span>getState<span class="signature">(command)</span><span class="type-signature"> &rarr; {String}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>command</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+
+	
+	<dt class="inherited-from">Inherited From:</dt>
+	<dd class="inherited-from"><ul class="dummy"><li>
+		<a href="Provider.html#getState">Provider#getState</a>
+	</li></dd>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>Provider.js, line 45</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type">String</span>
 
 
 	</dd>
@@ -351,7 +598,7 @@ typical github result fields:
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>TwitterProvider.js, line 32</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>TwitterProvider.js, line 33</li></ul></dd>
 	
     
     
@@ -376,6 +623,163 @@ twitterProvider.search('Douglas Crockford', function(result) {
   console.log(result);
 });</code></pre>
 
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="setResponse"><span class="type-signature"></span>setResponse<span class="signature">(command, response)</span><span class="type-signature"> &rarr; {<a href="Provider.html">Provider</a>}</span></h4>
+    
+    
+</dt>
+<dd>
+    
+    
+    <div class="description">
+        Set command response.
+    </div>
+    
+
+    
+    
+    
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+	<tr>
+		
+		<th>Name</th>
+		
+		
+		<th>Type</th>
+		
+		
+		
+		
+		
+		<th class="last">Description</th>
+	</tr>
+	</thead>
+	
+	<tbody>
+	
+	
+        <tr>
+            
+                <td class="name"><code>command</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	
+        <tr>
+            
+                <td class="name"><code>response</code></td>
+            
+            
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+            
+            
+            
+            
+            
+            <td class="description last"></td>
+        </tr>
+	
+	
+	</tbody>
+</table>
+    
+    
+    
+<dl class="details">
+    
+        
+	
+	
+	
+
+	
+	<dt class="inherited-from">Inherited From:</dt>
+	<dd class="inherited-from"><ul class="dummy"><li>
+		<a href="Provider.html#setResponse">Provider#setResponse</a>
+	</li></dd>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source"><ul class="dummy"><li>Provider.js, line 62</li></ul></dd>
+	
+    
+    
+	
+	
+	
+	
+</dl>
+
+    
+    
+    
+    
+    
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+	<dt>
+		Type
+	</dt>
+	<dd>
+		
+<span class="param-type"><a href="Provider.html">Provider</a></span>
+
+
+	</dd>
+</dl>
+
+        
+    
     
 </dd>
 
@@ -498,7 +902,7 @@ twitterProvider.search('Douglas Crockford', function(result) {
 	
 	
 	<dt class="tag-source">Source:</dt>
-	<dd class="tag-source"><ul class="dummy"><li>Provider.js, line 30</li></ul></dd>
+	<dd class="tag-source"><ul class="dummy"><li>Provider.js, line 28</li></ul></dd>
 	
     
     
@@ -558,7 +962,7 @@ twitterProvider.search('Douglas Crockford', function(result) {
 <br clear="both">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3</a> on Sun Jan 06 2013 02:13:26 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3</a> on Sun Jan 06 2013 04:22:14 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

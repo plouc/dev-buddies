@@ -1,139 +1,145 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Dev Buddies</title>
-    <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
-    <link rel="stylesheet" type="text/css" href="css/main.css"/>
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Dev Buddies</title>
+  <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
+  <link rel="stylesheet" type="text/css" href="css/main.css"/>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
 </head>
 <body>
-    <div id="container">
-        <div class="panel-slider">
-            <div class="panel-container">
-                <div class="panel active">
-                    <div class="subpanel-container">
-                        <div id="home" class="subpanel">
-                            <h1>Home</h1>
-                            <p class="presentation"><strong>Dev Buddies</strong> helps you track developpers activity,
-                            you can search an <strong>user by his name</strong>, then <strong>build his profile</strong>
-                            to store it in your dev buddy list and <strong>refresh his informations</strong>
-                            whenever you want.<br>
-                            <a href="#" class="go-search"><i></i>Find Buddies</a>
-                            <a href="#" class="go-list"><i></i>View collected Buddies</a></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel">
-                    <div class="subpanel-container">
-                        <div id="search" class="subpanel">
-                            <div class="search">
-                                <div class="container">
-                                    <span class="search-wrapper">
-                                        <input name="search" type="text"/>
-                                        <span class="clear"></span>
-                                        <a href="#"></a>
-                                    </span>
-                                    <div class="overlay">
-                                        <span class="loader"></span>
-                                    </div>
-                                </div>
-                                <span class="toggle"></span>
-                            </div>
-                            <p class="notice">Pick up items to build profile</p>
-                            <div class="results-wrapper">
-                                <ul class="selected-results items">
-                                </ul>
-                                <p class="build">
-                                    <a>Build profile</a>
-                                </p>
-                                <ul class="results items">
-                                </ul>
-                            </div>
-                            <script type="IN/Login"></script>
-                            <div class="overlay">
-                                <span class="loader"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="buddies" class="panel">
-                    <div class="subpanel-container">
-                        <div id="buddies-list" class="subpanel">
-                        </div>
-
-                        <div id="buddy-profile" class="subpanel">
-                            <h1>Buddy</h1>
-                            <div class="wrapper">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel">
-                    <div class="subpanel-container">
-                        <div id="settings" class="subpanel">
-                            <h1>Settings</h1>
-                            <h2>Providers</h2>
-                            <ul class="providers items">
-                                <li class="github">
-                                    <span class="name">Github</span>
-                                    <span class="switch on">
-                                        <span><span>on</span><span>off</span><i></i></span>
-                                    </span>
-                                </li>
-                                <li class="stack-overflow">
-                                    <span class="name">Stack Overflow</span>
-                                    <span class="switch on">
-                                        <span><span>on</span><span>off</span><i></i></span>
-                                    </span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel">
-                    <div class="subpanel-container">
-                        <div id="about" class="subpanel">
-                            <h1>About</h1>
-                            <p><strong>Dev Buddies</strong> is an application fully written in
-                            <strong>javascript</strong>, <strong>HTML</strong>, <strong>CSS</strong>
-                            brought to you by <strong>Raphaël Benitte</strong>, all job is done on the <strong>client side</strong>.<br/>
-                            It consume various <strong>API</strong> provided by great <strong>open source enthusiasts</strong> such as
-                            <strong>Github</strong> or <strong>Stack Overflow</strong>.<br/><br/>
-
-                            Don't expect the application to run on a legacy browser, it relies on modern technologies such as
-                            <strong>CSS3</strong>, <strong>HTML5</strong>, <strong>indexedDB</strong>...<br/><br/>
-
-                            If you like this app, please help improving it by contributing PRs on the GitHub project!</p>
-                        </div>
-                    </div>
-                </div>
+<div id="container">
+  <div class="panel-slider">
+    <div class="panel-container">
+      <div class="panel active">
+        <div class="subpanel-container">
+          <div id="home" class="subpanel headered-panel">
+            <h1 class="header">Home</h1>
+            <div class="panel-wrapper">
+              <p class="presentation"><strong>Dev Buddies</strong> helps you track developpers activity,
+                you can search an <strong>user by his name</strong>, then <strong>build his profile</strong>
+                to store it in your dev buddy list and <strong>refresh his informations</strong>
+                whenever you want.<br>
+                <a href="#" class="go-search"><i></i>Find Buddies</a>
+                <a href="#" class="go-list"><i></i>View collected Buddies</a></p>
             </div>
+          </div>
         </div>
-        <div class="nav">
-            <ul>
-                <li class="home">
-                    <a href="#home"><span>home</span></a>
-                </li>
-                <li class="search-button">
-                    <a href="#search"><span>search</span></a>
-                </li>
-                <li class="buddies">
-                    <a href="#buddies-list"><span>buddies</span></a>
-                </li>
-                <li class="settings">
-                    <a href="#settings"><span>settings</span></a>
-                </li>
-                <li class="about">
-                    <a href="#about"><span>about</span></a>
-                </li>
-            </ul>
+      </div>
+
+      <div class="panel">
+        <div class="subpanel-container">
+          <div id="search" class="subpanel">
+            <div class="search">
+              <div class="container">
+                <span class="search-wrapper">
+                    <input name="search" type="text"/>
+                    <span class="clear"></span>
+                    <a href="#"></a>
+                </span>
+                <div class="overlay">
+                  <span class="loader"></span>
+                </div>
+              </div>
+              <span class="toggle"></span>
+            </div>
+            <p class="notice">Pick up items to build profile</p>
+            <div class="results-wrapper">
+              <ul class="selected-results items">
+              </ul>
+              <p class="build">
+                <a>Build profile</a>
+              </p>
+              <ul class="results items">
+              </ul>
+            </div>
+            <script type="IN/Login"></script>
+            <div class="overlay">
+              <span class="loader"></span>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div id="buddies" class="panel">
+        <div class="subpanel-container">
+          <div id="buddies-list" class="subpanel headered-panel">
+          </div>
+
+          <div id="buddy-profile" class="subpanel headered-panel">
+            <h1 class="header">Buddy<span class="back-list header-button">back to list</span></h1>
+            <div class="panel-wrapper">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="subpanel-container">
+          <div id="settings" class="subpanel headered-panel">
+            <h1 class="header">Settings</h1>
+            <div class="panel-wrapper">
+              <h2>Providers</h2>
+              <ul class="providers items">
+                <li class="github">
+                  <span class="name">Github</span>
+                  <span class="switch on">
+                      <span><span>on</span><span>off</span><i></i></span>
+                  </span>
+                </li>
+                <li class="stack-overflow">
+                  <span class="name">Stack Overflow</span>
+                  <span class="switch on">
+                      <span><span>on</span><span>off</span><i></i></span>
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="subpanel-container">
+          <div id="about" class="subpanel headered-panel">
+            <h1 class="header">About</h1>
+            <div class="panel-wrapper">
+              <p><strong>Dev Buddies</strong> is an application fully written in
+              <strong>javascript</strong>, <strong>HTML</strong>, <strong>CSS</strong>
+              brought to you by <strong>Raphaël Benitte</strong>, all job is done on the <strong>client side</strong>.<br/>
+              It consume various <strong>API</strong> provided by great <strong>open source enthusiasts</strong> such as
+              <strong>Github</strong> or <strong>Stack Overflow</strong>.<br/><br/>
+
+              Don't expect the application to run on a legacy browser, it relies on modern technologies such as
+              <strong>CSS3</strong>, <strong>HTML5</strong>, <strong>localStorage</strong>...<br/><br/>
+
+              If you like this app, please help improving it by contributing PRs on the GitHub project!</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <script src="js/dev-buddies.pack.js"></script>
+  </div>
+  <div class="nav">
+    <ul>
+      <li class="home">
+        <a href="#home"><span>home</span></a>
+      </li>
+      <li class="search-button">
+        <a href="#search"><span>search</span></a>
+      </li>
+      <li class="buddies">
+        <a href="#buddies-list"><span>buddies</span></a>
+      </li>
+      <li class="settings">
+        <a href="#settings"><span>settings</span></a>
+      </li>
+      <li class="about">
+        <a href="#about"><span>about</span></a>
+      </li>
+    </ul>
+  </div>
+</div>
+<script src="js/dev-buddies.pack.js"></script>
 </body>
 </html>

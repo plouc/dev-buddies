@@ -17,8 +17,8 @@ BuddiesRenderer.prototype.init = function () {
 
   var self = this;
 
-  this.$title = $('<h1>Buddies</h1>');
-  this.$editButton = $('<a href="#">edit</a>');
+  this.$title = $('<h1 class="header">Buddies</h1>');
+  this.$editButton = $('<a class="header-button" href="#">edit</a>');
   this.$editButton.on('click', function (e) {
     e.preventDefault();
     if (!self.$editButton.hasClass('editing')) {
@@ -33,7 +33,7 @@ BuddiesRenderer.prototype.init = function () {
   this.$title.append(this.$editButton);
 
   this.$container.append(this.$title);
-  var $wrapper = $('<div class="wrapper"/>');
+  var $wrapper = $('<div class="panel-wrapper"/>');
   this.$list = $('<ul class="items"/>');
   $wrapper.append(this.$list);
   this.$container.append($wrapper);

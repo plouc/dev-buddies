@@ -23,7 +23,7 @@ GithubRenderer.prototype.init = function() {
   this.$container.append('<h3>Activity</h3>');
 
   this.$activity = $('<ul class="activity items"/>');
-  this.$moreActivity = $('<div class="more"><span>more...</span></span>');
+  this.$moreActivity = $('<div class="more"><span>more</span></span>');
   this.$container.append(this.$activity);
   this.$container.append(this.$moreActivity);
 

@@ -1,19 +1,20 @@
-$darkGrey:    #554d4c;
-$lightGrey:   #9f9b9b;
-$accent:      #299e83;
-$accentOver:  #29c7ab;
-$lightGreen:  #baf9ce;
-$removeColor: #ff3726;
-
-$hSpacing: 12px;
+// setup
+$darkGrey:     #554d4c;
+$lightGrey:    #9f9b9b;
+$removeColor:  #ff3726;
+$yellow:       #e1cf5f;
+$lightYellow:  #fff6ba;
+$hSpacing:     12px;
+$headerHeight: 44px;
+$navHeight:    40px;
 
 html, body {
   height: 100%;
 }
 body {
-  -webkit-font-smoothing:antialiased;
-  -moz-font-smoothing:antialiased;
-  font-smoothing:antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing:    antialiased;
+  font-smoothing:         antialiased;
   width: 100%;
   font-family: helvetica, arial;
   font-size: 15px;
@@ -21,27 +22,14 @@ body {
   background: darken($darkGrey, 15);
   line-height: 20px;
 }
+* {
+  outline: none;
+}
 a {
   color: darken($darkGrey, 10);
-  outline: none;
 }
 h1, h2, h3, h4, h5, h6 {
   color: $darkGrey;
-}
-h1 {
-  -moz-box-sizing: border-box;
-  box-sizing:      border-box;
-  width: 100%;
-  font-weight: 100;
-  height: 44px;
-  line-height: 44px;
-  text-transform: uppercase;
-  font-size: 25px;
-  padding: 0 $hSpacing;
-  margin: 0;
-  background: darken($darkGrey, 7);
-  color: lighten($darkGrey, 17);
-  position: relative;
 }
 h2 {
   color: darken($darkGrey, 10);
@@ -108,15 +96,61 @@ h3 {
   box-sizing: border-box;
   overflow: hidden;
 }
-
+.header {
+  -moz-box-sizing: border-box;
+  box-sizing:      border-box;
+  width: 100%;
+  font-weight: 100;
+  height: $headerHeight;
+  line-height: $headerHeight;
+  text-transform: uppercase;
+  font-size: 25px;
+  padding: 0 $hSpacing;
+  margin: 0;
+  background: darken($darkGrey, 7);
+  color: lighten($darkGrey, 17);
+  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.header-button {
+  cursor: pointer;
+  position: absolute;
+  top: 6px;
+  right: $hSpacing;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 2px;
+  background: $yellow;
+  color: darken($darkGrey, 12);
+  font-weight: bold;
+  font-size: 13px;
+  text-transform: none;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.75);
+  padding: 0 $hSpacing;
+  &:hover {
+    background: $lightYellow;
+  }
+}
+.headered-panel {
+  padding-top: $headerHeight;
+  -moz-box-sizing: border-box;
+  box-sizing:      border-box;
+}
+.panel-wrapper {
+  height: 100%;
+  overflow-y: auto;
+}
 .notice {
   padding: 7px $hSpacing;
   font-size: 13px;
   margin: 0;
   font-style: italic;
-  background: $lightGreen;
+  background: $lightYellow;
 }
-
 
 #buddies .subpanel-container {
   height: 200%;
@@ -141,8 +175,9 @@ ul.items {
   margin: 0;
   display: block;
   display: none;
+  background: $lightYellow;
+  text-align: center;
   span {
-    font-style: italic;
     color: #000;
     cursor: pointer;
     &:hover {
@@ -162,7 +197,7 @@ ul.items {
     margin: 0;
     line-height: 22px;
     strong {
-      color: #fff6ba;
+      color: $lightYellow;
       font-weight: normal;
     }
     a {
@@ -172,7 +207,7 @@ ul.items {
       position: relative;
       margin-top: 15px;
       display: block;
-      background-color: #e1cf5f;
+      background-color: $yellow;
       font-weight: bold;
       text-decoration: none;
       padding-left: 52px;
@@ -188,7 +223,7 @@ ul.items {
         left: 0;
         height: 40px;
         width: 40px;
-        background-color: #fff6ba;
+        background-color: $lightYellow;
         background-repeat: no-repeat;
         background-position: center center;
         display: block;
@@ -203,7 +238,7 @@ ul.items {
       }
       &:hover {
         color: darken($darkGrey, 30);
-        background-color: #fff6ba;
+        background-color: $lightYellow;
       }
     }
   }
@@ -221,7 +256,7 @@ ul.items {
     margin: 0;
     line-height: 22px;
     strong {
-      color: #fff6ba;
+      color: $lightYellow;
       font-weight: normal;
     }
   }
@@ -278,7 +313,6 @@ ul.items {
     color: $darkGrey;
     border: none;
     border-radius: 2px;
-    outline: none;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     width: 100%;
@@ -310,23 +344,17 @@ ul.items {
     right: 0;
     cursor: pointer;
     display: block;
-    width: 100%;
     display: block;
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
     height: 40px;
     width: 40px;
-    outline: none;
-    background-color: #e1cf5f;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-image: url("../imgs/search-dark-grey.png");
-    box-shadow: 0 1px 1px #fff38b inset;
-    color: #baf9ce;
+    background: $yellow url("../imgs/search-dark-grey.png") no-repeat center center;
+    box-shadow: 0 1px 1px $lightYellow inset;
     &:focus,
     &:hover,
     &:active {
-      background-color: #fff6ba;
+      background-color: $lightYellow;
     }
   }
 }
@@ -360,16 +388,8 @@ ul.items {
  * Buddy profile
  ******************************************************************************/
 #buddy-profile {
-  padding-top: 44px;
-  -moz-box-sizing: border-box;
-  box-sizing:      border-box;
-  h1 {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
   h2 {
-    padding-left: 32px;
+    padding-left: 36px;
   }
   .wrapper {
     height: 100%;
@@ -414,13 +434,13 @@ ul.items {
       display: inline-block;
       padding: 7px 25px;
       color: darken($darkGrey, 10);
-      background: $accent;
+      background: $yellow;
       border-radius: 2px;
       cursor: pointer;
       box-shadow: 0 1px 3px rgba(0,0,0,0.5),
-                  0 1px 1px lighten($accent, 10) inset;
+                  0 1px 1px $lightYellow inset;
       &:hover {
-        background: $accentOver;
+        background: $lightYellow;
       }
     }
   }
@@ -465,7 +485,6 @@ ul.items {
   }
   .results .validate,
   .selected-results .validate {
-    outline: none;
     position: absolute;
     top: 15px;
     right: $hSpacing;
@@ -506,37 +525,20 @@ ul.items {
 
 
 /*******************************************************************************
- * Settings panel
+ * Buddies panel
  ******************************************************************************/
 #buddies-list {
-  padding-top: 44px;
-  -moz-box-sizing: border-box;
-  box-sizing:      border-box;
   h1 {
-    position: absolute;
-    top: 0;
-    left: 0;
     a {
       -webkit-transition: width 0.1s linear;
       -moz-transition:    width 0.1s linear;
       transition:         width 0.1s linear;
-      position: absolute;
-      top: 6px;
-      right: $hSpacing;
-      display: inline-block;
-      height: 30px;
+      padding: 0;
       width: 50px;
       text-align: center;
-      line-height: 30px;
-      border-radius: 2px;
       background: $removeColor;
-      font-size: 13px;
-      text-transform: none;
-      text-decoration: none;
       box-shadow: 0 1px 1px lighten($removeColor, 12) inset,
                   0 1px 2px rgba(0,0,0,0.5);
-      color: darken($darkGrey, 12);
-      font-weight: bold;
       &:hover {
         background: lighten($removeColor, 10);
       }
@@ -544,10 +546,6 @@ ul.items {
         width: 70px;
       }
     }
-  }
-  .wrapper {
-    height: 100%;
-    overflow-y: auto;
   }
   li {
     -webkit-transition: background-color 0.3s linear;
@@ -644,7 +642,7 @@ ul.items {
   position: absolute;
   bottom: 0;
   background: #ddd;
-  height: 40px;
+  height: $navHeight;
   width: 100%;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -667,7 +665,6 @@ ul.items {
     }
   }
   a {
-    outline: none;
     display: block;
     width: 100%;
     height: 100%;
@@ -699,9 +696,7 @@ ul.items {
   }
 }
 
-
-
-
+// switch component (on/off)
 .switch {
   cursor: pointer;
   font-size: 13px;
@@ -727,7 +722,7 @@ ul.items {
       &:nth-child(1) {
         border-top-left-radius: 2px;
         border-bottom-left-radius: 2px;
-        background: #fff6ba;
+        background: $yellow;
       }
       &:nth-child(2) {
         border-top-right-radius: 2px;

@@ -12,27 +12,14 @@ body {
   background: #2d2828;
   line-height: 20px; }
 
-a {
-  color: #3a3534;
+* {
   outline: none; }
+
+a {
+  color: #3a3534; }
 
 h1, h2, h3, h4, h5, h6 {
   color: #554d4c; }
-
-h1 {
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 100%;
-  font-weight: 100;
-  height: 44px;
-  line-height: 44px;
-  text-transform: uppercase;
-  font-size: 25px;
-  padding: 0 12px;
-  margin: 0;
-  background: #423c3b;
-  color: #837675;
-  position: relative; }
 
 h2 {
   color: #3a3534;
@@ -98,12 +85,59 @@ h3 {
   box-sizing: border-box;
   overflow: hidden; }
 
+.header {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  font-weight: 100;
+  height: 44px;
+  line-height: 44px;
+  text-transform: uppercase;
+  font-size: 25px;
+  padding: 0 12px;
+  margin: 0;
+  background: #423c3b;
+  color: #837675;
+  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0; }
+
+.header-button {
+  cursor: pointer;
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 2px;
+  background: #e1cf5f;
+  color: #35302f;
+  font-weight: bold;
+  font-size: 13px;
+  text-transform: none;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.75);
+  padding: 0 12px; }
+  .header-button:hover {
+    background: #fff6ba; }
+
+.headered-panel {
+  padding-top: 44px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.panel-wrapper {
+  height: 100%;
+  overflow-y: auto; }
+
 .notice {
   padding: 7px 12px;
   font-size: 13px;
   margin: 0;
   font-style: italic;
-  background: #baf9ce; }
+  background: #fff6ba; }
 
 #buddies .subpanel-container {
   height: 200%; }
@@ -123,9 +157,10 @@ ul.items {
   padding: 5px 12px;
   margin: 0;
   display: block;
-  display: none; }
+  display: none;
+  background: #fff6ba;
+  text-align: center; }
   .more span {
-    font-style: italic;
     color: #000;
     cursor: pointer; }
 
@@ -237,7 +272,6 @@ ul.items {
     color: #554d4c;
     border: none;
     border-radius: 2px;
-    outline: none;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     width: 100%;
@@ -263,19 +297,13 @@ ul.items {
     right: 0;
     cursor: pointer;
     display: block;
-    width: 100%;
     display: block;
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
     height: 40px;
     width: 40px;
-    outline: none;
-    background-color: #e1cf5f;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-image: url("../imgs/search-dark-grey.png");
-    box-shadow: 0 1px 1px #fff38b inset;
-    color: #baf9ce; }
+    background: #e1cf5f url("../imgs/search-dark-grey.png") no-repeat center center;
+    box-shadow: 0 1px 1px #fff6ba inset; }
     .search a:focus, .search a:hover, .search a:active {
       background-color: #fff6ba; }
 
@@ -301,30 +329,22 @@ ul.items {
 /*******************************************************************************
  * Buddy profile
  ******************************************************************************/
-#buddy-profile {
-  padding-top: 44px;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box; }
-  #buddy-profile h1 {
-    position: absolute;
-    top: 0;
-    left: 0; }
-  #buddy-profile h2 {
-    padding-left: 32px; }
-  #buddy-profile .wrapper {
-    height: 100%;
-    overflow-y: auto; }
-  #buddy-profile .github-profile h2 {
-    background-image: url("../imgs/github-icon-16.png"); }
-  #buddy-profile .linkedin-profile h2 {
-    background-image: url("../imgs/linkedin-icon-16.png"); }
-  #buddy-profile .stack-overflow-profile h2 {
-    background-image: url("../imgs/stack-overflow-icon-16.png"); }
-  #buddy-profile ul.activity {
-    font-size: 13px; }
-    #buddy-profile ul.activity .date {
-      font-style: italic;
-      color: #888; }
+#buddy-profile h2 {
+  padding-left: 36px; }
+#buddy-profile .wrapper {
+  height: 100%;
+  overflow-y: auto; }
+#buddy-profile .github-profile h2 {
+  background-image: url("../imgs/github-icon-16.png"); }
+#buddy-profile .linkedin-profile h2 {
+  background-image: url("../imgs/linkedin-icon-16.png"); }
+#buddy-profile .stack-overflow-profile h2 {
+  background-image: url("../imgs/stack-overflow-icon-16.png"); }
+#buddy-profile ul.activity {
+  font-size: 13px; }
+  #buddy-profile ul.activity .date {
+    font-style: italic;
+    color: #888; }
 
 /*******************************************************************************
  * Search results
@@ -343,12 +363,12 @@ ul.items {
     display: inline-block;
     padding: 7px 25px;
     color: #3a3534;
-    background: #299e83;
+    background: #e1cf5f;
     border-radius: 2px;
     cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 1px #34c6a5 inset; }
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 1px #fff6ba inset; }
     #search .build a:hover {
-      background: #29c7ab; }
+      background: #fff6ba; }
 #search .results-wrapper {
   overflow-y: auto;
   height: 100%;
@@ -385,7 +405,6 @@ ul.items {
   border-bottom: none; }
 #search .results .validate,
 #search .selected-results .validate {
-  outline: none;
   position: absolute;
   top: 15px;
   right: 12px;
@@ -421,90 +440,68 @@ ul.items {
   background-color: #e2e1e1; }
 
 /*******************************************************************************
- * Settings panel
+ * Buddies panel
  ******************************************************************************/
-#buddies-list {
-  padding-top: 44px;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box; }
-  #buddies-list h1 {
-    position: absolute;
-    top: 0;
-    left: 0; }
-    #buddies-list h1 a {
-      -webkit-transition: width 0.1s linear;
-      -moz-transition: width 0.1s linear;
-      transition: width 0.1s linear;
-      position: absolute;
-      top: 6px;
-      right: 12px;
-      display: inline-block;
-      height: 30px;
-      width: 50px;
-      text-align: center;
-      line-height: 30px;
-      border-radius: 2px;
-      background: #ff3726;
-      font-size: 13px;
-      text-transform: none;
-      text-decoration: none;
-      box-shadow: 0 1px 1px #ff6f63 inset, 0 1px 2px rgba(0, 0, 0, 0.5);
-      color: #35302f;
-      font-weight: bold; }
-      #buddies-list h1 a:hover {
-        background: #ff6659; }
-      #buddies-list h1 a.editing {
-        width: 70px; }
-  #buddies-list .wrapper {
-    height: 100%;
-    overflow-y: auto; }
-  #buddies-list li {
-    -webkit-transition: background-color 0.3s linear;
-    -moz-transition: background-color 0.3s linear;
-    transition: background-color 0.3s linear;
-    position: relative;
-    min-height: 32px;
-    background-color: #fff; }
-    #buddies-list li:hover {
-      background-color: #e2e1e1; }
-  #buddies-list h3 {
-    background: none;
-    padding: 0; }
-  #buddies-list .remove {
-    -webkit-transition: width 0.1s linear, opacity 0.1s linear;
-    -moz-transition: width 0.1s linear, opacity 0.1s linear;
-    transition: width 0.1s linear, opacity 0.1s linear;
-    opacity: 0;
-    display: block;
-    position: absolute;
-    top: 7px;
-    right: 12px;
-    width: 32px;
+#buddies-list h1 a {
+  -webkit-transition: width 0.1s linear;
+  -moz-transition: width 0.1s linear;
+  transition: width 0.1s linear;
+  padding: 0;
+  width: 50px;
+  text-align: center;
+  background: #ff3726;
+  box-shadow: 0 1px 1px #ff6f63 inset, 0 1px 2px rgba(0, 0, 0, 0.5); }
+  #buddies-list h1 a:hover {
+    background: #ff6659; }
+  #buddies-list h1 a.editing {
+    width: 70px; }
+#buddies-list li {
+  -webkit-transition: background-color 0.3s linear;
+  -moz-transition: background-color 0.3s linear;
+  transition: background-color 0.3s linear;
+  position: relative;
+  min-height: 32px;
+  background-color: #fff; }
+  #buddies-list li:hover {
+    background-color: #e2e1e1; }
+#buddies-list h3 {
+  background: none;
+  padding: 0; }
+#buddies-list .remove {
+  -webkit-transition: width 0.1s linear, opacity 0.1s linear;
+  -moz-transition: width 0.1s linear, opacity 0.1s linear;
+  transition: width 0.1s linear, opacity 0.1s linear;
+  opacity: 0;
+  display: block;
+  position: absolute;
+  top: 7px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 2px;
+  background: #ff3726 url("../imgs/glyphicons_197_remove.png") no-repeat center center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  color: #35302f;
+  overflow: hidden; }
+  #buddies-list .remove.active {
+    opacity: 1; }
+  #buddies-list .remove span {
+    line-height: 32px;
     height: 32px;
-    border-radius: 2px;
-    background: #ff3726 url("../imgs/glyphicons_197_remove.png") no-repeat center center;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
-    font-size: 13px;
-    text-decoration: none;
-    font-weight: bold;
-    text-align: center;
-    color: #35302f;
-    overflow: hidden; }
-    #buddies-list .remove.active {
-      opacity: 1; }
-    #buddies-list .remove span {
-      line-height: 32px;
-      height: 32px;
-      width: 70px;
-      display: block;
-      visibility: hidden; }
-    #buddies-list .remove.pending {
-      width: 70px;
-      background: #ff3726; }
-      #buddies-list .remove.pending span {
-        visibility: visible; }
-    #buddies-list .remove:hover {
-      background-color: #ff6659; }
+    width: 70px;
+    display: block;
+    visibility: hidden; }
+  #buddies-list .remove.pending {
+    width: 70px;
+    background: #ff3726; }
+    #buddies-list .remove.pending span {
+      visibility: visible; }
+  #buddies-list .remove:hover {
+    background-color: #ff6659; }
 
 /*******************************************************************************
  * Settings panel
@@ -551,7 +548,6 @@ ul.items {
     .nav li:first-child {
       border-left: none; }
   .nav a {
-    outline: none;
     display: block;
     width: 100%;
     height: 100%;
@@ -597,7 +593,7 @@ ul.items {
       .switch span span:nth-child(1) {
         border-top-left-radius: 2px;
         border-bottom-left-radius: 2px;
-        background: #fff6ba; }
+        background: #e1cf5f; }
       .switch span span:nth-child(2) {
         border-top-right-radius: 2px;
         border-bottom-right-radius: 2px;
