@@ -1,15 +1,16 @@
 /**
  * (c) 2012-2013 Raphaël Benitte (http://rbenitte.com)
  */
-$(document).ready(function() {
+$(document).ready(function () {
+  "use strict";
 
-  var app             = new App()
-    , searchRenderer  = new SearchRenderer(app, '.search')
-    , buddiesRenderer = new BuddiesRenderer($('#buddies-list'))
-    , buddyRenderer   = new BuddyRenderer($('buddy-profile'))
-    , $panelContainer = $('.panel-container')
-    , storage         = new Storage()
-    , $buddyProfile   = $('#buddy-profile');
+  var app           = new App(),
+    searchRenderer  = new SearchRenderer(app, '.search'),
+    buddiesRenderer = new BuddiesRenderer($('#buddies-list')),
+    buddyRenderer   = new BuddyRenderer($('buddy-profile')),
+    $panelContainer = $('.panel-container'),
+    storage         = new Storage(),
+    $buddyProfile   = $('#buddy-profile');
 
 
   searchRenderer.init();
@@ -17,14 +18,14 @@ $(document).ready(function() {
 
 
   // buddies list bindings
-  $(buddiesRenderer).on('buddy.details', function(e, profile) {
-    _.each(profile.providerData, function(providerProfileData, providerName) {
+  $(buddiesRenderer).on('buddy.details', function (e, profile) {
+    _.each(profile.providerData, function (providerProfileData, providerName) {
       app.getProviderRenderer(providerName).render(providerProfileData.data);
       gotoPanel('#buddy-profile');
     });
-  }).on('buddy.remove', function(e, $item, profile) {
-    app.removeProfile(profile, function() {
-      $item.fadeOut(200, function() {
+  }).on('buddy.remove', function (e, $item, profile) {
+    app.removeProfile(profile, function () {
+      $item.fadeOut(200, function () {
         $item.remove();
       });
     });
@@ -32,33 +33,33 @@ $(document).ready(function() {
 
 
   // home action buttons bindings
-  $('#home .presentation a.go-search').on('click', function(e) {
+  $('#home .presentation a.go-search').on('click', function (e) {
     e.preventDefault();
-    gotoPanel('#search', function() {
+    gotoPanel('#search', function () {
       searchRenderer.$query.focus();
     });
   });
-  $('#home .presentation a.go-list').on('click', function(e) {
+  $('#home .presentation a.go-list').on('click', function (e) {
     e.preventDefault();
     gotoPanel('#buddies-list');
   });
 
 
   // storage initialization
-  storage.init(function() {
+  storage.init(function () {
     app.setStorage(storage);
-    storage.getAll('buddies', function(buddies) {
+    storage.getAll('buddies', function (buddies) {
       buddiesRenderer.render(buddies);
     });
   });
 
 
   // nav buttons bindings
-  $('.nav').on('click', 'a', function(e) {
+  $('.nav').on('click', 'a', function (e) {
     e.preventDefault();
 
-    var $navButton    = $(this)
-      , panelSelector = $navButton.attr('href');
+    var $navButton  = $(this),
+      panelSelector = $navButton.attr('href');
 
     gotoPanel(panelSelector);
     $('.nav a').removeClass('active');
@@ -66,23 +67,23 @@ $(document).ready(function() {
   });
 
 
-  _.each(app.providers, function(provider, providerName) {
-    $buddyProfile.append(app.getProviderRenderer(providerName).getContainer());
+  _.each(app.providers, function (provider, providerName) {
+    $buddyProfile.find('.wrapper').append(app.getProviderRenderer(providerName).getContainer());
   });
 
 
-  $(searchRenderer).on('submit', function(e, query) {
-    app.search(query, function(query, results) {
+  $(searchRenderer).on('submit', function (e, query) {
+    app.search(query, function (query, results) {
       searchRenderer.resultsLoaded().render(query, results);
     });
-  }).on('build.init', function(e, query, results) {
+  }).on('build.init', function (e, query, results) {
 
-    app.getUserProfile(query, results, function(profile) {
+    app.getUserProfile(query, results, function (profile) {
 
       searchRenderer.$mainOverlay.css('display', 'none');
       app.storeProfile(profile);
 
-      _.each(profile.providerData, function(providerProfileData, providerName) {
+      _.each(profile.providerData, function (providerProfileData, providerName) {
         app.getProviderRenderer(providerName).render(providerProfileData.data);
       });
 
@@ -92,7 +93,7 @@ $(document).ready(function() {
 
 
   // generic bindings for switch components
-  $('.switch').on('click', function(e) {
+  $('.switch').on('click', function (e) {
     var $switch = $(this);
     if ($switch.hasClass('on')) {
       $switch.removeClass('on').addClass('off');
@@ -102,10 +103,11 @@ $(document).ready(function() {
   });
 
 
-  var gotoPanel = function(selector, callback) {
+  var gotoPanel = function (selector, callback) {
 
-    var $panel    = $(selector)
-      , $subpanel = null;
+    var $panel  = $(selector),
+      $subpanel = null,
+      $subpanelContainer;
 
     if ($panel.hasClass('subpanel')) {
       $subpanel = $panel;
@@ -114,19 +116,19 @@ $(document).ready(function() {
 
     $panelContainer.animate({
       'left': '-' + ($panel.index() * 20) + '%'
-    }, 400, function() {
+    }, 400, function () {
       if ($subpanel === null && callback) {
         callback();
       }
     });
 
     if ($subpanel !== null) {
-      var $subpanelContainer = $panel.find('.subpanel-container');
+      $subpanelContainer = $panel.find('.subpanel-container');
 
-      setTimeout(function() {
+      setTimeout(function () {
         $subpanelContainer.animate({
           'top': '-' + ($subpanel.index() * 100) + '%'
-        }, 400, function() {
+        }, 400, function () {
           if (callback) {
             callback();
           }

@@ -2,7 +2,9 @@
  * @copyright 2012-2013 Raphaël Benitte (http://rbenitte.com)
  * @constructor
  */
-var BuddiesRenderer = function($container) {
+var BuddiesRenderer = function ($container) {
+  "use strict";
+
   this.$container = $container;
 };
 
@@ -10,13 +12,14 @@ var BuddiesRenderer = function($container) {
  *
  * @return {*}
  */
-BuddiesRenderer.prototype.init = function() {
+BuddiesRenderer.prototype.init = function () {
+  "use strict";
 
   var self = this;
 
   this.$title = $('<h1>Buddies</h1>');
   this.$editButton = $('<a href="#">edit</a>');
-  this.$editButton.on('click', function(e) {
+  this.$editButton.on('click', function (e) {
     e.preventDefault();
     if (!self.$editButton.hasClass('editing')) {
       self.$editButton.text('done').addClass('editing');
@@ -30,8 +33,10 @@ BuddiesRenderer.prototype.init = function() {
   this.$title.append(this.$editButton);
 
   this.$container.append(this.$title);
+  var $wrapper = $('<div class="wrapper"/>');
   this.$list = $('<ul class="items"/>');
-  this.$container.append(this.$list);
+  $wrapper.append(this.$list);
+  this.$container.append($wrapper);
 
   return this;
 };
@@ -39,18 +44,20 @@ BuddiesRenderer.prototype.init = function() {
 /**
  * @param buddies
  */
-BuddiesRenderer.prototype.render = function(buddies) {
+BuddiesRenderer.prototype.render = function (buddies) {
+  "use strict";
 
   var self = this;
 
-  _.each(buddies, function(buddy) {
+  _.each(buddies, function (buddy) {
 
-    var $buddy = $('<li/>');
+    var $buddy = $('<li/>'),
+      $remove  = $('<a href="#" class="remove"><span>remove</span></a>');
+
     $buddy.append('<h3>' + buddy.id + '</h3>');
 
     // two step removal
-    var $remove = $('<a href="#" class="remove"><span>remove</span></a>');
-    $remove.on('click', function(e) {
+    $remove.on('click', function (e) {
       e.preventDefault();
       e.stopPropagation(); // prevent parent li from triggering buddy.details event
       if ($remove.hasClass('pending')) {
@@ -61,7 +68,7 @@ BuddiesRenderer.prototype.render = function(buddies) {
     });
     $buddy.append($remove);
 
-    $buddy.on('click', function(e) {
+    $buddy.on('click', function (e) {
       e.preventDefault();
       $(self).trigger('buddy.details', [buddy]);
     });
@@ -69,5 +76,3 @@ BuddiesRenderer.prototype.render = function(buddies) {
     self.$list.append($buddy);
   });
 };
-
-
