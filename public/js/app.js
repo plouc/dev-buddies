@@ -26,12 +26,31 @@ var App = function () {
 /**
  *
  * @param {Storage} storage STorage used to store user profiles and settings
+ * @return {App}
  */
 App.prototype.setStorage = function (storage) {
   "use strict";
 
   console.log('Setting app storage', storage);
   this.storage = storage;
+
+  return this;
+};
+
+/**
+ * @param {Function} callback
+ */
+App.prototype.getBuddies = function (callback) {
+  "use strict";
+
+  var self = this;
+
+  this.storage.getAll('buddies', function (buddies) {
+    $(self).trigger('buddies.result', [buddies]);
+    if (_.isFunction(callback)) {
+      callback(buddies);
+    }
+  });
 };
 
 /**
@@ -42,7 +61,10 @@ App.prototype.storeProfile = function (profile) {
 
   console.log('Store profile', profile, 'with id', profile.id);
 
+  var self = this;
+
   this.storage.set('buddies', profile.id, profile, function () {
+    $(self).trigger('buddy.saved', [profile]);
     console.log('Profile stored');
   });
 };

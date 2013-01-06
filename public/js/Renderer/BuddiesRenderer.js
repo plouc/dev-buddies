@@ -49,6 +49,8 @@ BuddiesRenderer.prototype.render = function (buddies) {
 
   var self = this;
 
+  self.$list.html('');
+
   buddies = _.values(buddies);
   buddies.sort(function compare(a, b) {
     if (a.id.toLowerCase() < b.id.toLowerCase()) {

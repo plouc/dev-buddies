@@ -16,7 +16,6 @@ $(document).ready(function () {
   searchRenderer.init();
   buddiesRenderer.init();
 
-
   // buddies list bindings
   $(buddiesRenderer).on('buddy.details', function (e, profile) {
     _.each(profile.providerData, function (providerProfileData, providerName) {
@@ -51,14 +50,17 @@ $(document).ready(function () {
   });
 
 
-  // storage initialization
-  storage.init(function () {
-    app.setStorage(storage);
-    storage.getAll('buddies', function (buddies) {
-      buddiesRenderer.render(buddies);
-    });
+  $(app).on('buddies.result', function (e, buddies) {
+    buddiesRenderer.render(buddies);
+  }).on('buddy.saved', function(e) {
+    app.getBuddies();
   });
 
+
+  // storage initialization
+  storage.init(function () {
+    app.setStorage(storage).getBuddies();
+  });
 
   // nav buttons bindings
   $('.nav').on('click', 'a', function (e) {

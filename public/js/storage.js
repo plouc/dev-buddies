@@ -2,7 +2,7 @@
  * @copyright 2012-2013 Raphaël Benitte (http://rbenitte.com)
  * @constructor
  */
-var Storage = function() {
+var Storage = function () {
 };
 
 /**
@@ -10,7 +10,7 @@ var Storage = function() {
  *
  * @param {Function} callback
  */
-Storage.prototype.init = function(callback) {
+Storage.prototype.init = function (callback) {
   if (_.isFunction(callback)) {
     callback();
   }
@@ -23,7 +23,7 @@ Storage.prototype.init = function(callback) {
  * @param value
  * @param {Function} callback
  */
-Storage.prototype.set = function(collectionName, key, value, callback) {
+Storage.prototype.set = function (collectionName, key, value, callback) {
 
   var collection = localStorage.getItem(collectionName);
   if (collection === null) {
@@ -37,6 +37,10 @@ Storage.prototype.set = function(collectionName, key, value, callback) {
   collection[key] = value;
 
   localStorage.setItem(collectionName, JSON.stringify(collection));
+
+  if (_.isFunction(callback)) {
+    callback();
+  }
 };
 
 /**
@@ -44,7 +48,7 @@ Storage.prototype.set = function(collectionName, key, value, callback) {
  * @param {String}   collectionName
  * @param {Function} callback
  */
-Storage.prototype.getAll = function(collectionName, callback) {
+Storage.prototype.getAll = function (collectionName, callback) {
 
   var collection = localStorage.getItem(collectionName);
   if (collection === null) {
@@ -65,7 +69,7 @@ Storage.prototype.getAll = function(collectionName, callback) {
  * @param {String}   key
  * @param {Function} callback
  */
-Storage.prototype.remove = function(collectionName, key, callback) {
+Storage.prototype.remove = function (collectionName, key, callback) {
 
   var collection = localStorage.getItem(collectionName);
   if (collection === null) {
@@ -76,6 +80,7 @@ Storage.prototype.remove = function(collectionName, key, callback) {
     console.log('Fetched existing collection', collection);
   }
 
+  console.log('Delete entry from ' + collectionName + ' with id ' + key);
   delete collection[key];
 
   localStorage.setItem(collectionName, JSON.stringify(collection));
