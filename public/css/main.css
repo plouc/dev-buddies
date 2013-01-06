@@ -358,7 +358,14 @@ ul.items {
   font-size: 13px; }
   #buddy-profile ul.repositories a {
     text-decoration: none;
-    font-weight: bold; }
+    font-weight: bold;
+    color: #2d2828;
+    background: #e1cf5f;
+    display: inline-block;
+    padding: 3px 7px;
+    border-radius: 2px; }
+    #buddy-profile ul.repositories a:hover {
+      background-color: #fff6ba; }
   #buddy-profile ul.repositories .meta {
     font-style: italic; }
 

@@ -425,6 +425,14 @@ ul.items {
     a {
       text-decoration: none;
       font-weight: bold;
+      color: darken($darkGrey, 15);
+      background: $yellow;
+      display: inline-block;
+      padding: 3px 7px;
+      border-radius: 2px;
+      &:hover {
+        background-color: $lightYellow;
+      }
     }
     .meta {
       font-style: italic;
