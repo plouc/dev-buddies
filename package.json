@@ -4,7 +4,8 @@
   "dependencies" : {
     "connect": "*",
     "node-minify": "*",
-    "jsdoc": "*"
+    "jsdoc": "*",
+    "coffee-script": "1.4.x"
   },
   "devDependencies": {
     "testacular": "0.4.x",
@@ -14,5 +15,6 @@
     "node": ">=0.8"
   },
   "scripts": {
+    "test": "./node_modules/coffee-script/bin/cake test"
   }
 }
