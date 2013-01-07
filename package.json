@@ -1,0 +1,16 @@
+{
+  "name": "dev-buddies",
+  "version": "0.1.0",
+  "dependencies" : {
+    "connect": "*",
+    "node-minify": "*",
+    "jsdoc": "*",
+    "jasmine-node": "*"
+  },
+  "engine": {
+    "node": ">=0.8"
+  },
+  "scripts": {
+    "start": "node app.js"
+  }
+}
