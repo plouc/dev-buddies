@@ -1,8 +1,8 @@
-describe("Providers", function () {
-  "use strict";
+describe('Providers', function () {
+  'use strict';
 
-  describe("Provider", function () {
-    "use strict";
+  describe('Provider', function () {
+    'use strict';
 
     var provider,
       error;
@@ -12,19 +12,19 @@ describe("Providers", function () {
       error = null;
     });
 
-    it("provider.id should be 'undefined provider id'", function () {
+    it('provider.id should be \'undefined provider id', function () {
       expect(provider.id).toEqual('undefined provider id');
     });
 
-    it("provider.name should be 'undefined provider name'", function () {
+    it('provider.name should be \'undefined provider name\'', function () {
       expect(provider.name).toEqual('undefined provider name');
     });
 
-    it("default search command state should be 'idle'", function () {
+    it('default search command state should be \'idle\'', function () {
       expect(provider.getState('search')).toEqual('idle');
     });
 
-    it("search method should throw an error with message 'You must implement the search method'", function () {
+    it('search method should throw an error with message \'You must implement the search method\'', function () {
       try {
         provider.search();
       } catch (err) {
@@ -32,7 +32,7 @@ describe("Providers", function () {
       }
     });
 
-    it("search method should throw an error with message 'You must implement the getUserProfile method'", function () {
+    it('search method should throw an error with message \'You must implement the getUserProfile method\'', function () {
       try {
         provider.getUserProfile();
       } catch (err) {
@@ -41,7 +41,7 @@ describe("Providers", function () {
       expect(error).toEqual('You must implement the getUserProfile method');
     });
 
-    it("formatSearchResult method should throw an error with message 'You must implement the formatSearchResult method'", function () {
+    it('formatSearchResult method should throw an error with message \'You must implement the formatSearchResult method\'', function () {
       try {
         provider.formatSearchResult({});
       } catch (err) {
@@ -52,8 +52,8 @@ describe("Providers", function () {
   });
 
 
-  describe("Github Provider", function () {
-    "use strict";
+  describe('Github Provider', function () {
+    'use strict';
 
     var provider;
 
@@ -61,35 +61,35 @@ describe("Providers", function () {
       provider = new GithubProvider();
     });
 
-    it("provider.id should be 'github'", function () {
+    it('provider.id should be \'github\'', function () {
       expect(provider.id).toEqual('github');
     });
 
-    it("provider.name should be 'github'", function () {
+    it('provider.name should be \'github\'', function () {
       expect(provider.name).toEqual('github');
     });
 
-    it("default search command state should be 'idle'", function () {
+    it('default search command state should be \'idle\'', function () {
       expect(provider.getState('search')).toEqual('idle');
     });
 
-    it("search method call should change command state to 'loading'", function () {
+    it('search method call should change command state to \'loading\'', function () {
       spyOn($, 'ajax').andReturn({
-        "response": true
+        'response': true
       });
       provider.search('term', function () {});
       expect(provider.getState('search')).toEqual('loading');
     });
 
-    it("should convert a raw API response to ProviderResult", function () {
+    it('should convert a raw API response to ProviderResult', function () {
       var formatted = provider.formatSearchResult({});
       expect(formatted).toEqual(jasmine.any(ProviderResult));
     });
   });
 
 
-  describe("Stack Overlow Provider", function () {
-    "use strict";
+  describe('Stack Overlow Provider', function () {
+    'use strict';
 
     var provider;
 
@@ -97,27 +97,27 @@ describe("Providers", function () {
       provider = new StackOverflowProvider();
     });
 
-    it("provider.id should be 'Stack Overflow'", function () {
+    it('provider.id should be \'Stack Overflow\'', function () {
       expect(provider.id).toEqual('stack-overflow');
     });
 
-    it("provider.name should be 'Stack Overflow'", function () {
+    it('provider.name should be \'Stack Overflow\'', function () {
       expect(provider.name).toEqual('Stack Overflow');
     });
 
-    it("default search command state should be 'idle'", function () {
+    it('default search command state should be \'idle\'', function () {
       expect(provider.getState('search')).toEqual('idle');
     });
 
-    it("search method call should change command state to 'loading'", function () {
+    it('search method call should change command state to \'loading\'', function () {
       spyOn($, 'ajax').andReturn({
-        "response": true
+        'response': true
       });
       provider.search('term', function () {});
       expect(provider.getState('search')).toEqual('loading');
     });
 
-    it("should convert a raw API response to ProviderResult", function () {
+    it('should convert a raw API response to ProviderResult', function () {
       var formatted = provider.formatSearchResult({});
       expect(formatted).toEqual(jasmine.any(ProviderResult));
     });
