@@ -22,6 +22,7 @@ new compressor.minify({
     , "public/js/Renderer/StackOverflowRenderer.js"
     , "public/js/Renderer/BuddyRenderer.js"
     , "public/js/Renderer/BuddiesRenderer.js"
+    , "public/js/Renderer/SettingsRenderer.js"
 
     , "public/js/App.js"
     , "public/js/main.js"

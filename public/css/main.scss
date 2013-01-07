@@ -191,14 +191,55 @@ ul.items {
 #popin {
   display: none;
   position: absolute;
-  background: #FFF;
-  top: 10px;
+  top: 54px;
   left: 10px;
   right: 10px;
   bottom: 50px;
-  box-shadow: 0 0 7px rgba(0,0,0,0.75);
+  box-shadow: 0 0 3px rgba(0,0,0,0.85);
   z-index: 9999;
   border-radius: 2px;
+  .wrapper {
+    padding-top: 32px;
+    -moz-box-sizing: border-box;
+    box-sizing:      border-box;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border-radius: 2px;
+    .title {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-top-left-radius: 2px;
+      border-top-right-radius: 2px;
+      background: darken($darkGrey, 7);
+      color: lighten($darkGrey, 17);
+      height: 32px;
+      line-height: 32px;
+      width: 100%;
+      -moz-box-sizing: border-box;
+      box-sizing:      border-box;
+      padding: 0 $hSpacing;
+      text-transform: uppercase;
+      font-size: 19px;
+    }
+    .close {
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 32px;
+      height: 32px;
+      background: url("../imgs/glyphicons_197_remove.png") no-repeat center center;
+    }
+    .container {
+      background: #FFF;
+      height: 100%;
+      width: 100%;
+      border-bottom-left-radius: 2px;
+      border-bottom-right-radius: 2px;
+    }
+  }
 }
 
 
@@ -696,12 +737,23 @@ ul.items {
  * Settings panel
  ******************************************************************************/
 #settings {
+  .switch {
+    top: 13px;
+  }
+  .quota {
+    color: lighten($darkGrey, 10);
+    display: block;
+    font-size: 13px;
+    span {
+      color: darken($darkGrey, 10);
+    }
+  }
   .providers {
     li {
       position: relative;
-      padding: 11px $hSpacing 11px 32px;
+      padding: 11px $hSpacing 11px 36px;
       background-repeat: no-repeat;
-      background-position: $hSpacing center;
+      background-position: $hSpacing 14px;
       .name {
         font-weight: bold;
       }

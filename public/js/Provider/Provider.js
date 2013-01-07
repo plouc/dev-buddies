@@ -7,6 +7,9 @@
 var Provider = function () {
   "use strict";
 
+  this.id   = 'undefined provider id';
+  this.name = 'undefined provider name';
+
   this.states = {
     "search":         "idle",
     "getUserProfile": "idle"

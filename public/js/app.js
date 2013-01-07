@@ -6,19 +6,35 @@
 var App = function () {
   "use strict";
 
+  var self = this,
+    $this  = $(this);
+
   // define available providers
   var githubProvider      = new GithubProvider(),
     stackOverflowProvider = new StackOverflowProvider();
 
+  $(githubProvider).add(stackOverflowProvider).on('api.quota', function () {
+    $this.trigger('api.quota', _.values(arguments).slice(1));
+    if (self.storage !== null) {
+      self.storage.set('quota', arguments[1], {
+        max:       arguments[2],
+        remaining: arguments[3]
+      });
+    }
+  });
+
   this.providers = {};
-  this.providers[githubProvider.name]        = githubProvider;
-  this.providers[stackOverflowProvider.name] = stackOverflowProvider;
+
+  this.providers[githubProvider.id]        = githubProvider;
+  this.providers[stackOverflowProvider.id] = stackOverflowProvider;
 
   this.providerRenderers = {};
-  this.providerRenderers[githubProvider.name] = new GithubRenderer();
-  this.providerRenderers[githubProvider.name].init();
-  this.providerRenderers[stackOverflowProvider.name] = new StackOverflowRenderer();
-  this.providerRenderers[stackOverflowProvider.name].init();
+
+  this.providerRenderers[githubProvider.id] = new GithubRenderer();
+  this.providerRenderers[githubProvider.id].init();
+
+  this.providerRenderers[stackOverflowProvider.id] = new StackOverflowRenderer();
+  this.providerRenderers[stackOverflowProvider.id].init();
 
   this.storage = null;
 };
@@ -85,25 +101,25 @@ App.prototype.removeProfile = function (profile, callback) {
 };
 
 /**
- * Returns a provider by its name.
+ * Returns a provider by its id.
  *
  * @param {String} providerId
  * @return {Provider}
  */
-App.prototype.getProvider = function (providerName) {
+App.prototype.getProvider = function (providerId) {
   "use strict";
 
-  if (!this.providers.hasOwnProperty(providerName)) {
-    throw 'Invalid provider requested, there is no provider defined for id "' + providerName + '"';
+  if (!this.providers.hasOwnProperty(providerId)) {
+    throw 'Invalid provider requested, there is no provider defined for id "' + providerId + '"';
   }
-  return this.providers[providerName];
+  return this.providers[providerId];
 };
 
 /**
  *
- * @return {Array} Returns all provider names
+ * @return {Array} Returns all provider ids
  */
-App.prototype.getProviderNames = function () {
+App.prototype.getProviderIds = function () {
   "use strict";
 
   return _.keys(this.providers);
@@ -145,7 +161,7 @@ App.prototype.getProvidersResult = function (providers, command) {
     response = provider.responses[command];
     if (response !== null) {
       response.forEach(function (result) {
-        result.provider = provider.name;
+        result.provider = provider.id;
         results.push(result);
       });
     }
@@ -168,7 +184,7 @@ App.prototype.search = function (query, callback) {
 
   _.each(this.providers, function (provider) {
     provider.search(query, function () {
-      self.checkProvidersState(self.providers, 'search', 'loaded', function() {
+      self.checkProvidersState(self.providers, 'search', 'loaded', function () {
         var results = self.getProvidersResult(self.providers, 'search');
         if (_.isFunction(callback)) {
           callback(query, results);
@@ -198,11 +214,10 @@ App.prototype.getProviderRenderer = function (providerName) {
 App.prototype.getUserProfile = function (profileId, searchResults, callback) {
   "use strict";
 
-  var self = this,
-    result,
+  var self            = this,
     selectedProviders = {},
-    provider,
-    profile = new Profile(profileId);
+    profile           = new Profile(profileId),
+    provider;
 
   _.each(searchResults, function (result) {
     selectedProviders[result.providerName] = self.getProvider(result.providerName);
@@ -214,7 +229,7 @@ App.prototype.getUserProfile = function (profileId, searchResults, callback) {
     provider = self.getProvider(result.providerName);
 
     provider.getUserProfile(result, function (oResult, userProfile) {
-      profile.addProviderData(this.name, oResult.userId, userProfile);
+      profile.addProviderData(this.id, oResult.userId, userProfile);
 
       self.checkProvidersState(selectedProviders, 'getUserProfile', 'loaded', function () {
         if (_.isFunction(callback)) {

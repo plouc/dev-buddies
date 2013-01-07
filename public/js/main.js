@@ -4,17 +4,21 @@
 $(document).ready(function () {
   "use strict";
 
-  var app           = new App(),
-    searchRenderer  = new SearchRenderer(app, '.search'),
-    buddiesRenderer = new BuddiesRenderer($('#buddies-list')),
-    buddyRenderer   = new BuddyRenderer($('buddy-profile')),
-    $panelContainer = $('.panel-container'),
-    storage         = new Storage(),
-    $buddyProfile   = $('#buddy-profile');
+  var app            = new App(),
+    searchRenderer   = new SearchRenderer(app, '.search'),
+    buddiesRenderer  = new BuddiesRenderer($('#buddies-list')),
+    buddyRenderer    = new BuddyRenderer($('buddy-profile')),
+    settingsRenderer = new SettingsRenderer($('#settings .panel-wrapper')),
+    $panelContainer  = $('.panel-container'),
+    storage          = new Storage(),
+    $buddyProfile    = $('#buddy-profile'),
+    $settings        = $('#settings');
 
 
   searchRenderer.init();
   buddiesRenderer.init();
+
+  settingsRenderer.renderProviders(app.providers);
 
   // buddies list bindings
   $(buddiesRenderer).on('buddy.details', function (e, profile) {
@@ -50,17 +54,26 @@ $(document).ready(function () {
   });
 
 
+  // app bindings
   $(app).on('buddies.result', function (e, buddies) {
     buddiesRenderer.render(buddies);
   }).on('buddy.saved', function (e) {
     app.getBuddies();
+  }).on('api.quota', function (e, providerId, quotaMax, quotaRemaining) {
+    settingsRenderer.updateQuota(providerId, quotaMax, quotaRemaining);
   });
 
 
   // storage initialization
   storage.init(function () {
     app.setStorage(storage).getBuddies();
+    storage.getAll('quota', function (quotas) {
+      _.each(quotas, function (quota, providerId) {
+        settingsRenderer.updateQuota(providerId, quota.max, quota.remaining);
+      });
+    });
   });
+
 
   // nav buttons bindings
   $('.nav').on('click', 'a', function (e) {
@@ -110,6 +123,26 @@ $(document).ready(function () {
     }
   });
 
+  var $popin        = $('#popin'),
+    $popinTitle     = $popin.find('.title'),
+    $popinContainer = $popin.find('.container'),
+    $popinClose     = $popin.find('.close'),
+    setPopinContent,
+    closePopin;
+
+  $popinClose.on('click', function (e) {
+    closePopin();
+  });
+
+  setPopinContent = function (title, content) {
+    $popinTitle.html(title);
+    $popinContainer.html(content);
+    $popin.css('display', 'block');
+  };
+
+  closePopin = function () {
+    $popin.css('display', 'none');
+  };
 
   var gotoPanel = function (selector, callback) {
 

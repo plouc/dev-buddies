@@ -171,14 +171,51 @@ ul.items {
 #popin {
   display: none;
   position: absolute;
-  background: #FFF;
-  top: 10px;
+  top: 54px;
   left: 10px;
   right: 10px;
   bottom: 50px;
-  box-shadow: 0 0 7px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.85);
   z-index: 9999;
   border-radius: 2px; }
+  #popin .wrapper {
+    padding-top: 32px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border-radius: 2px; }
+    #popin .wrapper .title {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-top-left-radius: 2px;
+      border-top-right-radius: 2px;
+      background: #423c3b;
+      color: #837675;
+      height: 32px;
+      line-height: 32px;
+      width: 100%;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: 0 12px;
+      text-transform: uppercase;
+      font-size: 19px; }
+    #popin .wrapper .close {
+      cursor: pointer;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 32px;
+      height: 32px;
+      background: url("../imgs/glyphicons_197_remove.png") no-repeat center center; }
+    #popin .wrapper .container {
+      background: #FFF;
+      height: 100%;
+      width: 100%;
+      border-bottom-left-radius: 2px;
+      border-bottom-right-radius: 2px; }
 
 /*******************************************************************************
  * Home
@@ -579,11 +616,19 @@ ul.items {
 /*******************************************************************************
  * Settings panel
  ******************************************************************************/
+#settings .switch {
+  top: 13px; }
+#settings .quota {
+  color: #706564;
+  display: block;
+  font-size: 13px; }
+  #settings .quota span {
+    color: #3a3534; }
 #settings .providers li {
   position: relative;
-  padding: 11px 12px 11px 32px;
+  padding: 11px 12px 11px 36px;
   background-repeat: no-repeat;
-  background-position: 12px center; }
+  background-position: 12px 14px; }
   #settings .providers li .name {
     font-weight: bold; }
   #settings .providers li.github {

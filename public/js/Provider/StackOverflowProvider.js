@@ -10,7 +10,8 @@ var StackOverflowProvider = function () {
 
   Provider.call(this);
 
-  this.name = 'stack-overflow';
+  this.id   = 'stack-overflow';
+  this.name = 'Stack Overflow';
 
   this.baseUrls = {
     userSearch: 'https://api.stackexchange.com/2.1/users' //?order=desc&sort=reputation&inname=mlarcher&site=stackoverflow
@@ -46,6 +47,12 @@ StackOverflowProvider.prototype.search = function (query, callback) {
     success: function (response) {
       console.log('StackOverflowProvider response:');
       console.log(response);
+
+      $(self).trigger('api.quota', [
+        self.id,
+        response.quota_max,
+        response.quota_remaining
+      ]);
 
       self.setState('search', 'loaded')
           .setResponse('search', self.formatSearchResults(response.items));
@@ -110,5 +117,5 @@ StackOverflowProvider.prototype.getUserProfile = function(result, callback) {
 StackOverflowProvider.prototype.formatSearchResult = function(result) {
   "use strict";
 
-  return new ProviderResult(this.name, result.user_id, result.display_name, '', result.profile_image, result);
+  return new ProviderResult(this.id, result.user_id, result.display_name, '', result.profile_image, result);
 };

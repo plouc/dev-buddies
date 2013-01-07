@@ -10,6 +10,7 @@ var LinkedInProvider = function () {
 
   Provider.call(this);
 
+  this.id   = 'linkedin';
   this.name = 'linkedin';
 
   this.loaded        = false;
@@ -124,5 +125,5 @@ LinkedInProvider.prototype.formatSearchResult = function (result) {
     picture = result.pictureUrl;
   }
 
-  return new ProviderResult(this.name, result.firstName + ' ' + result.lastName, result.headline, picture, result);
+  return new ProviderResult(this.id, result.firstName + ' ' + result.lastName, result.headline, picture, result);
 };

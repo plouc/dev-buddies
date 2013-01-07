@@ -10,6 +10,7 @@ var TwitterProvider = function () {
 
   Provider.call(this);
 
+  this.id   = 'twitter';
   this.name = 'twitter';
 
   this.baseUrls = {
@@ -90,5 +91,5 @@ TwitterProvider.prototype.formatSearchResult = function (result) {
     description = result.language + ' developper';
   }
 
-  return new ProviderResult(this.name, fullname, description, null, result);
+  return new ProviderResult(this.id, fullname, description, null, result);
 };

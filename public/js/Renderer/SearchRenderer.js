@@ -98,7 +98,7 @@ SearchRenderer.prototype.render = function(searchId, results) {
 
     this.$notice.css('display', 'block');
 
-    var providers = this.app.getProviderNames();
+    var providers = this.app.getProviderIds();
     providers.forEach(function(provider) {
       providers[provider] = 0;
     });

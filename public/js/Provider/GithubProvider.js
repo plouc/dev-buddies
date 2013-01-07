@@ -10,7 +10,8 @@ var GithubProvider = function () {
 
   Provider.call(this);
 
-  this.name = "github";
+  this.id   = 'github';
+  this.name = 'github';
 
   this.baseUrls = {
     "userSearch":  "https://api.github.com/legacy/user/search/:query",
@@ -38,20 +39,26 @@ GithubProvider.prototype.search = function (query, callback) {
   var self = this;
 
   $.ajax({
-      url: this.baseUrls.userSearch.replace(':query', query)
-    , dataType: 'jsonp',
-      success: function(response) {
+    url: this.baseUrls.userSearch.replace(':query', query),
+    dataType: 'jsonp',
+    success: function (response) {
       console.log('GithubProvider response:');
       console.log(response);
 
-
+      if (response.meta) {
+        $(self).trigger('api.quota', [
+          self.id,
+          response.meta['X-RateLimit-Limit'],
+          response.meta['X-RateLimit-Remaining']
+        ]);
+      }
 
       self.setState('search', 'loaded')
         .setResponse('search', self.formatSearchResults(response.data.users));
 
       callback(response);
-    }
-    , error: function(jqXHR, textStatus, errorThrown) {
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
       console.log('GithubProvider error: ' + errorThrown);
 
       self.setState('search', 'loaded')
@@ -88,14 +95,21 @@ GithubProvider.prototype.getUserProfile = function (result, callback) {
   };
 
   $.ajax({
-    "url": this.baseUrls.userEvents.replace(':user', result.userId),
-    "dataType": "jsonp",
-    "success": function (response) {
+    url: this.baseUrls.userEvents.replace(':user', result.userId),
+    dataType: "jsonp",
+    success: function (response) {
+      if (response.meta) {
+        $(self).trigger('api.quota', [
+          self.id,
+          response.meta['X-RateLimit-Limit'],
+          response.meta['X-RateLimit-Remaining']
+        ]);
+      }
       compositeResponse.events = response.data;
       responseCount++;
       onResponse();
     },
-    "error": function(jqXHR, textStatus, errorThrown) {
+    error: function(jqXHR, textStatus, errorThrown) {
       compositeResponse.events = null;
       responseCount++;
       onResponse();
@@ -103,14 +117,21 @@ GithubProvider.prototype.getUserProfile = function (result, callback) {
   });
 
   $.ajax({
-    "url": this.baseUrls.userRepos.replace(':user', result.raw.login),
-    "dataType": "jsonp",
-    "success": function (response) {
+    url: this.baseUrls.userRepos.replace(':user', result.raw.login),
+    dataType: "jsonp",
+    success: function (response) {
+      if (response.meta) {
+        $(self).trigger('api.quota', [
+          self.id,
+          response.meta['X-RateLimit-Limit'],
+          response.meta['X-RateLimit-Remaining']
+        ]);
+      }
       compositeResponse.repos = response.data;
       responseCount++;
       onResponse();
     },
-    "error": function (jqXHR, textStatus, errorThrown) {
+    error: function (jqXHR, textStatus, errorThrown) {
       compositeResponse.repos = null;
       responseCount++;
       onResponse();
@@ -121,6 +142,13 @@ GithubProvider.prototype.getUserProfile = function (result, callback) {
     "url": this.baseUrls.userProfile.replace(':user', result.raw.login),
     "dataType": "jsonp",
     "success": function (response) {
+      if (response.meta) {
+        $(self).trigger('api.quota', [
+          self.id,
+          response.meta['X-RateLimit-Limit'],
+          response.meta['X-RateLimit-Remaining']
+        ]);
+      }
       compositeResponse.profile = response.data;
       responseCount++;
       onResponse();
@@ -167,5 +195,5 @@ GithubProvider.prototype.formatSearchResult = function (result) {
     description = result.language + ' developper';
   }
 
-  return new ProviderResult(this.name, result.login, fullname, description, null, result);
+  return new ProviderResult(this.id, result.login, fullname, description, null, result);
 };
