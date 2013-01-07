@@ -4,8 +4,7 @@
   "dependencies" : {
     "connect": "*",
     "node-minify": "*",
-    "jsdoc": "*",
-    "jasmine-node": "*"
+    "jsdoc": "*"
   },
   "devDependencies": {
     "testacular": "0.4.x",
@@ -15,6 +14,5 @@
     "node": ">=0.8"
   },
   "scripts": {
-    "test": "node app.js"
   }
 }
