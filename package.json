@@ -7,10 +7,14 @@
     "jsdoc": "*",
     "jasmine-node": "*"
   },
+  "devDependencies": {
+    "testacular": "0.4.x",
+    "phantomjs": "0.2.x"
+  },
   "engine": {
     "node": ">=0.8"
   },
   "scripts": {
-    "start": "node app.js"
+    "test": "node app.js"
   }
 }
