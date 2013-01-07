@@ -10,19 +10,11 @@ var App = function () {
 
   var self = this;
 
+  this.buddies = [];
+
   // define available providers
   var githubProvider      = new GithubProvider(),
     stackOverflowProvider = new StackOverflowProvider();
-
-  $(githubProvider).add(stackOverflowProvider).on('api.quota', function () {
-    self.$self.trigger('api.quota', _.values(arguments).slice(1));
-    if (self.storage !== null) {
-      self.storage.set('quota', arguments[1], {
-        max:       arguments[2],
-        remaining: arguments[3]
-      });
-    }
-  });
 
   this.providers = {};
 
@@ -38,6 +30,23 @@ var App = function () {
   this.providerRenderers[stackOverflowProvider.id].init();
 
   this.storage = null;
+};
+
+App.prototype.getQuotas = function () {
+  "use strict";
+
+  var self = this;
+
+  this.storage.getAll('quota', function (quotas) {
+    _.each(quotas, function (quota, providerId) {
+      self.providers[providerId].quota = {
+        max:       quota.max,
+        remaining: quota.remaining
+      };
+    });
+  });
+
+  return this;
 };
 
 /**
@@ -56,16 +65,13 @@ App.prototype.setStorage = function (storage) {
 /**
  * @param {Function} callback
  */
-App.prototype.getBuddies = function (callback) {
+App.prototype.getBuddies = function () {
   "use strict";
 
   var self = this;
 
   this.storage.getAll('buddies', function (buddies) {
-    self.$self.trigger('buddies.list', [buddies]);
-    if (_.isFunction(callback)) {
-      callback(buddies);
-    }
+    self.buddies = buddies;
   });
 };
 

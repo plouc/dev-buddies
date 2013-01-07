@@ -1,21 +1,16 @@
 var connect = require('connect')
   , http    = require('http')
-  , sass    = require('node-sass');
+  , port    = 3000;
 
 var app = connect()
   .use(connect.favicon())
   .use(connect.logger('dev'))
   .use(connect.static('public'))
   .use(connect.directory('public'))
-  .use(sass.middleware({
-    src:  'public',
-    dest: 'public',
-    debug: true
-  }))
   .use(function(req, res){
     res.end('No static resource found\n');
   });
 
-http.createServer(app).listen(3000);
+http.createServer(app).listen(port);
 
-console.log('server started');
+console.log('server started on port ' + port);

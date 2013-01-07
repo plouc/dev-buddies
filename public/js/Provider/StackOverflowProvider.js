@@ -6,12 +6,17 @@
  * @constructor
  */
 var StackOverflowProvider = function () {
-  "use strict";
+  'use strict';
 
   Provider.call(this);
 
-  this.id   = 'stack-overflow';
-  this.name = 'Stack Overflow';
+  this.id      = 'stack-overflow';
+  this.name    = 'Stack Overflow';
+  this.enabled = true;
+  this.quota   = {
+    max:       'n/a',
+    remaining: 'n/a'
+  };
 
   this.baseUrls = {
     userSearch: 'https://api.stackexchange.com/2.1/users' //?order=desc&sort=reputation&inname=mlarcher&site=stackoverflow
@@ -48,11 +53,8 @@ StackOverflowProvider.prototype.search = function (query, callback) {
       console.log('StackOverflowProvider response:');
       console.log(response);
 
-      $(self).trigger('api.quota', [
-        self.id,
-        response.quota_max,
-        response.quota_remaining
-      ]);
+      self.quota.max       = response.quota_max;
+      self.quota.remaining = response.quota_remaining;
 
       self.setState('search', 'loaded')
           .setResponse('search', self.formatSearchResults(response.items));

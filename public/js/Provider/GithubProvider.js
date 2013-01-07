@@ -10,8 +10,13 @@ var GithubProvider = function () {
 
   Provider.call(this);
 
-  this.id   = 'github';
-  this.name = 'github';
+  this.id      = 'github';
+  this.name    = 'github';
+  this.enabled = true;
+  this.quota   = {
+    max:       'n/a',
+    remaining: 'n/a'
+  };
 
   this.baseUrls = {
     userSearch:  "https://api.github.com/legacy/user/search/:query",
@@ -46,11 +51,8 @@ GithubProvider.prototype.search = function (query, callback) {
       console.log(response);
 
       if (response.meta) {
-        $(self).trigger('api.quota', [
-          self.id,
-          response.meta['X-RateLimit-Limit'],
-          response.meta['X-RateLimit-Remaining']
-        ]);
+        self.quota.max       = response.meta['X-RateLimit-Limit'];
+        self.quota.remaining = response.meta['X-RateLimit-Remaining'];
       }
 
       self.setState('search', 'loaded')
@@ -99,11 +101,8 @@ GithubProvider.prototype.getUserProfile = function (result, callback) {
     dataType: "jsonp",
     success: function (response) {
       if (response.meta) {
-        $(self).trigger('api.quota', [
-          self.id,
-          response.meta['X-RateLimit-Limit'],
-          response.meta['X-RateLimit-Remaining']
-        ]);
+        self.quota.max       = response.meta['X-RateLimit-Limit'];
+        self.quota.remaining = response.meta['X-RateLimit-Remaining'];
       }
       compositeResponse.events = response.data;
       responseCount++;
@@ -121,11 +120,8 @@ GithubProvider.prototype.getUserProfile = function (result, callback) {
     dataType: "jsonp",
     success: function (response) {
       if (response.meta) {
-        $(self).trigger('api.quota', [
-          self.id,
-          response.meta['X-RateLimit-Limit'],
-          response.meta['X-RateLimit-Remaining']
-        ]);
+        self.quota.max       = response.meta['X-RateLimit-Limit'];
+        self.quota.remaining = response.meta['X-RateLimit-Remaining'];
       }
       compositeResponse.repos = response.data;
       responseCount++;
@@ -143,11 +139,8 @@ GithubProvider.prototype.getUserProfile = function (result, callback) {
     "dataType": "jsonp",
     "success": function (response) {
       if (response.meta) {
-        $(self).trigger('api.quota', [
-          self.id,
-          response.meta['X-RateLimit-Limit'],
-          response.meta['X-RateLimit-Remaining']
-        ]);
+        self.quota.max       = response.meta['X-RateLimit-Limit'];
+        self.quota.remaining = response.meta['X-RateLimit-Remaining'];
       }
       compositeResponse.profile = response.data;
       responseCount++;

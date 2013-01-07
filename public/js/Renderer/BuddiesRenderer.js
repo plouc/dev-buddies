@@ -30,13 +30,13 @@ BuddiesRenderer.prototype.init = function () {
     }
   });
 
-  this.$title.append(this.$editButton);
+  //this.$title.append(this.$editButton);
 
-  this.$container.append(this.$title);
+  //this.$container.append(this.$title);
   var $wrapper = $('<div class="panel-wrapper"/>');
   this.$list = $('<ul class="items"/>');
   $wrapper.append(this.$list);
-  this.$container.append($wrapper);
+  //this.$container.append($wrapper);
 
   return this;
 };
