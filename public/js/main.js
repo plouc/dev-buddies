@@ -11,9 +11,7 @@ $(document).ready(function () {
     settingsRenderer = new SettingsRenderer($('#settings .panel-wrapper')),
     $panelContainer  = $('.panel-container'),
     storage          = new Storage(),
-    $buddyProfile    = $('#buddy-profile'),
-    $settings        = $('#settings');
-
+    $buddyProfile    = $('#buddy-profile');
 
   searchRenderer.init();
   buddiesRenderer.init();
@@ -55,12 +53,18 @@ $(document).ready(function () {
 
 
   // app bindings
-  $(app).on('buddies.result', function (e, buddies) {
+  $(app).on('buddy.list', function (e, buddies) {
     buddiesRenderer.render(buddies);
   }).on('buddy.saved', function (e) {
     app.getBuddies();
   }).on('api.quota', function (e, providerId, quotaMax, quotaRemaining) {
     settingsRenderer.updateQuota(providerId, quotaMax, quotaRemaining);
+  }).on('buddy.profile', function (e, profile) {
+    searchRenderer.$mainOverlay.css('display', 'none');
+    _.each(profile.providerData, function (providerProfileData, providerId) {
+      app.getProviderRenderer(providerId).render(providerProfileData.data);
+    });
+    gotoPanel('#buddy-profile');
   });
 
 
@@ -98,18 +102,7 @@ $(document).ready(function () {
       searchRenderer.resultsLoaded().render(query, results);
     });
   }).on('build.init', function (e, query, results) {
-
-    app.getUserProfile(query, results, function (profile) {
-
-      searchRenderer.$mainOverlay.css('display', 'none');
-      app.storeProfile(profile);
-
-      _.each(profile.providerData, function (providerProfileData, providerName) {
-        app.getProviderRenderer(providerName).render(providerProfileData.data);
-      });
-
-      gotoPanel('#buddy-profile');
-    });
+    app.getUserProfile(query, results);
   });
 
 
@@ -122,6 +115,7 @@ $(document).ready(function () {
       $switch.removeClass('off').addClass('on');
     }
   });
+
 
   var $popin        = $('#popin'),
     $popinTitle     = $popin.find('.title'),

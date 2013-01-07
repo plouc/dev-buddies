@@ -6,15 +6,16 @@
 var App = function () {
   "use strict";
 
-  var self = this,
-    $this  = $(this);
+  this.$self = $(this);
+
+  var self = this;
 
   // define available providers
   var githubProvider      = new GithubProvider(),
     stackOverflowProvider = new StackOverflowProvider();
 
   $(githubProvider).add(stackOverflowProvider).on('api.quota', function () {
-    $this.trigger('api.quota', _.values(arguments).slice(1));
+    self.$self.trigger('api.quota', _.values(arguments).slice(1));
     if (self.storage !== null) {
       self.storage.set('quota', arguments[1], {
         max:       arguments[2],
@@ -47,7 +48,6 @@ var App = function () {
 App.prototype.setStorage = function (storage) {
   "use strict";
 
-  console.log('Setting app storage', storage);
   this.storage = storage;
 
   return this;
@@ -62,7 +62,7 @@ App.prototype.getBuddies = function (callback) {
   var self = this;
 
   this.storage.getAll('buddies', function (buddies) {
-    $(self).trigger('buddies.result', [buddies]);
+    self.$self.trigger('buddies.list', [buddies]);
     if (_.isFunction(callback)) {
       callback(buddies);
     }
@@ -71,17 +71,18 @@ App.prototype.getBuddies = function (callback) {
 
 /**
  * @param {Profile} profile
+ * @param {Function}
  */
-App.prototype.storeProfile = function (profile) {
+App.prototype.storeProfile = function (profile, callback) {
   "use strict";
-
-  console.log('Store profile', profile, 'with id', profile.id);
 
   var self = this;
 
   this.storage.set('buddies', profile.id, profile, function () {
-    $(self).trigger('buddy.saved', [profile]);
-    console.log('Profile stored');
+    self.$self.trigger('buddy.saved', [profile]);
+    if (_.isFunction(callback)) {
+      callback();
+    }
   });
 };
 
@@ -92,11 +93,13 @@ App.prototype.storeProfile = function (profile) {
 App.prototype.removeProfile = function (profile, callback) {
   "use strict";
 
-  console.log('Removing profile', profile);
+  var self = this;
 
   this.storage.remove('buddies', profile.id, function () {
-    console.log('Profile ' + profile.id + ' removed');
-    callback();
+    self.$self.trigger('buddy.removed');
+    if (_.isFunction(callback)) {
+      callback();
+    }
   });
 };
 
@@ -223,15 +226,15 @@ App.prototype.getUserProfile = function (profileId, searchResults, callback) {
     selectedProviders[result.providerName] = self.getProvider(result.providerName);
   });
 
-  console.log('Selected user profile providers to build profile: ', Object.keys(selectedProviders).join(', '));
+  console.log("Selected user profile providers to build profile: ", Object.keys(selectedProviders).join(', '));
 
   _.each(searchResults, function (result) {
     provider = self.getProvider(result.providerName);
-
     provider.getUserProfile(result, function (oResult, userProfile) {
       profile.addProviderData(this.id, oResult.userId, userProfile);
-
       self.checkProvidersState(selectedProviders, 'getUserProfile', 'loaded', function () {
+        self.storeProfile(profile);
+        self.$self.trigger('buddy.profile', [profile]);
         if (_.isFunction(callback)) {
           callback(profile);
         }

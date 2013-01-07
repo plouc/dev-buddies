@@ -14,10 +14,10 @@ var GithubProvider = function () {
   this.name = 'github';
 
   this.baseUrls = {
-    "userSearch":  "https://api.github.com/legacy/user/search/:query",
-    "userProfile": "https://api.github.com/users/:user",
-    "userEvents":  "https://api.github.com/users/:user/events/public",
-    "userRepos":   "https://api.github.com/users/:user/repos"
+    userSearch:  "https://api.github.com/legacy/user/search/:query",
+    userProfile: "https://api.github.com/users/:user",
+    userEvents:  "https://api.github.com/users/:user/events/public",
+    userRepos:   "https://api.github.com/users/:user/repos"
   };
 };
 
