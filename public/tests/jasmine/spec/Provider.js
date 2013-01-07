@@ -12,8 +12,12 @@ describe("Providers", function () {
       error = null;
     });
 
-    it("provider name should be 'undefined'", function () {
-      expect(provider.name).toEqual(undefined);
+    it("provider.id should be 'undefined provider id'", function () {
+      expect(provider.id).toEqual('undefined provider id');
+    });
+
+    it("provider.name should be 'undefined provider name'", function () {
+      expect(provider.name).toEqual('undefined provider name');
     });
 
     it("default search command state should be 'idle'", function () {
@@ -57,7 +61,11 @@ describe("Providers", function () {
       provider = new GithubProvider();
     });
 
-    it("provider name should be 'github'", function () {
+    it("provider.id should be 'github'", function () {
+      expect(provider.id).toEqual('github');
+    });
+
+    it("provider.name should be 'github'", function () {
       expect(provider.name).toEqual('github');
     });
 
@@ -89,8 +97,12 @@ describe("Providers", function () {
       provider = new StackOverflowProvider();
     });
 
-    it("provider name should be 'stack-overflow'", function () {
-      expect(provider.name).toEqual('stack-overflow');
+    it("provider.id should be 'Stack Overflow'", function () {
+      expect(provider.id).toEqual('stack-overflow');
+    });
+
+    it("provider.name should be 'Stack Overflow'", function () {
+      expect(provider.name).toEqual('Stack Overflow');
     });
 
     it("default search command state should be 'idle'", function () {

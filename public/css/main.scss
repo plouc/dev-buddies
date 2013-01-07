@@ -312,7 +312,7 @@ ul.items {
     padding: 12px $hSpacing;
     margin: 0;
     line-height: 22px;
-    strong {
+    strong, a {
       color: $lightYellow;
       font-weight: normal;
     }

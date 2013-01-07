@@ -276,7 +276,7 @@ ul.items {
     padding: 12px 12px;
     margin: 0;
     line-height: 22px; }
-    #about p strong {
+    #about p strong, #about p a {
       color: #fff6ba;
       font-weight: normal; }
 
