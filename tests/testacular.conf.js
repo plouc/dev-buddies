@@ -3,7 +3,7 @@
 
 
 // base path, that will be used to resolve files and exclude
-basePath = '';
+basePath = '../';
 
 
 // list of files / patterns to load in the browser
@@ -29,9 +29,7 @@ exclude = [
 // test results reporter to use
 // possible values: 'dots', 'progress', 'junit'
 reporters = [
-  'dots',
-  'progress',
-  'junit'
+  'progress'
 ];
 
 
