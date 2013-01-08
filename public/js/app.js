@@ -8,8 +8,6 @@ var App = function () {
 
   this.$self = $(this);
 
-  var self = this;
-
   this.buddies = [];
 
   // define available providers

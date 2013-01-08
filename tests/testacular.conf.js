@@ -12,10 +12,15 @@ files = [
   JASMINE_ADAPTER,
   'public/js/vendors/underscore.js',
   'public/js/vendors/jquery-1.8.3.js',
+  'public/js/App.js',
+  'public/js/Storage.js',
+  'public/js/Controller/SettingsController.js',
   'public/js/Provider/ProviderResult.js',
   'public/js/Provider/Provider.js',
   'public/js/Provider/GithubProvider.js',
   'public/js/Provider/StackOverflowProvider.js',
+  'public/js/Renderer/GithubRenderer.js',
+  'public/js/Renderer/StackOverflowRenderer.js',
   'tests/specs/*.spec.js'
 ];
 

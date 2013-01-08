@@ -3,6 +3,7 @@
  * @constructor
  */
 var Storage = function () {
+  'use strict';
 };
 
 /**
@@ -11,6 +12,7 @@ var Storage = function () {
  * @param {Function} callback
  */
 Storage.prototype.init = function (callback) {
+  'use strict';
   if (_.isFunction(callback)) {
     callback();
   }
@@ -24,6 +26,7 @@ Storage.prototype.init = function (callback) {
  * @param {Function} callback
  */
 Storage.prototype.set = function (collectionName, key, value, callback) {
+  'use strict';
 
   var collection = localStorage.getItem(collectionName);
   if (collection === null) {
@@ -49,6 +52,7 @@ Storage.prototype.set = function (collectionName, key, value, callback) {
  * @param {Function} callback
  */
 Storage.prototype.getAll = function (collectionName, callback) {
+  'use strict';
 
   var collection = localStorage.getItem(collectionName);
   if (collection === null) {
@@ -70,6 +74,7 @@ Storage.prototype.getAll = function (collectionName, callback) {
  * @param {Function} callback
  */
 Storage.prototype.remove = function (collectionName, key, callback) {
+  'use strict';
 
   var collection = localStorage.getItem(collectionName);
   if (collection === null) {
