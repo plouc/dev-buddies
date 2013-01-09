@@ -94,16 +94,6 @@ GithubRenderer.prototype.render = function (profile) {
     currentDateDay = null;
 
   this.$activity.html('');
-  this.$repos.html('');
-
-  if (profile.repos) {
-    _.each(profile.repos, function (repo) {
-      self.$repos.append('<li>' +
-          '<a href="' + repo.html_url + '">' + repo.name + '</a>' +
-          ' <span class="meta">' + repo.description + '</span>' +
-        '</li>');
-    });
-  }
 
   if (profile.events) {
     _.each(profile.events, function (event) {

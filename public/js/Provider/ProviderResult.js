@@ -14,6 +14,8 @@ var ProviderResult = function (providerName, userId, fullname, description, pict
 
   this.userId = userId;
 
+  this.selected = false;
+
   // common properties
   this.fullname    = fullname;
   this.description = description;

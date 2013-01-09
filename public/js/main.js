@@ -6,15 +6,14 @@ $(document).ready(function () {
 
   var app            = new App(),
     searchRenderer   = new SearchRenderer(app, '.search'),
-    buddiesRenderer  = new BuddiesRenderer($('#buddies-list')),
     $panelContainer  = $('.panel-container'),
     storage          = new Storage(),
     $buddyProfile    = $('#buddy-profile');
 
   searchRenderer.init();
-  buddiesRenderer.init();
 
   // buddies list bindings
+  /*
   $(buddiesRenderer).on('buddy.details', function (e, profile) {
     _.each(profile.providerData, function (providerProfileData, providerName) {
       app.getProviderRenderer(providerName).render(providerProfileData.data);
@@ -27,6 +26,7 @@ $(document).ready(function () {
       });
     });
   });
+  */
 
 
   $buddyProfile.find('.back-list').on('click', function (e) {
@@ -50,7 +50,7 @@ $(document).ready(function () {
 
   // app bindings
   $(app).on('buddy.list', function (e, buddies) {
-    buddiesRenderer.render(buddies);
+    //buddiesRenderer.render(buddies);
   }).on('buddy.saved', function (e) {
     app.getBuddies();
   }).on('buddy.profile', function (e, profile) {
@@ -58,7 +58,6 @@ $(document).ready(function () {
     _.each(profile.providerData, function (providerProfileData, providerId) {
       app.getProviderRenderer(providerId).render(providerProfileData.data);
     });
-    gotoPanel('#buddy-profile');
   });
 
 

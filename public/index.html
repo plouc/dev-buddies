@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US" ng-app="DevBuddiesModule">
+<html lang="en-US" ng-app="DevBuddiesModule" ng-controller="AppController">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title>Dev Buddies</title>
@@ -20,8 +20,8 @@
                 you can search an <strong>user by his name</strong>, then <strong>build his profile</strong>
                 to store it in your dev buddy list and <strong>refresh his informations</strong>
                 whenever you want.<br>
-                <a href="#" class="go-search"><i></i>Find Buddies</a>
-                <a href="#" class="go-list"><i></i>View collected Buddies</a></p>
+                <a ng-click="goto('search')" class="go-search"><i></i>Find Buddies</a>
+                <a ng-click="goto('buddies-list')" class="go-list"><i></i>View collected Buddies</a></p>
             </div>
           </div>
         </div>
@@ -29,15 +29,17 @@
 
       <div class="panel">
         <div class="subpanel-container">
-          <div id="search" class="subpanel">
+          <div id="search" class="subpanel" ng-controller="SearchController">
             <div class="search">
               <div class="container">
-                <span class="search-wrapper">
-                    <input name="search" type="text"/>
-                    <span class="clear"></span>
-                    <a href="#"></a>
-                </span>
-                <div class="overlay">
+                <form ng-submit="search()">
+                  <span class="search-wrapper">
+                    <input type="text" ng-model="query" type="text"/>
+                    <span class="clear" ng-show="query.length" ng-click="clear();test()"></span>
+                    <a ng-click="search()"></a>
+                  </span>
+                </form>
+                <div class="overlay" ng-show="state=='searching'">
                   <span class="loader"></span>
                 </div>
               </div>
@@ -46,15 +48,27 @@
             <p class="notice">Pick up items to build profile</p>
             <div class="results-wrapper">
               <ul class="selected-results items">
+                <li ng-repeat="selectedResult in selectedResults" class="provider-{{selectedResult.providerName}}">
+                  <img src="{{selectedResult.picture}}" alt="{{selectedResult.fullname}}"/>
+                  <h2>{{selectedResult.fullname}}</h2>
+                  <p>{{selectedResult.description}}</p>
+                  <span class="validate"></span>
+                </li>
               </ul>
-              <p class="build">
-                <a>Build profile</a>
+              <p class="build" ng-show="selectedResults.length">
+                <a ng-click="build()">Build profile</a>
               </p>
               <ul class="results items">
+                <li ng-repeat="result in results" ng-click="selectResult(result)" class="provider-{{result.providerName}}" ng-hide="result.selected">
+                  <img src="{{result.picture}}" alt="{{result.fullname}}"/>
+                  <h2>{{result.fullname}}</h2>
+                  <p>{{result.description}}</p>
+                  <span class="validate"></span>
+                </li>
               </ul>
             </div>
             <script type="IN/Login"></script>
-            <div class="overlay">
+            <div class="overlay" ng-show="state=='loading'">
               <span class="loader"></span>
             </div>
           </div>
@@ -64,20 +78,36 @@
       <div id="buddies" class="panel">
         <div class="subpanel-container">
           <div id="buddies-list" class="subpanel headered-panel" ng-controller="BuddiesController">
-            <h1 class="header">Buddies<a class="header-button" href="#">edit</a></h1>
+            <h1 class="header">Buddies<a class="header-button" ng-class="editing" href="#" ng-click="switchEditMode($event)">edit</a></h1>
             <div class="panel-wrapper">
               <ul class="items">
-                <li ng-repeat="buddy in buddies">
+                <li ng-repeat="buddy in buddies" ng-click="selectBuddy(buddy)">
                   <h3>{{buddy.id}}</h3>
-                  <a href="#" class="remove"><span>remove</span></a>
+                  <a href="#" class="remove" ng-class="editing"><span>remove</span></a>
                 </li>
               </ul>
             </div>
           </div>
 
-          <div id="buddy-profile" class="subpanel headered-panel">
-            <h1 class="header">Buddy<span class="back-list header-button">back to list</span></h1>
+          <div id="buddy-profile" class="subpanel headered-panel" ng-controller="BuddyController">
+            <h1 class="header">{{buddy.id}}<span ng-click="goto('buddies-list')" class="back-list header-button">back to list</span></h1>
             <div class="panel-wrapper">
+              <div class="github-profile" ng-controller="GithubProfileController">
+                <h2>Github</h2>
+                <h3>Repositories<i></i></h3>
+                <ul class="repositories items">
+                  <li ng-repeat="repository in repositories">
+                    <a href="{{repo.html_url}}">{{repository.name}}</a>
+                    <span class="meta">{{repository.description}}</span>
+                  </li>
+                </ul>
+                <h3>Recent activity<i></i></h3>
+                <ul class="activity items">
+                  <li ng-repeat="activity in activities">
+                    activity
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -130,19 +160,19 @@
   <div class="nav">
     <ul>
       <li class="home">
-        <a href="#home"><span>home</span></a>
+        <a ng-click="goto('home')"><span>home</span></a>
       </li>
       <li class="search-button">
-        <a href="#search"><span>search</span></a>
+        <a ng-click="goto('search')"><span>search</span></a>
       </li>
       <li class="buddies">
-        <a href="#buddies-list"><span>buddies</span></a>
+        <a ng-click="goto('buddies-list')"><span>buddies</span></a>
       </li>
       <li class="settings">
-        <a href="#settings"><span>settings</span></a>
+        <a ng-click="goto('settings')"><span>settings</span></a>
       </li>
       <li class="about">
-        <a href="#about"><span>about</span></a>
+        <a ng-click="goto('about')"><span>about</span></a>
       </li>
     </ul>
   </div>
@@ -156,11 +186,26 @@
     </div>
   </div>
 </div>
+<script src="js/vendors/underscore.js"></script>
+<script src="js/vendors/jquery-1.8.3.js"></script>
 <script src="js/vendors/angular.js"></script>
+<script src="js/Storage.js"></script>
+<script src="js/App.js"></script>
+<script src="js/Profile.js"></script>
 <script src="js/DevBuddiesModule.js"></script>
+<script src="js/Provider/Provider.js"></script>
+<script src="js/Provider/ProviderResult.js"></script>
+<script src="js/Provider/GithubProvider.js"></script>
+<script src="js/Provider/StackOverflowProvider.js"></script>
+<script src="js/Renderer/GithubRenderer.js"></script>
+<script src="js/Renderer/StackOverflowRenderer.js"></script>
+<script src="js/Controller/AppController.js"></script>
 <script src="js/Controller/HomeController.js"></script>
+<script src="js/Controller/SearchController.js"></script>
 <script src="js/Controller/BuddiesController.js"></script>
+<script src="js/Controller/BuddyController.js"></script>
+<script src="js/Controller/GithubProfileController.js"></script>
 <script src="js/Controller/SettingsController.js"></script>
-<script src="js/dev-buddies.pack.js"></script>
+<!--<script src="js/dev-buddies.pack.js"></script>-->
 </body>
 </html>

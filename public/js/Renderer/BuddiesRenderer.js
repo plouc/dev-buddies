@@ -16,27 +16,9 @@ BuddiesRenderer.prototype.init = function () {
   "use strict";
 
   var self = this;
-
-  this.$title = $('<h1 class="header">Buddies</h1>');
-  this.$editButton = $('<a class="header-button" href="#">edit</a>');
-  this.$editButton.on('click', function (e) {
-    e.preventDefault();
-    if (!self.$editButton.hasClass('editing')) {
-      self.$editButton.text('done').addClass('editing');
-      self.$list.find('li .remove').addClass('active');
-    } else {
-      self.$editButton.text('edit').removeClass('editing');
-      self.$list.find('li .remove').removeClass('active').removeClass('pending');
-    }
-  });
-
-  //this.$title.append(this.$editButton);
-
-  //this.$container.append(this.$title);
   var $wrapper = $('<div class="panel-wrapper"/>');
   this.$list = $('<ul class="items"/>');
   $wrapper.append(this.$list);
-  //this.$container.append($wrapper);
 
   return this;
 };

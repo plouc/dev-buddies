@@ -338,7 +338,7 @@ ul.items {
   .search .clear {
     position: absolute;
     cursor: pointer;
-    display: none;
+    display: block;
     width: 40px;
     height: 40px;
     background: url("../imgs/cross-dark.png") no-repeat center center;
@@ -350,7 +350,6 @@ ul.items {
     right: 0;
     cursor: pointer;
     display: block;
-    display: block;
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
     height: 40px;
@@ -361,7 +360,7 @@ ul.items {
       background-color: #fff6ba; }
 
 .overlay {
-  display: none;
+  display: block;
   position: absolute;
   top: 0;
   left: 0;
@@ -454,8 +453,9 @@ ul.items {
   display: block;
   text-align: center;
   background-color: #554d4c;
-  display: none; }
+  display: block; }
   #search .build a {
+    text-decoration: none;
     display: inline-block;
     padding: 7px 25px;
     color: #3a3534;
@@ -597,7 +597,7 @@ ul.items {
   text-align: center;
   color: #35302f;
   overflow: hidden; }
-  #buddies-list .remove.active {
+  #buddies-list .remove.editing {
     opacity: 1; }
   #buddies-list .remove span {
     line-height: 28px;

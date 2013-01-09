@@ -6,26 +6,16 @@
 var App = function () {
   "use strict";
 
-  this.$self = $(this);
-
   this.buddies = [];
+  this.buddy   = {};
 
   // define available providers
   var githubProvider      = new GithubProvider(),
     stackOverflowProvider = new StackOverflowProvider();
 
   this.providers = {};
-
   this.providers[githubProvider.id]        = githubProvider;
   this.providers[stackOverflowProvider.id] = stackOverflowProvider;
-
-  this.providerRenderers = {};
-
-  this.providerRenderers[githubProvider.id] = new GithubRenderer();
-  this.providerRenderers[githubProvider.id].init();
-
-  this.providerRenderers[stackOverflowProvider.id] = new StackOverflowRenderer();
-  this.providerRenderers[stackOverflowProvider.id].init();
 
   this.storage = null;
 };
@@ -83,7 +73,6 @@ App.prototype.storeProfile = function (profile, callback) {
   var self = this;
 
   this.storage.set('buddies', profile.id, profile, function () {
-    self.$self.trigger('buddy.saved', [profile]);
     if (_.isFunction(callback)) {
       callback();
     }
@@ -100,7 +89,6 @@ App.prototype.removeProfile = function (profile, callback) {
   var self = this;
 
   this.storage.remove('buddies', profile.id, function () {
-    self.$self.trigger('buddy.removed');
     if (_.isFunction(callback)) {
       callback();
     }
@@ -185,7 +173,7 @@ App.prototype.getProvidersResult = function (providers, command) {
  * @param {Function} callback Function to call when complete
  */
 App.prototype.search = function (query, callback) {
-  "use strict";
+  'use strict';
 
   var self = this;
 
@@ -202,16 +190,6 @@ App.prototype.search = function (query, callback) {
 };
 
 /**
- * @param {String} providerName
- * @param {Provider}
- */
-App.prototype.getProviderRenderer = function (providerName) {
-  "use strict";
-
-  return this.providerRenderers[providerName];
-};
-
-/**
  * Collect user info on all selected APIs.
  *
  * @param {String}   profileId     The profile identifier
@@ -219,7 +197,7 @@ App.prototype.getProviderRenderer = function (providerName) {
  * @param {Function} callback      Function to call when profile fetched
  */
 App.prototype.getUserProfile = function (profileId, searchResults, callback) {
-  "use strict";
+  'use strict';
 
   var self            = this,
     selectedProviders = {},
@@ -238,7 +216,6 @@ App.prototype.getUserProfile = function (profileId, searchResults, callback) {
       profile.addProviderData(this.id, oResult.userId, userProfile);
       self.checkProvidersState(selectedProviders, 'getUserProfile', 'loaded', function () {
         self.storeProfile(profile);
-        self.$self.trigger('buddy.profile', [profile]);
         if (_.isFunction(callback)) {
           callback(profile);
         }

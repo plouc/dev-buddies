@@ -388,7 +388,7 @@ ul.items {
   .clear {
     position: absolute;
     cursor: pointer;
-    display: none;
+    display: block;
     width: 40px;
     height: 40px;
     background: url("../imgs/cross-dark.png") no-repeat center center;
@@ -400,7 +400,6 @@ ul.items {
     top: 0;
     right: 0;
     cursor: pointer;
-    display: block;
     display: block;
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
@@ -419,7 +418,7 @@ ul.items {
 
 
 .overlay {
-  display: none;
+  display: block;
   position: absolute;
   top: 0;
   left: 0;
@@ -541,8 +540,9 @@ ul.items {
     display: block;
     text-align: center;
     background-color: $darkGrey;
-    display: none;
+    display: block;
     a {
+      text-decoration: none;
       display: inline-block;
       padding: 7px 25px;
       color: darken($darkGrey, 10);
@@ -709,7 +709,7 @@ ul.items {
     text-align: center;
     color: darken($darkGrey, 12);
     overflow: hidden;
-    &.active {
+    &.editing {
       opacity: 1;
     }
     span {

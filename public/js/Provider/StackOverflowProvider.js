@@ -42,7 +42,7 @@ StackOverflowProvider.prototype.search = function (query, callback) {
 
   $.ajax({
     url: this.baseUrls.userSearch,
-    dataType: 'json',
+    dataType: 'jsonp',
     data: {
       'order':  'asc',
       'sort':   'name',
