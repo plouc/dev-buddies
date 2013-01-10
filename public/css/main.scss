@@ -353,8 +353,8 @@ ul.items {
     top: 50%;
     left: 50%;
     display: block;
-    height: 14px;
-    margin-top: -7px;
+    height: 16px;
+    margin-top: -8px;
     width: 48px;
     margin-left: -24px;
     background: url("../imgs/loader.gif") no-repeat top left;
@@ -515,6 +515,9 @@ ul.items {
         background-color: $lightYellow;
       }
     }
+    .overlay {
+      background: rgba(85,77,76,0.6);
+    }
   }
   .notice {
     display: none;
@@ -582,6 +585,10 @@ ul.items {
       &.provider-stack-overflow {
         background-image: url("../imgs/stack-overflow-icon-16.png");
       }
+      &:hover,
+      &:focus {
+        background-color: lighten($lightGrey, 27);
+      }
     }
     img {
       float: left;
@@ -618,10 +625,6 @@ ul.items {
   }
 }
 
-#search .results li:hover,
-#search .results li:focus {
-  background-color: lighten($lightGrey, 27);
-}
 
 
 /*******************************************************************************

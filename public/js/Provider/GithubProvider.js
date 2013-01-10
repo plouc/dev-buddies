@@ -48,7 +48,7 @@ GithubProvider.prototype.search = function (query, callback) {
 
       if (response.meta) {
         if (response.meta.status && response.meta.status === 403) {
-          callback({});
+          callback([]);
           console.log('Github rate limit exceeded');
           return;
         }

@@ -311,8 +311,8 @@ ul.items {
     top: 50%;
     left: 50%;
     display: block;
-    height: 14px;
-    margin-top: -7px;
+    height: 16px;
+    margin-top: -8px;
     width: 48px;
     margin-left: -24px;
     background: url("../imgs/loader.gif") no-repeat top left; }
@@ -434,6 +434,8 @@ ul.items {
     box-shadow: 0 1px 1px #fff6ba inset; }
     #search .search-wrapper a:focus, #search .search-wrapper a:hover, #search .search-wrapper a:active {
       background-color: #fff6ba; }
+  #search .search-wrapper .overlay {
+    background: rgba(85, 77, 76, 0.6); }
 #search .notice {
   display: none;
   text-align: center; }
@@ -488,6 +490,8 @@ ul.items {
     background-image: url("../imgs/linkedin-icon-16.png"); }
   #search .results li.provider-stack-overflow {
     background-image: url("../imgs/stack-overflow-icon-16.png"); }
+  #search .results li:hover, #search .results li:focus {
+    background-color: #e2e1e1; }
 #search .results img {
   float: left;
   width: 36px;
@@ -514,10 +518,6 @@ ul.items {
   border-color: #e1cf5f; }
   #search li.selected .validate {
     background-image: url("../imgs/tick-green.png"); }
-
-#search .results li:hover,
-#search .results li:focus {
-  background-color: #e2e1e1; }
 
 /*******************************************************************************
  * Buddies panel
