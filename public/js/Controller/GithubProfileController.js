@@ -1,4 +1,4 @@
-function GithubProfileController($scope, app, navigate) {
+function GithubProfileController($scope) {
   'use strict';
 
   $scope.repositories = [];
@@ -7,8 +7,10 @@ function GithubProfileController($scope, app, navigate) {
   $scope.$on('buddyselect', function (e, buddy) {
     if (buddy.providerData.github) {
       $scope.repositories = buddy.providerData.github.data.repos;
+    } else {
+      $scope.repositories = [];
     }
   });
 }
 
-GithubProfileController.$inject = ['$scope', 'app', 'navigator'];
+GithubProfileController.$inject = ['$scope'];

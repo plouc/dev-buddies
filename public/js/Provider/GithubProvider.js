@@ -6,7 +6,7 @@
  * @constructor
  */
 var GithubProvider = function () {
-  "use strict";
+  'use strict';
 
   Provider.call(this);
 
@@ -35,11 +35,7 @@ GithubProvider.prototype = Object.create(new Provider(), {});
  * @param {Function} callback
  */
 GithubProvider.prototype.search = function (query, callback) {
-  "use strict";
-
-  // reset search state and response
-  this.setState('search', 'loading')
-      .setResponse('search', null);
+  'use strict';
 
   var self = this;
 
@@ -51,20 +47,19 @@ GithubProvider.prototype.search = function (query, callback) {
       console.log(response);
 
       if (response.meta) {
+        if (response.meta.status && response.meta.status === 403) {
+          callback({});
+          console.log('Github rate limit exceeded');
+          return;
+        }
         self.quota.max       = response.meta['X-RateLimit-Limit'];
         self.quota.remaining = response.meta['X-RateLimit-Remaining'];
       }
 
-      self.setState('search', 'loaded')
-        .setResponse('search', self.formatSearchResults(response.data.users));
-
-      callback(response);
+      callback(self.formatSearchResults(response.data.users));
     },
     error: function (jqXHR, textStatus, errorThrown) {
       console.log('GithubProvider error: ' + errorThrown);
-
-      self.setState('search', 'loaded')
-        .setResponse('search', []);
 
       callback({});
     }
@@ -78,7 +73,7 @@ GithubProvider.prototype.search = function (query, callback) {
  * @param {Function} callback
  */
 GithubProvider.prototype.getUserProfile = function (result, callback) {
-  "use strict";
+  'use strict';
 
   var self            = this,
     responseCount     = 0,
@@ -89,10 +84,9 @@ GithubProvider.prototype.getUserProfile = function (result, callback) {
       console.log('GithubProvider.getUserProfile() response:');
       console.log(compositeResponse);
 
-      self.setState('getUserProfile', 'loaded')
-          .setResponse('getUserProfile', compositeResponse);
-
-      callback.call(self, result, compositeResponse);
+      if (_.isFunction(callback)) {
+        callback(compositeResponse);
+      }
     }
   };
 
@@ -176,7 +170,7 @@ GithubProvider.prototype.getUserProfile = function (result, callback) {
  * @return {ProviderResult}
  */
 GithubProvider.prototype.formatSearchResult = function (result) {
-  "use strict";
+  'use strict';
 
   var fullname = result.login;
   if (result.fullname !== null && result.fullname !== '') {

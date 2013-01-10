@@ -4,8 +4,11 @@
  * @constructor
  * @param {String} id Profile identifier
  */
-var Profile = function(id) {
+var Profile = function (id) {
+  'use strict';
+
   this.id = id;
+
   this.providerData = {};
 };
 
@@ -15,9 +18,11 @@ var Profile = function(id) {
  * @param {String} providerUserId User Identifier for the provider
  * @param {Object} data           Informations retrieved by the provider
  */
-Profile.prototype.addProviderData = function(providerName, providerUserId, data) {
+Profile.prototype.addProviderData = function (providerName, providerUserId, data) {
+  'use strict';
+
   this.providerData[providerName] = {
-      "id":   providerUserId
-    , "data": data
+    id:   providerUserId,
+    data: data
   };
 };

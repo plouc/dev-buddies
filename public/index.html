@@ -30,37 +30,24 @@
       <div class="panel">
         <div class="subpanel-container">
           <div id="search" class="subpanel" ng-controller="SearchController">
-            <div class="search">
-              <div class="container">
-                <form ng-submit="search()">
-                  <span class="search-wrapper">
-                    <input type="text" ng-model="query" type="text"/>
-                    <span class="clear" ng-show="query.length" ng-click="clear();test()"></span>
-                    <a ng-click="search()"></a>
-                  </span>
-                </form>
+            <form ng-submit="search()">
+              <div class="search-wrapper">
+                <input type="text" ng-model="query" type="text"/>
+                <span class="clear" ng-show="query.length" ng-click="clear()"></span>
+                <a ng-click="search()"></a>
                 <div class="overlay" ng-show="state=='searching'">
                   <span class="loader"></span>
                 </div>
               </div>
-              <span class="toggle"></span>
-            </div>
-            <p class="notice">Pick up items to build profile</p>
+            </form>
+            <p class="notice" ng-hide="hasSelection">Pick up items to build profile</p>
             <div class="results-wrapper">
-              <ul class="selected-results items">
-                <li ng-repeat="selectedResult in selectedResults" class="provider-{{selectedResult.providerName}}">
-                  <img src="{{selectedResult.picture}}" alt="{{selectedResult.fullname}}"/>
-                  <h2>{{selectedResult.fullname}}</h2>
-                  <p>{{selectedResult.description}}</p>
-                  <span class="validate"></span>
-                </li>
-              </ul>
-              <p class="build" ng-show="selectedResults.length">
+              <p class="build" ng-show="hasSelection">
                 <a ng-click="build()">Build profile</a>
               </p>
               <ul class="results items">
-                <li ng-repeat="result in results" ng-click="selectResult(result)" class="provider-{{result.providerName}}" ng-hide="result.selected">
-                  <img src="{{result.picture}}" alt="{{result.fullname}}"/>
+                <li ng-repeat="result in results" ng-class="{'selected':result.selected, 'no-picture':!result.picture}" ng-click="selectResult(result)" class="provider-{{result.providerName}}">
+                  <img ng-show="result.picture" src="{{result.picture}}" alt="{{result.fullname}}"/>
                   <h2>{{result.fullname}}</h2>
                   <p>{{result.description}}</p>
                   <span class="validate"></span>
@@ -80,12 +67,18 @@
           <div id="buddies-list" class="subpanel headered-panel" ng-controller="BuddiesController">
             <h1 class="header">Buddies<a class="header-button" ng-class="editing" href="#" ng-click="switchEditMode($event)">edit</a></h1>
             <div class="panel-wrapper">
-              <ul class="items">
-                <li ng-repeat="buddy in buddies" ng-click="selectBuddy(buddy)">
-                  <h3>{{buddy.id}}</h3>
-                  <a href="#" class="remove" ng-class="editing"><span>remove</span></a>
+              <ul class="letters">
+                <li ng-repeat="letter in letters" class="letter">
+                  <span>{{letter.letter}}</span>
+                  <ul class="items">
+                    <li ng-repeat="buddy in letter.buddies" ng-click="selectBuddy(buddy)">
+                      <h3>{{buddy.id}}</h3>
+                      <a href="#" class="remove" ng-class="editing"><span>remove</span></a>
+                    </li>
+                  </ul>
                 </li>
               </ul>
+              <p class="empty" ng-hide="letters.length">No buddy collected, <a ng-click="goto('search')">find one</a></p>
             </div>
           </div>
 
@@ -185,6 +178,10 @@
       </div>
     </div>
   </div>
+
+  <div id="notice">
+
+  </div>
 </div>
 <script src="js/vendors/underscore.js"></script>
 <script src="js/vendors/jquery-1.8.3.js"></script>
@@ -192,6 +189,7 @@
 <script src="js/Storage.js"></script>
 <script src="js/App.js"></script>
 <script src="js/Profile.js"></script>
+<script src="js/BuddyCollectionFormatter.js"></script>
 <script src="js/DevBuddiesModule.js"></script>
 <script src="js/Provider/Provider.js"></script>
 <script src="js/Provider/ProviderResult.js"></script>

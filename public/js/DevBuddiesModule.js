@@ -40,6 +40,11 @@ angular
 
     return navigator;
   }])
+  .factory('buddiesFormatter', [function () {
+    'use strict';
+
+    return BuddyCollectionFormatter;
+  }])
   .factory('app', [function () {
     'use strict';
 
@@ -47,8 +52,7 @@ angular
       app       = new App();
 
     app.setStorage(storage)
-      .getQuotas()
-      .getBuddies();
+      .getQuotas();
 
     return app;
   }]);

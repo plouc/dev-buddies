@@ -9,7 +9,7 @@ describe('Providers', function () {
 
     beforeEach(function () {
       provider = new Provider();
-      error = null;
+      error    = null;
     });
 
     it('provider.id should be \'undefined provider id', function () {
@@ -18,10 +18,6 @@ describe('Providers', function () {
 
     it('provider.name should be \'undefined provider name\'', function () {
       expect(provider.name).toEqual('undefined provider name');
-    });
-
-    it('default search command state should be \'idle\'', function () {
-      expect(provider.getState('search')).toEqual('idle');
     });
 
     it('search method should throw an error with message \'You must implement the search method\'', function () {
@@ -69,18 +65,6 @@ describe('Providers', function () {
       expect(provider.name).toEqual('github');
     });
 
-    it('default search command state should be \'idle\'', function () {
-      expect(provider.getState('search')).toEqual('idle');
-    });
-
-    it('search method call should change command state to \'loading\'', function () {
-      spyOn($, 'ajax').andReturn({
-        'response': true
-      });
-      provider.search('term', function () {});
-      expect(provider.getState('search')).toEqual('loading');
-    });
-
     it('should convert a raw API response to ProviderResult', function () {
       var formatted = provider.formatSearchResult({});
       expect(formatted).toEqual(jasmine.any(ProviderResult));
@@ -103,18 +87,6 @@ describe('Providers', function () {
 
     it('provider.name should be \'Stack Overflow\'', function () {
       expect(provider.name).toEqual('Stack Overflow');
-    });
-
-    it('default search command state should be \'idle\'', function () {
-      expect(provider.getState('search')).toEqual('idle');
-    });
-
-    it('search method call should change command state to \'loading\'', function () {
-      spyOn($, 'ajax').andReturn({
-        'response': true
-      });
-      provider.search('term', function () {});
-      expect(provider.getState('search')).toEqual('loading');
     });
 
     it('should convert a raw API response to ProviderResult', function () {

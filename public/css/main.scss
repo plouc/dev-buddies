@@ -183,7 +183,24 @@ ul.items {
     background-color: $lightYellow;
   }
 }
-
+.empty {
+  margin: 0;
+  text-align: center;
+  padding: 9px $hSpacing;
+  font-style: italic;
+  border-bottom: 1px solid lighten($lightGrey, 25);
+  a {
+    display: inline-block;
+    text-decoration: none;
+    background-color: $yellow;
+    border-radius: 2px;
+    padding: 2px 5px;
+    font-style: normal;
+    color: darken($darkGrey, 10);
+    background: $yellow;
+    cursor: pointer;
+  }
+}
 
 /*******************************************************************************
  * Popin
@@ -320,101 +337,6 @@ ul.items {
 }
 
 
-/*******************************************************************************
- * Search form
- ******************************************************************************/
-.search {
-  width: 100%;
-  height: 60px;
-  padding-bottom: 32px;
-  position: relative;
-  overflow: hidden;
-  background-color: $darkGrey;
-  -webkit-transition: height 0.1s linear;
-  -moz-transition:    height 0.1s linear;
-  transition:         height 0.1s linear;
-  .container {
-    position: relative;
-    top: 0;
-    padding: 9px $hSpacing;
-    width: 100%;
-    -moz-box-sizing: border-box;
-    box-sizing:      border-box;
-  }
-  .toggle {
-    cursor: pointer;
-    position: absolute;
-    bottom: 0;
-    display: block;
-    height: 32px;
-    width: 100%;
-    text-align: center;
-    background: $lightGrey url("../imgs/collapse-icon.png") no-repeat center center;
-  }
-  &.closed {
-    height: 0;
-    .toggle {
-      background-image: url("../imgs/expand-icon.png");
-    }
-  }
-  .search-wrapper {
-    position: relative;
-    top: 0;
-    display: block;
-  }
-  input[type="text"] {
-    display: block;
-    padding: 0 12px;
-    height: 40px;
-    background: $lightGrey;
-    color: $darkGrey;
-    border: none;
-    border-radius: 2px;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    width: 100%;
-    margin-bottom: 12px;
-    box-shadow:
-      0 1px 3px rgba(0,0,0,0.5),
-      0 1px 1px lighten($lightGrey, 10) inset;
-    &:hover {
-      background-color: #b3afaf;
-    }
-    &:focus {
-      background: lighten($lightGrey, 15);
-      color: darken($darkGrey, 15);
-    }
-  }
-  .clear {
-    position: absolute;
-    cursor: pointer;
-    display: block;
-    width: 40px;
-    height: 40px;
-    background: url("../imgs/cross-dark.png") no-repeat center center;
-    top: 0;
-    right: 40px;
-  }
-  a {
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer;
-    display: block;
-    border-top-right-radius: 2px;
-    border-bottom-right-radius: 2px;
-    height: 40px;
-    width: 40px;
-    background: $yellow url("../imgs/search-dark-grey.png") no-repeat center center;
-    box-shadow: 0 1px 1px $lightYellow inset;
-    &:focus,
-    &:hover,
-    &:active {
-      background-color: $lightYellow;
-    }
-  }
-}
-
 
 
 .overlay {
@@ -424,6 +346,7 @@ ul.items {
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 2000;
   background: rgba(255,255,255,0.7);
   .loader {
     position: absolute;
@@ -444,6 +367,12 @@ ul.items {
  * Buddy profile
  ******************************************************************************/
 #buddy-profile {
+  .header {
+    font-size: 19px;
+    font-weight: 800;
+    color: #D8CBC9;
+    text-transform: none;
+  }
   h2 {
     padding-left: 36px;
   }
@@ -530,12 +459,69 @@ ul.items {
  * Search results
  ******************************************************************************/
 #search {
+  .search-wrapper {
+    position: relative;
+    overflow: hidden;
+    padding: 12px $hSpacing;
+    background-color: $darkGrey;
+    input[type="text"] {
+      display: block;
+      padding: 0 12px;
+      height: 40px;
+      background: $lightGrey;
+      color: $darkGrey;
+      border: none;
+      border-radius: 2px;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
+      box-shadow:
+        0 1px 3px rgba(0,0,0,0.5),
+        0 1px 1px lighten($lightGrey, 10) inset;
+      &:hover {
+        background-color: #b3afaf;
+      }
+      &:focus {
+        background: lighten($lightGrey, 15);
+        color: darken($darkGrey, 15);
+      }
+    }
+    .clear {
+      position: absolute;
+      top: 12px;
+      right: $hSpacing + 40px;
+      cursor: pointer;
+      display: block;
+      width: 40px;
+      height: 40px;
+      background: url("../imgs/cross-dark.png") no-repeat center center;
+      z-index: 100;
+    }
+    a {
+      position: absolute;
+      top: 12px;
+      right: $hSpacing;
+      cursor: pointer;
+      display: block;
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
+      height: 40px;
+      width: 40px;
+      background: $yellow url("../imgs/search-dark-grey.png") no-repeat center center;
+      box-shadow: 0 1px 1px $lightYellow inset;
+      &:focus,
+      &:hover,
+      &:active {
+        background-color: $lightYellow;
+      }
+    }
+  }
   .notice {
     display: none;
     text-align: center;
   }
   .build {
-    padding: 7px 0;
+    padding: 0 $hSpacing 12px $hSpacing;
     margin: 0;
     display: block;
     text-align: center;
@@ -543,7 +529,7 @@ ul.items {
     display: block;
     a {
       text-decoration: none;
-      display: inline-block;
+      display: block;
       padding: 7px 25px;
       color: darken($darkGrey, 10);
       background: $yellow;
@@ -563,12 +549,17 @@ ul.items {
     box-sizing:      border-box;
     padding-bottom: 40px;
   }
-  .selected-results,
   .results {
     li {
-      -webkit-transition: background-color 0.3s linear;
-      -moz-transition:    background-color 0.3s linear;
-      transition:         background-color 0.3s linear;
+      cursor: pointer;
+      -webkit-transition: background-color 0.2s linear;
+      -moz-transition:    background-color 0.2s linear;
+      transition:         background-color 0.2s linear;
+      -webkit-transition: padding-left 0.2s linear;
+      -moz-transition:    padding-left 0.2s linear;
+      transition:         padding-left 0.2s linear;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
       position: relative;
       min-height: 36px;
       padding: $hSpacing $hSpacing $hSpacing 36px;
@@ -576,6 +567,21 @@ ul.items {
       background-color: #fff;
       background-repeat: no-repeat;
       background-position: $hSpacing center;
+      &.no-picture {
+        padding-left: 84px;
+        &.selected {
+          padding-left: 110px;
+        }
+      }
+      &.provider-github {
+        background-image: url("../imgs/github-icon-16.png");
+      }
+      &.provider-linkedin {
+        background-image: url("../imgs/linkedin-icon-16.png");
+      }
+      &.provider-stack-overflow {
+        background-image: url("../imgs/stack-overflow-icon-16.png");
+      }
     }
     img {
       float: left;
@@ -592,11 +598,7 @@ ul.items {
       margin: 0;
     }
   }
-  .selected-results li:last-child {
-    border-bottom: none;
-  }
-  .results .validate,
-  .selected-results .validate {
+  .results .validate {
     position: absolute;
     top: 15px;
     right: $hSpacing;
@@ -604,32 +606,18 @@ ul.items {
     height: 24px;
     width: 24px;
     line-height: 24px;
-    border-radius: 2px;
     background: url("../imgs/tick-dark-grey.png") no-repeat center center;
   }
-  .selected-results .validate {
-    background-image: url("../imgs/tick-green.png");
+  li.selected {
+    padding-left: 60px;
+    background-color: $lightYellow !important;
+    border-color: $yellow;
+    .validate {
+      background-image: url("../imgs/tick-green.png");
+    }
   }
 }
 
-#search .selected-results li.provider-github,
-#search .results li.provider-github {
-  background-image: url("../imgs/github-icon-16.png");
-}
-#search .selected-results li.provider-linkedin,
-#search .results li.provider-linkedin {
-  background-image: url("../imgs/linkedin-icon-16.png");
-}
-#search .selected-results li.provider-stack-overflow,
-#search .results li.provider-stack-overflow {
-  background-image: url("../imgs/stack-overflow-icon-16.png");
-}
-#search .selected-results li.no-picture,
-#search .results li.no-picture {
-  padding-left: 84px;
-}
-#search .selected-results li:hover,
-#search .selected-results li:focus,
 #search .results li:hover,
 #search .results li:focus {
   background-color: lighten($lightGrey, 27);
@@ -659,27 +647,31 @@ ul.items {
       }
     }
   }
-  li {
-    cursor: pointer;
-    -webkit-transition: background-color 0.3s linear;
-    -moz-transition:    background-color 0.3s linear;
-    transition:         background-color 0.3s linear;
-    position: relative;
-    min-height: 24px;
-    background-color: #fff;
-    &:hover {
-      background-color: lighten($lightGrey, 27);
-    }
-    &.letter {
-      cursor: auto;
-      height: 24px;
-      min-height: 24px;
-      line-height: 24px;
-      font-size: 13px;
-      font-weight: bold;
-      background-color: $lightGrey;
-      padding: 0 $hSpacing;
-      border-bottom: none;
+  ul.letters {
+    margin: 0;
+    padding: 0;
+    background-color: $lightGrey;
+    > li {
+      span {
+        padding: 0 $hSpacing;
+        display: block;
+        height: 24px;
+        line-height: 24px;
+        font-size: 13px;
+        font-weight: bold;
+      }
+      li {
+        cursor: pointer;
+        -webkit-transition: background-color 0.3s linear;
+        -moz-transition:    background-color 0.3s linear;
+        transition:         background-color 0.3s linear;
+        position: relative;
+        min-height: 24px;
+        background-color: #fff;
+        &:hover {
+          background-color: lighten($lightGrey, 27);
+        }
+      }
     }
   }
   h3 {

@@ -1,4 +1,4 @@
-function BuddyController($scope, app, navigate) {
+function BuddyController($scope, $rootScope, app, navigate) {
   'use strict';
 
   $scope.buddy = {};
@@ -8,4 +8,4 @@ function BuddyController($scope, app, navigate) {
   });
 }
 
-BuddyController.$inject = ['$scope', 'app', 'navigator'];
+BuddyController.$inject = ['$scope', '$rootScope', 'app', 'navigator'];

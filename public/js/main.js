@@ -5,46 +5,22 @@ $(document).ready(function () {
   "use strict";
 
   var app            = new App(),
-    searchRenderer   = new SearchRenderer(app, '.search'),
     $panelContainer  = $('.panel-container'),
     storage          = new Storage(),
     $buddyProfile    = $('#buddy-profile');
 
-  searchRenderer.init();
-
-  // buddies list bindings
-  /*
-  $(buddiesRenderer).on('buddy.details', function (e, profile) {
-    _.each(profile.providerData, function (providerProfileData, providerName) {
-      app.getProviderRenderer(providerName).render(providerProfileData.data);
-      gotoPanel('#buddy-profile');
-    });
-  }).on('buddy.remove', function (e, $item, profile) {
-    app.removeProfile(profile, function () {
-      $item.fadeOut(200, function () {
-        $item.remove();
-      });
-    });
-  });
-  */
-
 
   $buddyProfile.find('.back-list').on('click', function (e) {
     e.preventDefault();
-    gotoPanel('#buddies-list');
   });
 
 
   // home action buttons bindings
   $('#home .presentation a.go-search').on('click', function (e) {
     e.preventDefault();
-    gotoPanel('#search', function () {
-      searchRenderer.$query.focus();
-    });
   });
   $('#home .presentation a.go-list').on('click', function (e) {
     e.preventDefault();
-    gotoPanel('#buddies-list');
   });
 
 
@@ -54,7 +30,6 @@ $(document).ready(function () {
   }).on('buddy.saved', function (e) {
     app.getBuddies();
   }).on('buddy.profile', function (e, profile) {
-    searchRenderer.$mainOverlay.css('display', 'none');
     _.each(profile.providerData, function (providerProfileData, providerId) {
       app.getProviderRenderer(providerId).render(providerProfileData.data);
     });
@@ -74,7 +49,6 @@ $(document).ready(function () {
     var $navButton  = $(this),
       panelSelector = $navButton.attr('href');
 
-    gotoPanel(panelSelector);
     $('.nav a').removeClass('active');
     $navButton.addClass('active');
   });
@@ -82,15 +56,6 @@ $(document).ready(function () {
 
   _.each(app.providers, function (provider, providerName) {
     $buddyProfile.find('.panel-wrapper').append(app.getProviderRenderer(providerName).getContainer());
-  });
-
-
-  $(searchRenderer).on('submit', function (e, query) {
-    app.search(query, function (query, results) {
-      searchRenderer.resultsLoaded().render(query, results);
-    });
-  }).on('build.init', function (e, query, results) {
-    app.getUserProfile(query, results);
   });
 
 
@@ -124,39 +89,5 @@ $(document).ready(function () {
 
   closePopin = function () {
     $popin.css('display', 'none');
-  };
-
-  var gotoPanel = function (selector, callback) {
-
-    var $panel  = $(selector),
-      $subpanel = null,
-      $subpanelContainer;
-
-    if ($panel.hasClass('subpanel')) {
-      $subpanel = $panel;
-      $panel    = $subpanel.parents('.panel');
-    }
-
-    $panelContainer.animate({
-      'left': '-' + ($panel.index() * 20) + '%'
-    }, 400, function () {
-      if ($subpanel === null && callback) {
-        callback();
-      }
-    });
-
-    if ($subpanel !== null) {
-      $subpanelContainer = $panel.find('.subpanel-container');
-
-      setTimeout(function () {
-        $subpanelContainer.animate({
-          'top': '-' + ($subpanel.index() * 100) + '%'
-        }, 400, function () {
-          if (callback) {
-            callback();
-          }
-        });
-      }, 400);
-    }
   };
 });

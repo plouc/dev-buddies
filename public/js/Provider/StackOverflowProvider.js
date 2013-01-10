@@ -24,7 +24,7 @@ var StackOverflowProvider = function () {
 };
 
 // extend base provider
-StackOverflowProvider.prototype = Object.create(new Provider(), {});
+StackOverflowProvider.prototype = Object.create (new Provider(), {});
 
 /**
  *
@@ -32,11 +32,7 @@ StackOverflowProvider.prototype = Object.create(new Provider(), {});
  * @param callback
  */
 StackOverflowProvider.prototype.search = function (query, callback) {
-  "use strict";
-
-  // reset search state and response
-  this.setState('search', 'loading')
-      .setResponse('search', null);
+  'use strict';
 
   var self = this;
 
@@ -56,16 +52,10 @@ StackOverflowProvider.prototype.search = function (query, callback) {
       self.quota.max       = response.quota_max;
       self.quota.remaining = response.quota_remaining;
 
-      self.setState('search', 'loaded')
-          .setResponse('search', self.formatSearchResults(response.items));
-
-      callback();
+      callback(self.formatSearchResults(response.items));
     },
     error: function (jqXHR, textStatus, errorThrown) {
       console.log('StackOverflowProvider error: ' + errorThrown);
-
-      self.setState('search', 'loaded')
-          .setResponse('search', []);
 
       callback();
     }
@@ -77,17 +67,17 @@ StackOverflowProvider.prototype.search = function (query, callback) {
  * @param result
  * @param callback
  */
-StackOverflowProvider.prototype.getUserProfile = function(result, callback) {
+StackOverflowProvider.prototype.getUserProfile = function (result, callback) {
+  'use strict';
 
   var response = {};
 
   console.log('StackOverflowProvider.getUserProfile() response:');
   console.log(response);
 
-  this.setState('getUserProfile', 'loaded')
-      .setResponse('getUserProfile', response);
-
-  callback.call(this, result, response);
+  if (_.isFunction(callback)) {
+    callback(response);
+  }
 };
 
 /**
@@ -116,8 +106,8 @@ StackOverflowProvider.prototype.getUserProfile = function(result, callback) {
  * @param result
  * @return {Object}
  */
-StackOverflowProvider.prototype.formatSearchResult = function(result) {
-  "use strict";
+StackOverflowProvider.prototype.formatSearchResult = function (result) {
+  'use strict';
 
   return new ProviderResult(this.id, result.user_id, result.display_name, '', result.profile_image, result);
 };
