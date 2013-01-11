@@ -1,19 +1,20 @@
 /**
  * @copyright 2012-2013 Raphaël Benitte (http://rbenitte.com)
- * @param {String} providerName  Name of the provider
- * @param {String} userId        Provider user identifier
- * @param {String} fullname      Fullname of the user
- * @param {String} description   Description of the user
- * @param {object} rawResult     Raw provider API response
+ * @param {String} providerId  Name of the provider
+ * @param {String} userId      Provider user identifier
+ * @param {String} fullname    Fullname of the user
+ * @param {String} description Description of the user
+ * @param {object} rawResult   Raw provider API response
  * @constructor
  */
-var ProviderResult = function (providerName, userId, fullname, description, picture, rawResult) {
-  "use strict";
+var ProviderResult = function (providerId, userId, fullname, description, picture, rawResult) {
+  'use strict';
 
-  this.providerName = providerName;
+  this.providerId = providerId;
 
   this.userId = userId;
 
+  this.enabled  = true;
   this.selected = false;
 
   // common properties
@@ -29,7 +30,7 @@ var ProviderResult = function (providerName, userId, fullname, description, pict
  * @return {String}
  */
 ProviderResult.prototype.toString = function () {
-  "use strict";
+  'use strict';
 
   return this.fullname;
 };

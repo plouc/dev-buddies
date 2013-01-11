@@ -430,7 +430,7 @@ ul.items {
     height: 40px;
     background: url("../imgs/cross-dark.png") no-repeat center center;
     z-index: 100; }
-  #search .search-wrapper a {
+  #search .search-wrapper a.submit {
     position: absolute;
     top: 12px;
     right: 12px;
@@ -442,31 +442,26 @@ ul.items {
     width: 40px;
     background: #e1cf5f url("../imgs/search-dark-grey.png") no-repeat center center;
     box-shadow: 0 1px 1px #fff6ba inset; }
-    #search .search-wrapper a:focus, #search .search-wrapper a:hover, #search .search-wrapper a:active {
+    #search .search-wrapper a.submit:focus, #search .search-wrapper a.submit:hover, #search .search-wrapper a.submit:active {
       background-color: #fff6ba; }
   #search .search-wrapper .overlay {
     background: rgba(85, 77, 76, 0.6); }
 #search .notice {
   display: none;
   text-align: center; }
-#search .build {
-  padding: 0 12px 12px 12px;
-  margin: 0;
-  display: block;
+#search a.build {
   text-align: center;
-  background-color: #554d4c;
-  display: block; }
-  #search .build a {
-    text-decoration: none;
-    display: block;
-    padding: 11px 25px;
-    color: #3a3534;
-    background: #e1cf5f;
-    border-radius: 2px;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 1px #fff6ba inset; }
-    #search .build a:hover {
-      background: #fff6ba; }
+  margin-top: 12px;
+  text-decoration: none;
+  display: block;
+  padding: 11px 0;
+  color: #3a3534;
+  background: #e1cf5f;
+  border-radius: 2px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 1px #fff6ba inset; }
+  #search a.build:hover {
+    background: #fff6ba; }
 #search .results-wrapper {
   overflow-y: auto;
   height: 100%;
@@ -493,7 +488,13 @@ ul.items {
   #search .results li.no-picture {
     padding-left: 84px; }
     #search .results li.no-picture.selected {
-      padding-left: 110px; }
+      padding-left: 100px; }
+  #search .results li.selected {
+    padding-left: 50px;
+    background-color: #fff6ba !important;
+    border-color: #e1cf5f; }
+    #search .results li.selected .validate {
+      background-image: url("../imgs/tick-green.png"); }
   #search .results li.provider-github {
     background-image: url("../imgs/github-icon-16.png"); }
   #search .results li.provider-linkedin {
@@ -522,12 +523,6 @@ ul.items {
   width: 24px;
   line-height: 24px;
   background: url("../imgs/tick-dark-grey.png") no-repeat center center; }
-#search li.selected {
-  padding-left: 60px;
-  background-color: #fff6ba !important;
-  border-color: #e1cf5f; }
-  #search li.selected .validate {
-    background-image: url("../imgs/tick-green.png"); }
 
 /*******************************************************************************
  * Buddies panel

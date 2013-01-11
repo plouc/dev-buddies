@@ -34,7 +34,8 @@
               <div class="search-wrapper">
                 <input type="text" ng-model="query" type="text"/>
                 <span class="clear" ng-show="query.length" ng-click="clear()"></span>
-                <a ng-click="search()"></a>
+                <a class="submit" ng-click="search()"></a>
+                <a class="build" ng-show="hasSelection" ng-click="build()">Build profile</a>
                 <div class="overlay" ng-show="state=='searching'">
                   <span class="loader"></span>
                 </div>
@@ -42,11 +43,12 @@
             </form>
             <p class="notice" ng-hide="hasSelection">Pick up items to build profile</p>
             <div class="results-wrapper">
-              <p class="build" ng-show="hasSelection">
-                <a ng-click="build()">Build profile</a>
-              </p>
               <ul class="results items">
-                <li ng-repeat="result in results" ng-class="{'selected':result.selected, 'no-picture':!result.picture}" ng-click="selectResult(result)" class="provider-{{result.providerName}}">
+                <li ng-repeat="result in results"
+                    ng-class="{'selected':result.selected, 'no-picture':!result.picture}"
+                    ng-click="selectResult(result)"
+                    ng-show="result.enabled"
+                    class="provider-{{result.providerId}}">
                   <img ng-show="result.picture" src="{{result.picture}}" alt="{{result.fullname}}"/>
                   <h2>{{result.fullname}}</h2>
                   <p>{{result.description}}</p>

@@ -164,7 +164,7 @@ App.prototype.getUserProfile = function (profileId, searchResults, callback) {
     providersCount;
 
   _.each(searchResults, function (result) {
-    selectedProviders[result.providerName] = self.getProvider(result.providerName);
+    selectedProviders[result.providerId] = self.getProvider(result.providerId);
   });
 
   providersCount = _.keys(selectedProviders).length;
@@ -172,7 +172,7 @@ App.prototype.getUserProfile = function (profileId, searchResults, callback) {
   console.log("Selected user profile providers to build profile: ", Object.keys(selectedProviders).join(', '));
 
   _.each(searchResults, function (result) {
-    var provider = self.getProvider(result.providerName);
+    var provider = self.getProvider(result.providerId);
     provider.getUserProfile(result, function (userProfile) {
       responseCount++;
       profile.addProviderData(provider.id, result.userId, userProfile);

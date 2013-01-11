@@ -1,3 +1,8 @@
+/**
+ * @copyright 2012-2013 Raphaël Benitte (http://rbenitte.com)
+ * @author    Raphaël Benitte
+ * @constructor
+ */
 function SearchController($scope, app, navigate) {
   'use strict';
 
@@ -22,10 +27,16 @@ function SearchController($scope, app, navigate) {
 
   $scope.selectResult = function (result) {
     result.selected = !result.selected;
-    _.each($scope.results, function (result) {
-      if (result.selected) {
+    _.each($scope.results, function (oresult) {
+      if (oresult.selected) {
         $scope.hasSelection = true;
-        return;
+      }
+      if (oresult.providerId === result.providerId) {
+        if (result.selected && oresult !== result) {
+          oresult.enabled = false;
+        } else if (!result.selected) {
+          oresult.enabled = true;
+        }
       }
     });
   };

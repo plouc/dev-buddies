@@ -508,7 +508,7 @@ ul.items {
       background: url("../imgs/cross-dark.png") no-repeat center center;
       z-index: 100;
     }
-    a {
+    a.submit {
       position: absolute;
       top: 12px;
       right: $hSpacing;
@@ -534,26 +534,20 @@ ul.items {
     display: none;
     text-align: center;
   }
-  .build {
-    padding: 0 $hSpacing 12px $hSpacing;
-    margin: 0;
-    display: block;
+  a.build {
     text-align: center;
-    background-color: $darkGrey;
+    margin-top: 12px;
+    text-decoration: none;
     display: block;
-    a {
-      text-decoration: none;
-      display: block;
-      padding: 11px 25px;
-      color: darken($darkGrey, 10);
-      background: $yellow;
-      border-radius: 2px;
-      cursor: pointer;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.5),
-                  0 1px 1px $lightYellow inset;
-      &:hover {
-        background: $lightYellow;
-      }
+    padding: 11px 0;
+    color: darken($darkGrey, 10);
+    background: $yellow;
+    border-radius: 2px;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5),
+                0 1px 1px $lightYellow inset;
+    &:hover {
+      background: $lightYellow;
     }
   }
   .results-wrapper {
@@ -584,7 +578,15 @@ ul.items {
       &.no-picture {
         padding-left: 84px;
         &.selected {
-          padding-left: 110px;
+          padding-left: 100px;
+        }
+      }
+      &.selected {
+        padding-left: 50px;
+        background-color: $lightYellow !important;
+        border-color: $yellow;
+        .validate {
+          background-image: url("../imgs/tick-green.png");
         }
       }
       &.provider-github {
@@ -625,14 +627,6 @@ ul.items {
     width: 24px;
     line-height: 24px;
     background: url("../imgs/tick-dark-grey.png") no-repeat center center;
-  }
-  li.selected {
-    padding-left: 60px;
-    background-color: $lightYellow !important;
-    border-color: $yellow;
-    .validate {
-      background-image: url("../imgs/tick-green.png");
-    }
   }
 }
 
