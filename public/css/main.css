@@ -539,7 +539,7 @@ ul.items {
   margin: 0;
   padding: 0;
   background-color: #9f9b9b; }
-  #buddies-list ul.letters > li span {
+  #buddies-list ul.letters > li > span {
     padding: 0 12px;
     display: block;
     height: 24px;

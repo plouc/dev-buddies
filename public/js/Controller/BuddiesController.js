@@ -16,6 +16,18 @@ function BuddiesController($scope, app, navigate, buddiesFormatter) {
     }
   };
 
+  $scope.removeBuddy = function (buddy) {
+    if (buddy.pendingRemove) {
+      app.removeProfile(buddy);
+      app.getBuddies(function (buddies) {
+        $scope.$parent.$broadcast('buddies.refresh', buddies);
+        $scope.letters = buddiesFormatter.format(buddies);
+      });
+    } else {
+      buddy.pendingRemove = true;
+    }
+  };
+
   $scope.selectBuddy = function (buddy) {
     $scope.$parent.$broadcast('buddyselect', buddy);
     navigate('buddy-profile');

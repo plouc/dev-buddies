@@ -655,7 +655,7 @@ ul.items {
     padding: 0;
     background-color: $lightGrey;
     > li {
-      span {
+      > span {
         padding: 0 $hSpacing;
         display: block;
         height: 24px;

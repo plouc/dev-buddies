@@ -25,6 +25,7 @@ var BuddyCollectionFormatter = {
         };
         formattedBuddies.push(currentLetter);
       }
+      buddy.pendingRemove = false;
       currentLetter.buddies.push(buddy);
     });
 

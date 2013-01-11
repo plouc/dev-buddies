@@ -55,4 +55,14 @@ angular
       .getQuotas();
 
     return app;
-  }]);
+  }])
+  .directive('eprevent', function () {
+    return {
+      link: function (scope, element, attrs) {
+        element.click(function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+        });
+      }
+    }
+  });

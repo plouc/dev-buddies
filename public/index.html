@@ -73,7 +73,7 @@
                   <ul class="items">
                     <li ng-repeat="buddy in letter.buddies" ng-click="selectBuddy(buddy)">
                       <h3>{{buddy.id}}</h3>
-                      <a href="#" class="remove" ng-class="editing"><span>remove</span></a>
+                      <a href="#" ng-click="removeBuddy(buddy)" class="remove {{editing}}" ng-class="{'pending':buddy.pendingRemove}" eprevent><span>remove</span></a>
                     </li>
                   </ul>
                 </li>
