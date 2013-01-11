@@ -88,7 +88,7 @@
             <h1 class="header"><img ng-show="buddy.picture" src="{{buddy.picture}}" alt="{{buddy.fullname}}"/>{{buddy.id}}<span ng-click="goto('buddies-list')" class="back-list header-button">back to list</span></h1>
             <div class="panel-wrapper">
               <div class="github-profile" ng-controller="GithubProfileController">
-                <h2>Github</h2>
+                <h2>Github<span class="refresh"></span></h2>
                 <h3 ng-click="showRepositories=!showRepositories" ng-class="{'collapsed':!showRepositories}">Repositories <span class="count">{{repositories.length}}</span><i></i></h3>
                 <ul class="repositories items" ng-show="showRepositories">
                   <li ng-repeat="repository in repositories">
@@ -104,7 +104,7 @@
                 </ul>
               </div>
               <div class="stack-overflow-profile" ng-controller="GithubProfileController">
-                <h2>Stack Overflow</h2>
+                <h2>Stack Overflow<span class="refresh"></span></h2>
               </div>
             </div>
           </div>

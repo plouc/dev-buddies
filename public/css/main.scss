@@ -374,7 +374,24 @@ ul.items {
     text-transform: none;
   }
   h2 {
+    position: relative;
     padding-left: 36px;
+    min-height: 24px;
+    line-height: 24px;
+    .refresh {
+      position: absolute;
+      top: 3px;
+      right: $hSpacing;
+      display: block;
+      height: 32px;
+      width: 32px;
+      cursor: pointer;
+      border-radius: 2px;
+      background: url("../imgs/glyphicons_081_refresh.png") no-repeat center center;
+      &:hover {
+        background-color: lighten($lightGrey, 10);
+      }
+    }
   }
   .wrapper {
     height: 100%;
@@ -393,6 +410,7 @@ ul.items {
     position: relative;
     cursor: pointer;
     color: darken($darkGrey, 15);
+    border-bottom: 1px solid $lightGrey;
     .count {
       border-radius: 2px;
       display: inline-block;
@@ -417,7 +435,6 @@ ul.items {
       background-color: lighten($lightGrey, 20);
     }
     &.collapsed {
-      border-bottom: 1px solid $lightGrey;
       i {
         background-image: url("../imgs/expand-icon.png");
       }
