@@ -2,8 +2,9 @@ function GithubProfileController($scope) {
   'use strict';
 
   $scope.repositories     = [];
-  $scope.showRepositories = true;
+  $scope.showRepositories = false;
   $scope.activities       = [];
+  $scope.showActivity     = false;
 
   $scope.$on('buddyselect', function (e, buddy) {
     if (buddy.providerData.github) {
