@@ -392,6 +392,17 @@ ul.items {
   h3 {
     position: relative;
     cursor: pointer;
+    color: darken($darkGrey, 15);
+    .count {
+      border-radius: 2px;
+      display: inline-block;
+      background: darken($darkGrey, 8);
+      color: lighten($lightGrey, 25);
+      padding: 0 5px;
+      line-height: 18px;
+      font-size: 13px;
+      font-weight: 800;
+    }
     i {
       position: absolute;
       top: 3px;

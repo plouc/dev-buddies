@@ -338,7 +338,17 @@ ul.items {
   background-image: url("../imgs/stack-overflow-icon-16.png"); }
 #buddy-profile h3 {
   position: relative;
-  cursor: pointer; }
+  cursor: pointer;
+  color: #2d2828; }
+  #buddy-profile h3 .count {
+    border-radius: 2px;
+    display: inline-block;
+    background: #3f3939;
+    color: #dddcdc;
+    padding: 0 5px;
+    line-height: 18px;
+    font-size: 13px;
+    font-weight: 800; }
   #buddy-profile h3 i {
     position: absolute;
     top: 3px;

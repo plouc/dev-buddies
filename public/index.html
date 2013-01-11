@@ -87,15 +87,15 @@
             <div class="panel-wrapper">
               <div class="github-profile" ng-controller="GithubProfileController">
                 <h2>Github</h2>
-                <h3>Repositories<i></i></h3>
-                <ul class="repositories items">
+                <h3 ng-click="showRepositories=!showRepositories" ng-class="{'collapsed':!showRepositories}">Repositories <span class="count">{{repositories.length}}</span><i></i></h3>
+                <ul class="repositories items" ng-show="showRepositories">
                   <li ng-repeat="repository in repositories">
                     <a href="{{repo.html_url}}">{{repository.name}}</a>
                     <span class="meta">{{repository.description}}</span>
                   </li>
                 </ul>
-                <h3>Recent activity<i></i></h3>
-                <ul class="activity items">
+                <h3 ng-click="showActivity=!showActivity" ng-class="{'collapsed':!showActivity}">Recent activity <span class="count">{{activities.length}}</span><i></i></h3>
+                <ul class="activity items" ng-show="showActivity">
                   <li ng-repeat="activity in activities">
                     activity
                   </li>
