@@ -83,7 +83,7 @@
           </div>
 
           <div id="buddy-profile" class="subpanel headered-panel" ng-controller="BuddyController">
-            <h1 class="header">{{buddy.id}}<span ng-click="goto('buddies-list')" class="back-list header-button">back to list</span></h1>
+            <h1 class="header"><img ng-show="buddy.picture" src="{{buddy.picture}}" alt="{{buddy.fullname}}"/>{{buddy.id}}<span ng-click="goto('buddies-list')" class="back-list header-button">back to list</span></h1>
             <div class="panel-wrapper">
               <div class="github-profile" ng-controller="GithubProfileController">
                 <h2>Github</h2>
