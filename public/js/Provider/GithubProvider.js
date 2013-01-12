@@ -98,7 +98,7 @@ GithubProvider.prototype.getUserProfile = function (result, callback) {
         self.quota.max       = response.meta['X-RateLimit-Limit'];
         self.quota.remaining = response.meta['X-RateLimit-Remaining'];
       }
-      compositeResponse.events = response.data;
+      compositeResponse.events = self.formatEvents(response.data);
       responseCount++;
       onResponse();
     },
@@ -147,6 +147,92 @@ GithubProvider.prototype.getUserProfile = function (result, callback) {
     }
   });
 };
+
+
+/**
+ * Format Github Events
+ *
+ * @return {GithubProvider}
+ */
+GithubProvider.prototype.formatEvents = function (events) {
+  'use strict';
+
+  var eventDescription;
+
+  _.each(events, function (event) {
+
+    var createdAt = new Date(event.created_at),
+      month       = createdAt.getMonth() + 1,
+      day         = createdAt.getDate(),
+      hours       = createdAt.getHours(),
+      minutes     = createdAt.getMinutes(),
+      repo        = null,
+      branch      = null,
+      commits     = null,
+      comment     = null;
+
+
+    event.dateDay = createdAt.getFullYear()    + '-' +
+      (month < 10 ? '0' + month : month) + '-' +
+      (day   < 10 ? '0' + day   : day);
+
+    event.dateTime = (hours   < 10 ? '0' + hours   : hours) + ':' +
+                     (minutes < 10 ? '0' + minutes : minutes);
+
+    if (event.repo) {
+      repo = '<a href="https://github.com/' + event.repo.name + '">' + event.repo.name + '</a>';
+    }
+
+    if (event.payload && event.payload.ref_type && event.payload.ref_type === 'branch') {
+      branch = '<a href="https://github.com/' + event.repo.name + '/tree/' + event.payload.ref + '">' + event.payload.ref + '</a>';
+    }
+
+    if (event.payload && event.payload.commits) {
+      if (event.payload.commits.length === 1) {
+        commits = '<i>' + event.payload.commits[0].message.substr(0, 36) + '...</i>';
+      } else {
+        commits = event.payload.size + ' commits';
+      }
+    }
+
+    if (event.payload && event.payload.comment) {
+      comment = '<i>' + event.payload.comment.body.substr(0, 36) + '...</i>';
+      if (event.payload.comment.commit_id) {
+        commits = event.payload.comment.commit_id.substr(0, 10);
+      }
+    }
+
+    eventDescription = '';
+    switch (event.type) {
+    case 'ForkEvent':
+      eventDescription += 'forked repo ' + repo;
+      break;
+    case 'PushEvent':
+      eventDescription += 'pushed in repo ' + repo + ': ' + commits;
+      break;
+    case 'CreateEvent':
+      if (branch !== null) {
+        eventDescription += 'created branch ' + branch + ' for repo ' + repo;
+      } else {
+        eventDescription += 'created repo ' + repo;
+      }
+      break;
+    case 'CommitCommentEvent':
+      eventDescription += 'commented commit ' + commits + ': ' + comment;
+      break;
+    case 'PullRequestEvent':
+    case 'IssuesEvent':
+    default:
+      eventDescription += event.type;
+      break;
+    }
+
+    event.description = eventDescription;
+  });
+
+  return events;
+};
+
 
 /**
  * Format a result to conform App requirements,

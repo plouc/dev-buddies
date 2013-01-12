@@ -8,15 +8,12 @@ function GithubProfileController($scope) {
 
   $scope.repositories     = [];
   $scope.showRepositories = false;
-  $scope.activities       = [];
+  $scope.events           = [];
   $scope.showActivity     = false;
 
   $scope.$on('buddyselect', function (e, buddy) {
-    if (buddy.providerData.github) {
-      $scope.repositories = buddy.providerData.github.data.repos;
-    } else {
-      $scope.repositories = [];
-    }
+    $scope.repositories = buddy.providerData.github ? buddy.providerData.github.data.repos  : [];
+    $scope.events       = buddy.providerData.github ? buddy.providerData.github.data.events : [];
   });
 }
 

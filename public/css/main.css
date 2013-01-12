@@ -385,12 +385,13 @@ ul.items {
   #buddy-profile h3 .count {
     border-radius: 2px;
     display: inline-block;
-    background: #3f3939;
+    background: #554d4c;
     color: #dddcdc;
     padding: 0 5px;
     line-height: 18px;
     font-size: 13px;
-    font-weight: 800; }
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5) inset;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.85); }
   #buddy-profile h3 i {
     position: absolute;
     top: 3px;
@@ -414,9 +415,8 @@ ul.items {
     font-weight: bold;
     padding: 3px 12px;
     background-color: #e2e1e1; }
-  #buddy-profile ul.activity .date {
-    font-style: italic;
-    color: #888; }
+  #buddy-profile ul.activity .time {
+    color: #797474; }
 #buddy-profile ul.repositories {
   font-size: 13px; }
   #buddy-profile ul.repositories li {

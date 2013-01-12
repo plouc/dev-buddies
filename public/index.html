@@ -93,14 +93,14 @@
                 <h3 ng-click="showRepositories=!showRepositories" ng-class="{'collapsed':!showRepositories}">Repositories <span class="count">{{repositories.length}}</span><i></i></h3>
                 <ul class="repositories items" ng-show="showRepositories">
                   <li ng-repeat="repository in repositories">
-                    <a href="{{repo.html_url}}">{{repository.name}}</a>
+                    <a href="{{repository.html_url}}">{{repository.name}}</a>
                     <span class="meta">{{repository.description}}</span>
                   </li>
                 </ul>
-                <h3 ng-click="showActivity=!showActivity" ng-class="{'collapsed':!showActivity}">Recent activity <span class="count">{{activities.length}}</span><i></i></h3>
+                <h3 ng-click="showActivity=!showActivity" ng-class="{'collapsed':!showActivity}">Recent activity <span class="count">{{events.length}}</span><i></i></h3>
                 <ul class="activity items" ng-show="showActivity">
-                  <li ng-repeat="activity in activities">
-                    activity
+                  <li ng-repeat="event in events">
+                    <span class="time">{{event.dateTime}}</span> <span class="description" ng-bind-html-unsafe="event.description"></span>
                   </li>
                 </ul>
               </div>
@@ -202,7 +202,6 @@
 <script src="js/Provider/ProviderResult.js"></script>
 <script src="js/Provider/GithubProvider.js"></script>
 <script src="js/Provider/StackOverflowProvider.js"></script>
-<script src="js/Renderer/GithubRenderer.js"></script>
 <script src="js/Renderer/StackOverflowRenderer.js"></script>
 <script src="js/Controller/AppController.js"></script>
 <script src="js/Controller/HomeController.js"></script>

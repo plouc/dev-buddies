@@ -440,12 +440,14 @@ ul.items {
     .count {
       border-radius: 2px;
       display: inline-block;
-      background: darken($darkGrey, 8);
+      background: $darkGrey;
       color: lighten($lightGrey, 25);
       padding: 0 5px;
       line-height: 18px;
       font-size: 13px;
-      font-weight: 800;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.5) inset;
+      text-shadow: 0 1px 1px rgba(0,0,0,0.85);
+      //font-weight: 800;
     }
     i {
       position: absolute;
@@ -478,9 +480,8 @@ ul.items {
       padding: 3px $hSpacing;
       background-color: lighten($lightGrey, 27);
     }
-    .date {
-      font-style: italic;
-      color: #888;
+    .time {
+      color: darken($lightGrey, 15);
     }
   }
   ul.repositories {
