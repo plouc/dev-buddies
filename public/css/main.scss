@@ -159,6 +159,30 @@ h3 {
   height: 50%;
 }
 
+.icon-s {
+  display: block;
+  width:  16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-image:  url("../imgs/sprites.png");
+}
+.icon-s.icon-github {
+  background-position: 0 -24px;
+}
+.icon-s.icon-stack-overflow {
+  background-position: -16px -24px;
+}
+.icon-m {
+  display: block;
+  width:  24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-image:  url("../imgs/sprites.png");
+}
+.icon-m.icon-search {
+  background-position: -72px 0;
+}
+
 
 ul.items {
   list-style: none;
@@ -177,7 +201,6 @@ ul.items {
   display: block;
   display: none;
   text-align: center;
-  background: $yellow url("../imgs/glyphicons_187_more.png") no-repeat center center;
   height: 32px;
   &:hover {
     background-color: $lightYellow;
@@ -247,7 +270,6 @@ ul.items {
       right: 0;
       width: 32px;
       height: 32px;
-      background: url("../imgs/glyphicons_197_remove.png") no-repeat center center;
     }
     .container {
       background: #FFF;
@@ -291,24 +313,32 @@ ul.items {
       border-radius: 2px;
       box-shadow: 0 1px 1px #fff38b inset,
                   0 1px 2px rgba(0,0,0,0.75);
-      i {
+      > i {
+        display: block;
         position: absolute;
-        top: 0;
+        top:  0;
         left: 0;
         height: 40px;
-        width: 40px;
-        background-color: $lightYellow;
-        background-repeat: no-repeat;
-        background-position: center center;
-        display: block;
-        border-top-left-radius: 2px;
+        width:  40px;
+        background-color:$lightYellow;
+        border-top-left-radius:    2px;
         border-bottom-left-radius: 2px;
+        i {
+          display: block;
+          position: absolute;
+          top:  8px;
+          left: 8px;
+          width:  24px;
+          height: 24px;
+          background-repeat: no-repeat;
+          background-image:  url("../imgs/sprites.png");
+        }
       }
-      &.go-search i {
-        background-image: url("../imgs/search-dark-grey.png");
+      &.go-search i i {
+        background-position: -72px 0;
       }
-      &.go-list i {
-        background-image: url("../imgs/glyphicons_114_list.png");
+      &.go-list i i {
+        background-position: -96px 0;
       }
       &:hover {
         color: darken($darkGrey, 30);
@@ -372,45 +402,41 @@ ul.items {
     font-weight: 800;
     color: #D8CBC9;
     text-transform: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    z-index: 100;
   }
   h2 {
     position: relative;
     padding-left: 36px;
     min-height: 24px;
     line-height: 24px;
-    .refresh {
+    .icon-refresh {
       position: absolute;
-      top: 3px;
+      top:   6px;
       right: $hSpacing;
       display: block;
-      height: 32px;
-      width: 32px;
       cursor: pointer;
       border-radius: 2px;
-      background: url("../imgs/glyphicons_081_refresh.png") no-repeat center center;
+      background-position: -168px 0;
       &:hover {
         background-color: lighten($lightGrey, 10);
       }
+    }
+    .icon-s {
+      position: absolute;
+      top: 11px;
+      left: $hSpacing;
     }
   }
   .wrapper {
     height: 100%;
     overflow-y: auto;
   }
-  .github-profile h2 {
-    background-image: url("../imgs/github-icon-16.png");
-  }
-  .linkedin-profile h2 {
-    background-image: url("../imgs/linkedin-icon-16.png");
-  }
-  .stack-overflow-profile h2 {
-    background-image: url("../imgs/stack-overflow-icon-16.png");
-  }
   h3 {
     position: relative;
     cursor: pointer;
     color: darken($darkGrey, 15);
-    border-bottom: 1px solid $lightGrey;
+    border-bottom: 1px solid lighten($lightGrey, 8);
     .count {
       border-radius: 2px;
       display: inline-block;
@@ -520,7 +546,7 @@ ul.items {
       right: $hSpacing + 40px;
       cursor: pointer;
       display: block;
-      width: 40px;
+      width:  40px;
       height: 40px;
       background: url("../imgs/cross-dark.png") no-repeat center center;
       z-index: 100;
@@ -531,12 +557,16 @@ ul.items {
       right: $hSpacing;
       cursor: pointer;
       display: block;
-      border-top-right-radius: 2px;
+      border-top-right-radius:    2px;
       border-bottom-right-radius: 2px;
       height: 40px;
-      width: 40px;
+      width:  40px;
       background: $yellow url("../imgs/search-dark-grey.png") no-repeat center center;
       box-shadow: 0 1px 1px $lightYellow inset;
+      i {
+        margin-top:  8px;
+        margin-left: 8px;
+      }
       &:focus,
       &:hover,
       &:active {
@@ -592,6 +622,19 @@ ul.items {
       background-color: #fff;
       background-repeat: no-repeat;
       background-position: $hSpacing center;
+      i {
+        position: absolute;
+        top:  50%;
+        left: $hSpacing;
+        margin-top: -8px;
+      }
+      .validate {
+        position: absolute;
+        top:   50%;
+        right: $hSpacing;
+        background-position: 0 0;
+        margin-top: -12px;
+      }
       &.no-picture {
         padding-left: 84px;
         &.selected {
@@ -603,17 +646,8 @@ ul.items {
         background-color: $lightYellow !important;
         border-color: $yellow;
         .validate {
-          background-image: url("../imgs/tick-green.png");
+          background-position: -24px 0;
         }
-      }
-      &.provider-github {
-        background-image: url("../imgs/github-icon-16.png");
-      }
-      &.provider-linkedin {
-        background-image: url("../imgs/linkedin-icon-16.png");
-      }
-      &.provider-stack-overflow {
-        background-image: url("../imgs/stack-overflow-icon-16.png");
       }
       &:hover,
       &:focus {
@@ -635,16 +669,6 @@ ul.items {
       margin: 0;
     }
   }
-  .results .validate {
-    position: absolute;
-    top: 15px;
-    right: $hSpacing;
-    display: block;
-    height: 24px;
-    width: 24px;
-    line-height: 24px;
-    background: url("../imgs/tick-dark-grey.png") no-repeat center center;
-  }
 }
 
 
@@ -653,6 +677,10 @@ ul.items {
  * Buddies panel
  ******************************************************************************/
 #buddies-list {
+  .header {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    z-index: 100;
+  }
   h1 {
     a {
       -webkit-transition: width 0.1s linear;
@@ -718,7 +746,7 @@ ul.items {
     width: 28px;
     height: 28px;
     border-radius: 2px;
-    background: $removeColor url("../imgs/glyphicons_197_remove.png") no-repeat center center;
+    background: $removeColor url("../imgs/cross-dark.png") no-repeat center center;
     box-shadow: 0 1px 2px rgba(0,0,0,0.35);
     font-size: 13px;
     text-decoration: none;
@@ -774,14 +802,10 @@ ul.items {
       .name {
         font-weight: bold;
       }
-      &.github {
-        background-image: url("../imgs/github-icon-16.png");
-      }
-      &.linkedin {
-        background-image: url("../imgs/linkedin-icon-16.png");
-      }
-      &.stack-overflow {
-        background-image: url("../imgs/stack-overflow-icon-16.png");
+      .icon-s {
+        position: absolute;
+        top:  14px;
+        left: $hSpacing;
       }
     }
   }
@@ -820,11 +844,11 @@ ul.items {
     }
   }
   a {
+    cursor: pointer;
+    position: relative;
     display: block;
-    width: 100%;
+    width:  100%;
     height: 100%;
-    background-repeat: no-repeat;
-    background-position: center center;
     span {
       display: none;
     }
@@ -833,21 +857,28 @@ ul.items {
     &.active {
       background-color: #eee;
     }
+    i {
+      position: absolute;
+      top:  50%;
+      left: 50%;
+      margin-top:  -12px;
+      margin-left: -12px;
+    }
   }
-  .home a {
-    background-image: url("../imgs/glyphicons_020_home.png");
+  .home i {
+    background-position: -48px 0;
   }
-  .search-button a {
-    background-image: url("../imgs/glyphicons_027_search.png");
+  .search-button i {
+    background-position: -72px 0;
   }
-  .buddies a {
-    background-image: url("../imgs/glyphicons_114_list.png");
+  .buddies i {
+    background-position: -96px 0;
   }
-  .settings a {
-    background-image: url("../imgs/glyphicons_136_cogwheel.png");
+  .settings i {
+    background-position: -120px 0;
   }
-  .about a {
-    background-image: url("../imgs/glyphicons_195_circle_info.png");
+  .about i {
+    background-position: -144px 0;
   }
 }
 

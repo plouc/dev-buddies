@@ -20,8 +20,8 @@
                 you can search an <strong>user by his name</strong>, then <strong>build his profile</strong>
                 to store it in your dev buddy list and <strong>refresh his informations</strong>
                 whenever you want.<br>
-                <a ng-click="goto('search')" class="go-search"><i></i>Find Buddies</a>
-                <a ng-click="goto('buddies-list')" class="go-list"><i></i>View collected Buddies</a></p>
+                <a ng-click="goto('search')" class="go-search"><i><i></i></i>Find Buddies</a>
+                <a ng-click="goto('buddies-list')" class="go-list"><i><i></i></i>View collected Buddies</a></p>
             </div>
           </div>
         </div>
@@ -34,7 +34,7 @@
               <div class="search-wrapper">
                 <input type="text" ng-model="query" type="text"/>
                 <span class="clear" ng-show="query.length" ng-click="clear()"></span>
-                <a class="submit" ng-click="search()"></a>
+                <a class="submit" ng-click="search()"><i class="icon-m icon-search"></i></a>
                 <a class="build" ng-show="hasSelection" ng-click="build()">Build profile</a>
                 <div class="overlay" ng-show="state=='searching'">
                   <span class="loader"></span>
@@ -49,10 +49,11 @@
                     ng-click="selectResult(result)"
                     ng-show="result.enabled"
                     class="provider-{{result.providerId}}">
+                  <i class="icon-s icon-{{result.providerId}}"></i>
                   <img ng-show="result.picture" src="{{result.picture}}" alt="{{result.fullname}}"/>
                   <h2>{{result.fullname}}</h2>
                   <p>{{result.description}}</p>
-                  <span class="validate"></span>
+                  <span class="icon-m validate"></span>
                 </li>
               </ul>
             </div>
@@ -88,7 +89,7 @@
             <h1 class="header"><img ng-show="buddy.picture" src="{{buddy.picture}}" alt="{{buddy.fullname}}"/>{{buddy.id}}<span ng-click="goto('buddies-list')" class="back-list header-button">back to list</span></h1>
             <div class="panel-wrapper">
               <div class="github-profile" ng-controller="GithubProfileController">
-                <h2>Github<span class="refresh"></span></h2>
+                <h2><i class="icon-s icon-github"></i>Github<i class="icon-m icon-refresh"></i></h2>
                 <h3 ng-click="showRepositories=!showRepositories" ng-class="{'collapsed':!showRepositories}">Repositories <span class="count">{{repositories.length}}</span><i></i></h3>
                 <ul class="repositories items" ng-show="showRepositories">
                   <li ng-repeat="repository in repositories">
@@ -104,7 +105,7 @@
                 </ul>
               </div>
               <div class="stack-overflow-profile" ng-controller="GithubProfileController">
-                <h2>Stack Overflow<span class="refresh"></span></h2>
+                <h2><i class="icon-s icon-stack-overflow"></i>Stack Overflow<i class="icon-m icon-refresh"></i></h2>
               </div>
             </div>
           </div>
@@ -119,6 +120,7 @@
               <h2>Providers</h2>
               <ul class="providers items">
                 <li ng-repeat="provider in providers" class="{{provider.id}}">
+                  <i class="icon-s icon-{{provider.id}}"></i>
                   <span class="name">{{provider.name}}</span>
                   <span class="quota">
                    API max quota&nbsp;<span class="max">{{provider.quota.max}}</span>,
@@ -158,19 +160,19 @@
   <div class="nav">
     <ul>
       <li class="home">
-        <a ng-click="goto('home')"><span>home</span></a>
+        <a ng-click="goto('home')"><span>home</span><i class="icon-m"></i></a>
       </li>
       <li class="search-button">
-        <a ng-click="goto('search')"><span>search</span></a>
+        <a ng-click="goto('search')"><span>search</span><i class="icon-m"></i></a>
       </li>
       <li class="buddies">
-        <a ng-click="goto('buddies-list')"><span>buddies</span></a>
+        <a ng-click="goto('buddies-list')"><span>buddies</span><i class="icon-m"></i></a>
       </li>
       <li class="settings">
-        <a ng-click="goto('settings')"><span>settings</span></a>
+        <a ng-click="goto('settings')"><span>settings</span><i class="icon-m"></i></a>
       </li>
       <li class="about">
-        <a ng-click="goto('about')"><span>about</span></a>
+        <a ng-click="goto('about')"><span>about</span><i class="icon-m"></i></a>
       </li>
     </ul>
   </div>
