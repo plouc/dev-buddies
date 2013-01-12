@@ -137,6 +137,10 @@ GithubProvider.prototype.getUserProfile = function (result, callback) {
         self.quota.remaining = response.meta['X-RateLimit-Remaining'];
       }
       compositeResponse.profile = response.data;
+      if (response.data.avatar_url) {
+        console.log(response.data.avatar_url);
+        compositeResponse.avatar = response.data.avatar_url;
+      }
       responseCount++;
       onResponse();
     },

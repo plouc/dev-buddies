@@ -355,6 +355,12 @@ ul.items {
   text-transform: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   z-index: 100; }
+  #buddy-profile .header img {
+    margin-top: 6px;
+    margin-right: 9px;
+    max-height: 32px;
+    float: left;
+    border-radius: 2px; }
 #buddy-profile h2 {
   position: relative;
   padding-left: 36px;

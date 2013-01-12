@@ -10,6 +10,8 @@ var Profile = function (id) {
   this.id = id;
 
   this.providerData = {};
+
+  this.avatar = null;
 };
 
 /**
@@ -20,6 +22,10 @@ var Profile = function (id) {
  */
 Profile.prototype.addProviderData = function (providerName, providerUserId, data) {
   'use strict';
+
+  if (data.avatar) {
+    this.avatar = data.avatar;
+  }
 
   this.providerData[providerName] = {
     id:   providerUserId,
