@@ -2,6 +2,7 @@
 <html lang="en-US" ng-app="DevBuddiesModule" ng-controller="AppController">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="imgs/favicon.ico"/>
   <title>Dev Buddies</title>
   <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
   <link rel="stylesheet" type="text/css" href="css/main.css"/>
@@ -13,15 +14,16 @@
     <div class="panel-container">
       <div class="panel active">
         <div class="subpanel-container">
-          <div id="home" class="subpanel headered-panel">
-            <h1 class="header">Home</h1>
+          <div id="home" class="subpanel">
             <div class="panel-wrapper">
+              <img src="imgs/dev-buddies-logo.png" alt="dev buddies"/>
               <p class="presentation"><strong>Dev Buddies</strong> helps you track developpers activity,
                 you can search an <strong>user by his name</strong>, then <strong>build his profile</strong>
                 to store it in your dev buddy list and <strong>refresh his informations</strong>
-                whenever you want.<br>
-                <a ng-click="goto('search')" class="go-search"><i><i></i></i>Find Buddies</a>
-                <a ng-click="goto('buddies-list')" class="go-list"><i><i></i></i>View collected Buddies</a></p>
+                whenever you want.
+              </p>
+              <a ng-click="goto('search')" class="go-search"><i><i></i></i>Find Buddies</a>
+              <a ng-click="goto('buddies-list')" class="go-list"><i><i></i></i>View collected Buddies</a></p>
             </div>
           </div>
         </div>
@@ -50,7 +52,7 @@
                     ng-show="result.enabled"
                     class="provider-{{result.providerId}}">
                   <i class="icon-s icon-{{result.providerId}}"></i>
-                  <img ng-show="result.picture" src="{{result.picture}}" alt="{{result.fullname}}"/>
+                  <img ng-show="result.picture" ng-src="{{result.picture}}" alt="{{result.fullname}}"/>
                   <h2>{{result.fullname}}</h2>
                   <p>{{result.description}}</p>
                   <span class="icon-m validate"></span>
@@ -68,7 +70,12 @@
       <div id="buddies" class="panel">
         <div class="subpanel-container">
           <div id="buddies-list" class="subpanel headered-panel" ng-controller="BuddiesController">
-            <h1 class="header">Buddies<a class="header-button" ng-class="editing" href="#" ng-click="switchEditMode($event)">edit</a></h1>
+            <h1 class="header">Buddies
+              <a class="header-button" ng-class="editing" href="#" ng-switch on="editing" ng-click="switchEditMode($event)">
+                <span ng-switch-default="">edit</span>
+                <span ng-switch-when="editing">done</span>
+              </a>
+            </h1>
             <div class="panel-wrapper">
               <ul class="letters">
                 <li ng-repeat="letter in letters" class="letter">
@@ -86,7 +93,7 @@
           </div>
 
           <div id="buddy-profile" class="subpanel headered-panel" ng-controller="BuddyController">
-            <h1 class="header"><img ng-show="buddy.avatar" src="{{buddy.avatar}}" alt="{{buddy.fullname}}"/>{{buddy.id}}<span ng-click="goto('buddies-list')" class="back-list header-button">back to list</span></h1>
+            <h1 class="header"><img ng-show="buddy.avatar" ng-src="{{buddy.avatar}}" alt="{{buddy.fullname}}"/>{{buddy.id}}<span ng-click="goto('buddies-list')" class="back-list header-button">back to list</span></h1>
             <div class="panel-wrapper">
               <div class="github-profile" ng-controller="GithubProfileController">
                 <h2><i class="icon-s icon-github"></i>Github<i class="icon-m icon-refresh"></i></h2>
@@ -190,6 +197,7 @@
 
   </div>
 </div>
+<!--
 <script src="js/vendors/underscore.js"></script>
 <script src="js/vendors/jquery-1.8.3.js"></script>
 <script src="js/vendors/angular.js"></script>
@@ -210,6 +218,7 @@
 <script src="js/Controller/BuddyController.js"></script>
 <script src="js/Controller/GithubProfileController.js"></script>
 <script src="js/Controller/SettingsController.js"></script>
-<!--<script src="js/dev-buddies.pack.js"></script>-->
+-->
+<script src="js/dev-buddies.pack.js"></script>
 </body>
 </html>

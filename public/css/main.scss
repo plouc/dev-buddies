@@ -142,7 +142,12 @@ h3 {
 }
 .panel-wrapper {
   height: 100%;
-  overflow-y: auto;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  -moz-overflow-scrolling:    touch;
+  -o-overflow-scrolling:      touch;
+  -ms-overflow-scrolling:     touch;
+  overflow-scrolling:         touch;
 }
 .notice {
   padding: 7px $hSpacing;
@@ -286,64 +291,72 @@ ul.items {
  * Home
  ******************************************************************************/
 #home {
+  .panel-wrapper {
+    padding: 18px $hSpacing;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  img {
+    display: inline-block;
+  }
   background: $darkGrey;
   color: lighten($lightGrey, 8);
   .presentation {
-    padding: 12px $hSpacing;
-    margin: 0;
+    width: 100%;
+    margin: 18px 0;
     line-height: 22px;
     strong {
       color: $lightYellow;
       font-weight: normal;
     }
-    a {
-      -webkit-transition: background-color 0.3s linear, color 0.3s linear;
-      -moz-transition:    background-color 0.3s linear, color 0.3s linear;
-      transition:         background-color 0.3s linear, color 0.3s linear;
-      position: relative;
-      margin-top: 15px;
+  }
+  a {
+    -webkit-transition: background-color 0.3s linear, color 0.3s linear;
+    -moz-transition:    background-color 0.3s linear, color 0.3s linear;
+    transition:         background-color 0.3s linear, color 0.3s linear;
+    position: relative;
+    margin-top: 15px;
+    display: block;
+    background-color: $yellow;
+    font-weight: bold;
+    text-decoration: none;
+    padding-left: 52px;
+    height: 40px;
+    line-height: 40px;
+    text-align: left;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px #fff38b inset,
+                0 1px 2px rgba(0,0,0,0.75);
+    > i {
       display: block;
-      background-color: $yellow;
-      font-weight: bold;
-      text-decoration: none;
-      padding-left: 52px;
+      position: absolute;
+      top:  0;
+      left: 0;
       height: 40px;
-      line-height: 40px;
-      text-align: left;
-      border-radius: 2px;
-      box-shadow: 0 1px 1px #fff38b inset,
-                  0 1px 2px rgba(0,0,0,0.75);
-      > i {
+      width:  40px;
+      background-color:$lightYellow;
+      border-top-left-radius:    2px;
+      border-bottom-left-radius: 2px;
+      i {
         display: block;
         position: absolute;
-        top:  0;
-        left: 0;
-        height: 40px;
-        width:  40px;
-        background-color:$lightYellow;
-        border-top-left-radius:    2px;
-        border-bottom-left-radius: 2px;
-        i {
-          display: block;
-          position: absolute;
-          top:  8px;
-          left: 8px;
-          width:  24px;
-          height: 24px;
-          background-repeat: no-repeat;
-          background-image:  url("../imgs/sprites.png");
-        }
+        top:  8px;
+        left: 8px;
+        width:  24px;
+        height: 24px;
+        background-repeat: no-repeat;
+        background-image:  url("../imgs/sprites.png");
       }
-      &.go-search i i {
-        background-position: -72px 0;
-      }
-      &.go-list i i {
-        background-position: -96px 0;
-      }
-      &:hover {
-        color: darken($darkGrey, 30);
-        background-color: $lightYellow;
-      }
+    }
+    &.go-search i i {
+      background-position: -72px 0;
+    }
+    &.go-list i i {
+      background-position: -96px 0;
+    }
+    &:hover {
+      color: darken($darkGrey, 30);
+      background-color: $lightYellow;
     }
   }
 }
@@ -398,12 +411,15 @@ ul.items {
  ******************************************************************************/
 #buddy-profile {
   .header {
-    font-size: 19px;
-    font-weight: 800;
-    color: #D8CBC9;
+    font-size: 21px;
+    font-weight: normal;
+    color: lighten($lightGrey, 10);
     text-transform: none;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     z-index: 100;
+    span {
+      text-shadow: none;
+    }
     img {
       margin-top:   6px;
       margin-right: 9px;
@@ -572,7 +588,7 @@ ul.items {
       border-bottom-right-radius: 2px;
       height: 40px;
       width:  40px;
-      background: $yellow url("../imgs/search-dark-grey.png") no-repeat center center;
+      background-color: $yellow;
       box-shadow: 0 1px 1px $lightYellow inset;
       i {
         margin-top:  8px;
