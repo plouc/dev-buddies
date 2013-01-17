@@ -9,20 +9,23 @@ function SearchController($scope, app, navigate) {
   $scope.query        = '';
   $scope.results      = [];
   $scope.hasSelection = false;
-  $scope.state        = 'idle';
 
   $scope.clear = function () {
     $scope.query = '';
   };
 
   $scope.search = function () {
-    $scope.state = 'searching';
-    $scope.selectedResults = [];
-    app.search(this.query, function (results) {
-      $scope.state   = 'loaded';
-      $scope.results = results;
-      $scope.$parent.safeApply();
-    });
+    if ($scope.query.length < 3) {
+      $scope.setMessage('error', 'You must type at least 3 characters in order to perform the search');
+    } else {
+      $scope.setLoading(true);
+      $scope.selectedResults = [];
+      app.search(this.query, function (results) {
+        $scope.setLoading(false);
+        $scope.results = results;
+        $scope.$parent.safeApply();
+      });
+    }
   };
 
   $scope.selectResult = function (result) {
@@ -42,7 +45,7 @@ function SearchController($scope, app, navigate) {
   };
 
   $scope.build = function () {
-    $scope.state = 'loading';
+    $scope.setLoading(true);
     var selectedResults = [];
     _.each($scope.results, function (result) {
       if (result.selected) {
@@ -50,8 +53,9 @@ function SearchController($scope, app, navigate) {
       }
     });
     app.getUserProfile($scope.query, selectedResults, function (profile) {
-      $scope.state = 'loaded';
+      $scope.setLoading(false);
       app.getBuddies(function (buddies) {
+        $scope.setLoading(false);
         $scope.$parent.$broadcast('buddies.refresh', buddies);
       });
       $scope.$parent.$broadcast('buddyselect', profile);

@@ -38,9 +38,6 @@
                 <span class="clear" ng-show="query.length" ng-click="clear()"></span>
                 <a class="submit" ng-click="search()"><i class="icon-m icon-search"></i></a>
                 <a class="build" ng-show="hasSelection" ng-click="build()">Build profile</a>
-                <div class="overlay" ng-show="state=='searching'">
-                  <span class="loader"></span>
-                </div>
               </div>
             </form>
             <p class="notice" ng-hide="hasSelection">Pick up items to build profile</p>
@@ -60,9 +57,6 @@
               </ul>
             </div>
             <script type="IN/Login"></script>
-            <div class="overlay" ng-show="state=='loading'">
-              <span class="loader"></span>
-            </div>
           </div>
         </div>
       </div>
@@ -184,17 +178,15 @@
     </ul>
   </div>
 
-  <div id="popin">
-    <div class="wrapper">
-      <div class="title"></div>
-      <span class="close"></span>
-      <div class="container">
-      </div>
+  <div id="popin" class="popin" ng-show="message" ng-class="messageType" ng-cloak>
+    <div class="popin-wrapper">
+      <p>{{message}}</p>
+      <span class="popin-close" ng-click="emptyMessage()"></span>
     </div>
   </div>
 
-  <div id="notice">
-
+  <div class="loader-overlay" ng-show="loading" ng-cloak></div>
+  <div class="loader" ng-show="loading" ng-cloak>
   </div>
 </div>
 <!--

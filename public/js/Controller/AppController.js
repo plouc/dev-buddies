@@ -6,6 +6,22 @@
 function AppController($scope, app, navigate) {
   'use strict';
 
+  $scope.message     = '';
+  $scope.messageType = '';
+  $scope.setMessage = function (type, message) {
+    $scope.messageType = type;
+    $scope.message     = message;
+  };
+  $scope.emptyMessage = function () {
+    $scope.messageType = '';
+    $scope.message     = '';
+  };
+
+  $scope.loading = false;
+  $scope.setLoading = function (flag) {
+    $scope.loading = flag;
+  };
+
   $scope.goto = function (page) {
     navigate(page);
   };

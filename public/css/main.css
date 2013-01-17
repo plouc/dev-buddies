@@ -37,6 +37,14 @@ h3 {
   margin: 0;
   font-weight: 400; }
 
+/*
+  Allow angular.js to be loaded in body, hiding cloaked elements until
+  templates compile.  The !important is important given that there may be
+  other selectors that are more specific or come later and might alter display.
+ */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important; }
+
 #container {
   position: relative;
   overflow: hidden;
@@ -212,53 +220,59 @@ ul.items {
 /*******************************************************************************
  * Popin
  ******************************************************************************/
-#popin {
-  display: none;
+.popin {
   position: absolute;
-  top: 54px;
-  left: 10px;
-  right: 10px;
-  bottom: 50px;
+  top: 24px;
+  left: 24px;
+  right: 24px;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.85);
   z-index: 9999;
+  border-radius: 2px;
+  background: #FFF; }
+
+.popin.error {
+  background: #ffb884; }
+  .popin.error p {
+    padding: 0 12px; }
+
+.popin-close {
+  display: block;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 32px;
+  height: 32px;
+  background: #000;
+  border-top-right-radius: 2px; }
+
+.popin-wrapper {
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  min-height: 100px;
   border-radius: 2px; }
-  #popin .wrapper {
-    padding-top: 32px;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    position: relative;
-    height: 100%;
-    width: 100%;
-    border-radius: 2px; }
-    #popin .wrapper .title {
-      position: absolute;
-      top: 0;
-      left: 0;
-      border-top-left-radius: 2px;
-      border-top-right-radius: 2px;
-      background: #423c3b;
-      color: #837675;
-      height: 32px;
-      line-height: 32px;
-      width: 100%;
-      -moz-box-sizing: border-box;
-      box-sizing: border-box;
-      padding: 0 12px;
-      text-transform: uppercase;
-      font-size: 19px; }
-    #popin .wrapper .close {
-      cursor: pointer;
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 32px;
-      height: 32px; }
-    #popin .wrapper .container {
-      background: #FFF;
-      height: 100%;
-      width: 100%;
-      border-bottom-left-radius: 2px;
-      border-bottom-right-radius: 2px; }
+
+.popin-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  background: #423c3b;
+  color: #837675;
+  height: 32px;
+  line-height: 32px;
+  width: 100%;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 0 12px;
+  text-transform: uppercase;
+  font-size: 19px; }
 
 /*******************************************************************************
  * Home
@@ -335,26 +349,6 @@ ul.items {
     #about p strong, #about p a {
       color: #fff6ba;
       font-weight: normal; }
-
-.overlay {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2000;
-  background: rgba(255, 255, 255, 0.7); }
-  .overlay .loader {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    display: block;
-    height: 16px;
-    margin-top: -8px;
-    width: 48px;
-    margin-left: -24px;
-    background: url("../imgs/loader.gif") no-repeat top left; }
 
 /*******************************************************************************
  * Buddy profile
@@ -798,3 +792,27 @@ ul.items {
       border-bottom-left-radius: 2px; }
   .switch:hover i {
     background-color: #706564; }
+
+.loader {
+  position: absolute;
+  z-index: 10000;
+  top: 50%;
+  left: 50%;
+  height: 100px;
+  width: 100px;
+  background-color: rgba(42, 35, 34, 0.91);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image: url("../imgs/loader.gif");
+  border-radius: 2px;
+  margin-top: -50px;
+  margin-left: -50px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.75); }
+
+.loader-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 10000; }
