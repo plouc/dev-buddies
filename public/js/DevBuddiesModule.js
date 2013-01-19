@@ -73,7 +73,6 @@ angular
       for (i = 0; i < coordinates.length; i += 2) {
         x = coordinates[i];
         y = coordinates[i + 1];
-        console.log(coordinates, e.clientX, x, e.clientY, y);
         if (Math.abs(e.clientX - x) < endTolerance && Math.abs(e.clientY - y) < endTolerance) {
           e.stopPropagation();
           e.preventDefault();
@@ -123,12 +122,9 @@ angular
         var onClick = function (e) {
           e.stopPropagation();
           reset();
-          console.log('apply onclick from ' + e.type);
           scope.$apply(attrs['fastClick']);
 
           if (e.type === 'touchend') {
-            console.log('call preventGhostClick');
-            console.log(e);
             preventGhostClick(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
           }
         };
