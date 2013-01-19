@@ -7,8 +7,8 @@ $removeColor:  #ff3726;
 $yellow:       #e1cf5f;
 $lightYellow:  #fff6ba;
 $hSpacing:     12px;
-$headerHeight: 44px;
-$navHeight:    40px;
+$headerHeight: 46px;
+$navHeight:    46px;
 $panelCountH:  5;
 
 html, body {
@@ -31,6 +31,11 @@ body {
 }
 a {
   color: darken($darkGrey, 10);
+}
+// disable grey overlay on safari ios
+a, span {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-touch-callout: none;
 }
 h1, h2, h3, h4, h5, h6 {
   color: $darkGrey;
@@ -202,7 +207,7 @@ h3 {
 .header-button {
   cursor: pointer;
   position: absolute;
-  top: 6px;
+  top: 7px;
   right: $hSpacing;
   display: inline-block;
   height: 30px;
@@ -881,7 +886,7 @@ ul.items {
     li {
       position: relative;
       padding: 11px $hSpacing 11px 36px;
-      background-repeat: no-repeat;
+      background-repeat:   no-repeat;
       background-position: $hSpacing 14px;
       .name {
         font-weight: bold;
@@ -976,7 +981,7 @@ ul.items {
   right: $hSpacing;
   display: block;
   border-radius: 2px;
-  width: 70px;
+  width:  70px;
   height: 30px;
   line-height: 30px;
   span {
@@ -986,7 +991,7 @@ ul.items {
       font-weight: bold;
       display: block;
       float: left;
-      width: 35px;
+      width:  35px;
       height: 30px;
       text-align: center;
       box-shadow: 0 0 4px rgba(0,0,0,0.25) inset;
@@ -996,7 +1001,7 @@ ul.items {
         background: $yellow;
       }
       &:nth-child(2) {
-        border-top-right-radius: 2px;
+        border-top-right-radius:    2px;
         border-bottom-right-radius: 2px;
         background: $lightGrey;
       }
@@ -1020,7 +1025,7 @@ ul.items {
     text-align: left;
     i {
       left: 35px;
-      border-top-right-radius: 2px;
+      border-top-right-radius:    2px;
       border-bottom-right-radius: 2px;
     }
   }
@@ -1028,7 +1033,7 @@ ul.items {
     text-align: right;
     i {
       left: 0;
-      border-top-left-radius: 2px;
+      border-top-left-radius:    2px;
       border-bottom-left-radius: 2px;
     }
   }
@@ -1049,10 +1054,10 @@ ul.items {
   left: 50%;
   height: 100px;
   width:  100px;
-  background-color: rgba(42, 35, 34, 0.91);
-  background-repeat: no-repeat;
+  background-color:    rgba(42, 35, 34, 0.91);
+  background-repeat:   no-repeat;
   background-position: center center;
-  background-image: url("../imgs/loader.gif");
+  background-image:    url("../imgs/loader.gif");
   border-radius: 2px;
   margin-top:  -50px;
   margin-left: -50px;
@@ -1060,9 +1065,9 @@ ul.items {
 }
 .loader-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
+  top:    0;
+  left:   0;
   bottom: 0;
-  right: 0;
+  right:  0;
   z-index: 10000;
 }
