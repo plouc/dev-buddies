@@ -11,8 +11,7 @@ function BuddiesController($scope, app, navigate, buddiesFormatter) {
   $scope.editing = '';
   $scope.letters = {};
 
-  $scope.switchEditMode = function (e) {
-    e.preventDefault();
+  $scope.switchEditMode = function () {
     editing = !editing;
     if (editing) {
       $scope.editing = 'editing';
@@ -35,7 +34,7 @@ function BuddiesController($scope, app, navigate, buddiesFormatter) {
 
   $scope.selectBuddy = function (buddy) {
     $scope.$parent.$broadcast('buddyselect', buddy);
-    navigate('buddy-profile');
+    navigate('buddy');
   };
 
   app.getBuddies(function (buddies) {

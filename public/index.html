@@ -12,168 +12,149 @@
 <div id="container">
   <div class="panel-slider">
     <div class="panel-container">
-      <div class="panel active">
-        <div class="subpanel-container">
-          <div id="home" class="subpanel">
-            <div class="panel-wrapper">
-              <img src="imgs/dev-buddies-logo.png" alt="dev buddies"/>
-              <p class="presentation"><strong>Dev Buddies</strong> helps you track developpers activity,
-                you can search an <strong>user by his name</strong>, then <strong>build his profile</strong>
-                to store it in your dev buddy list and <strong>refresh his informations</strong>
-                whenever you want.
-              </p>
-              <a ng-click="goto('search')" class="go-search"><i><i></i></i>Find Buddies</a>
-              <a ng-click="goto('buddies-list')" class="go-list"><i><i></i></i>View collected Buddies</a></p>
-            </div>
-          </div>
+
+      <div class="panel" id="home" ng-controller="HomeController">
+        <div class="panel-wrapper">
+          <img src="imgs/dev-buddies-logo.png" alt="dev buddies"/>
+          <p class="presentation"><strong>Dev Buddies</strong> helps you track developpers activity,
+            you can search an <strong>user by his name</strong>, then <strong>build his profile</strong>
+            to store it in your dev buddy list and <strong>refresh his informations</strong>
+            whenever you want.
+          </p>
+          <a fast-click="goto('search')" class="go-search"><i><i></i></i>Find Buddies</a>
+          <a fast-click="goto('buddies')" class="go-list"><i><i></i></i>View collected Buddies</a></p>
         </div>
       </div>
 
-      <div class="panel">
-        <div class="subpanel-container">
-          <div id="search" class="subpanel" ng-controller="SearchController">
-            <form ng-submit="search()">
-              <div class="search-wrapper">
-                <input type="text" ng-model="query" type="text"/>
-                <span class="clear" ng-show="query.length" ng-click="clear()"></span>
-                <a class="submit" ng-click="search()"><i class="icon-m icon-search"></i></a>
-                <a class="build" ng-show="hasSelection" ng-click="build()">Build profile</a>
-              </div>
-            </form>
-            <p class="notice" ng-hide="hasSelection">Pick up items to build profile</p>
-            <div class="results-wrapper">
-              <ul class="results items">
-                <li ng-repeat="result in results"
-                    ng-class="{'selected':result.selected, 'no-picture':!result.picture}"
-                    ng-click="selectResult(result)"
-                    ng-show="result.enabled"
-                    class="provider-{{result.providerId}}">
-                  <i class="icon-s icon-{{result.providerId}}"></i>
-                  <img ng-show="result.picture" ng-src="{{result.picture}}" alt="{{result.fullname}}"/>
-                  <h2>{{result.fullname}}</h2>
-                  <p>{{result.description}}</p>
-                  <span class="icon-m validate"></span>
+      <div class="panel" id="search" ng-controller="SearchController">
+        <form ng-submit="search()">
+          <div class="search-wrapper">
+            <input type="text" ng-model="query" type="text"/>
+            <span class="clear" ng-show="query.length" fast-click="clear()"></span>
+            <a class="submit" fast-click="search()"><i class="icon-m icon-search"></i></a>
+            <a class="build" ng-show="hasSelection" fast-click="build()">Build profile</a>
+          </div>
+        </form>
+        <p class="notice" ng-hide="hasSelection">Pick up items to build profile</p>
+        <div class="results-wrapper">
+          <ul class="results items">
+            <li ng-repeat="result in results"
+                ng-class="{'selected':result.selected, 'no-picture':!result.picture}"
+                fast-click="selectResult(result)"
+                ng-show="result.enabled"
+                class="provider-{{result.providerId}}">
+              <i class="icon-s icon-{{result.providerId}}"></i>
+              <img ng-show="result.picture" ng-src="{{result.picture}}" alt="{{result.fullname}}"/>
+              <h2>{{result.fullname}}</h2>
+              <p>{{result.description}}</p>
+              <span class="icon-m validate"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="panel headered-panel" id="buddies" ng-controller="BuddiesController">
+        <h1 class="header">Buddies
+          <a class="header-button" ng-class="editing" ng-switch on="editing" fast-click="switchEditMode()">
+            <span ng-switch-default="">edit</span>
+            <span ng-switch-when="editing">done</span>
+          </a>
+        </h1>
+        <div class="panel-wrapper">
+          <ul class="letters">
+            <li ng-repeat="letter in letters" class="letter">
+              <span>{{letter.letter}}</span>
+              <ul class="items">
+                <li ng-repeat="buddy in letter.buddies" fast-click="selectBuddy(buddy)">
+                  <h3>{{buddy.id}}</h3>
+                  <a href="#" fast-click="removeBuddy(buddy)" class="remove {{editing}}" ng-class="{'pending':buddy.pendingRemove}" block-click><span>remove</span></a>
                 </li>
               </ul>
-            </div>
-            <script type="IN/Login"></script>
+            </li>
+          </ul>
+          <p class="empty" ng-hide="letters.length">No buddy collected, <a fast-click="goto('search')">find one</a></p>
+        </div>
+      </div>
+
+      <div class="panel headered-panel" id="buddy" ng-controller="BuddyController">
+        <h1 class="header"><img ng-show="buddy.avatar" ng-src="{{buddy.avatar}}" alt="{{buddy.fullname}}"/>{{buddy.id}}<span fast-click="goto('buddies')" class="back-list header-button">back to list</span></h1>
+        <div class="panel-wrapper">
+          <div class="github-profile" ng-controller="GithubProfileController">
+            <h2><i class="icon-s icon-github"></i>Github<i class="icon-m icon-refresh"></i></h2>
+            <h3 fast-click="showRepositories=!showRepositories" ng-class="{'collapsed':!showRepositories}">Repositories <span class="count">{{repositories.length}}</span><i></i></h3>
+            <ul class="repositories items" ng-show="showRepositories">
+              <li ng-repeat="repository in repositories">
+                <a href="{{repository.html_url}}">{{repository.name}}</a>
+                <span class="meta">{{repository.description}}</span>
+              </li>
+            </ul>
+            <h3 fast-click="showActivity=!showActivity" ng-class="{'collapsed':!showActivity}">Recent activity <span class="count">{{events.length}}</span><i></i></h3>
+            <ul class="activity items" ng-show="showActivity">
+              <li ng-repeat="event in events">
+                <span class="time">{{event.dateTime}}</span> <span class="description" ng-bind-html-unsafe="event.description"></span>
+              </li>
+            </ul>
+          </div>
+          <div class="stack-overflow-profile" ng-controller="GithubProfileController">
+            <h2><i class="icon-s icon-stack-overflow"></i>Stack Overflow<i class="icon-m icon-refresh"></i></h2>
           </div>
         </div>
       </div>
 
-      <div id="buddies" class="panel">
-        <div class="subpanel-container">
-          <div id="buddies-list" class="subpanel headered-panel" ng-controller="BuddiesController">
-            <h1 class="header">Buddies
-              <a class="header-button" ng-class="editing" href="#" ng-switch on="editing" ng-click="switchEditMode($event)">
-                <span ng-switch-default="">edit</span>
-                <span ng-switch-when="editing">done</span>
-              </a>
-            </h1>
-            <div class="panel-wrapper">
-              <ul class="letters">
-                <li ng-repeat="letter in letters" class="letter">
-                  <span>{{letter.letter}}</span>
-                  <ul class="items">
-                    <li ng-repeat="buddy in letter.buddies" ng-click="selectBuddy(buddy)">
-                      <h3>{{buddy.id}}</h3>
-                      <a href="#" ng-click="removeBuddy(buddy)" class="remove {{editing}}" ng-class="{'pending':buddy.pendingRemove}" eprevent><span>remove</span></a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-              <p class="empty" ng-hide="letters.length">No buddy collected, <a ng-click="goto('search')">find one</a></p>
-            </div>
-          </div>
-
-          <div id="buddy-profile" class="subpanel headered-panel" ng-controller="BuddyController">
-            <h1 class="header"><img ng-show="buddy.avatar" ng-src="{{buddy.avatar}}" alt="{{buddy.fullname}}"/>{{buddy.id}}<span ng-click="goto('buddies-list')" class="back-list header-button">back to list</span></h1>
-            <div class="panel-wrapper">
-              <div class="github-profile" ng-controller="GithubProfileController">
-                <h2><i class="icon-s icon-github"></i>Github<i class="icon-m icon-refresh"></i></h2>
-                <h3 ng-click="showRepositories=!showRepositories" ng-class="{'collapsed':!showRepositories}">Repositories <span class="count">{{repositories.length}}</span><i></i></h3>
-                <ul class="repositories items" ng-show="showRepositories">
-                  <li ng-repeat="repository in repositories">
-                    <a href="{{repository.html_url}}">{{repository.name}}</a>
-                    <span class="meta">{{repository.description}}</span>
-                  </li>
-                </ul>
-                <h3 ng-click="showActivity=!showActivity" ng-class="{'collapsed':!showActivity}">Recent activity <span class="count">{{events.length}}</span><i></i></h3>
-                <ul class="activity items" ng-show="showActivity">
-                  <li ng-repeat="event in events">
-                    <span class="time">{{event.dateTime}}</span> <span class="description" ng-bind-html-unsafe="event.description"></span>
-                  </li>
-                </ul>
-              </div>
-              <div class="stack-overflow-profile" ng-controller="GithubProfileController">
-                <h2><i class="icon-s icon-stack-overflow"></i>Stack Overflow<i class="icon-m icon-refresh"></i></h2>
-              </div>
-            </div>
-          </div>
+      <div class="panel headered-panel" id="settings" ng-controller="SettingsController">
+        <h1 class="header">Settings</h1>
+        <div class="panel-wrapper">
+          <h2>Providers</h2>
+          <ul class="providers items">
+            <li ng-repeat="provider in providers" class="{{provider.id}}">
+              <i class="icon-s icon-{{provider.id}}"></i>
+              <span class="name">{{provider.name}}</span>
+              <span class="quota">
+               API max quota&nbsp;<span class="max">{{provider.quota.max}}</span>,
+               remaining&nbsp;<span class="remaining">{{provider.quota.remaining}}</span>
+             </span>
+             <span ng-class="getEnabledStatus(provider)" class="switch">
+               <span><span>on</span><span>off</span><i></i></span>
+             </span>
+            </li>
+          </ul>
         </div>
       </div>
 
-      <div class="panel">
-        <div class="subpanel-container">
-          <div id="settings" class="subpanel headered-panel" ng-controller="SettingsController">
-            <div class="panel-wrapper">
-              <h1 class="header">Settings</h1>
-              <h2>Providers</h2>
-              <ul class="providers items">
-                <li ng-repeat="provider in providers" class="{{provider.id}}">
-                  <i class="icon-s icon-{{provider.id}}"></i>
-                  <span class="name">{{provider.name}}</span>
-                  <span class="quota">
-                   API max quota&nbsp;<span class="max">{{provider.quota.max}}</span>,
-                   remaining&nbsp;<span class="remaining">{{provider.quota.remaining}}</span>
-                 </span>
-                 <span ng-class="getEnabledStatus(provider)" class="switch">
-                   <span><span>on</span><span>off</span><i></i></span>
-                 </span>
-                </li>
-              </ul>
-            </div>
-          </div>
+      <div class="panel headered-panel" id="about" class="subpanel headered-panel">
+        <h1 class="header">About</h1>
+        <div class="panel-wrapper">
+          <p><strong>Dev Buddies</strong> is an application fully written in
+          <strong>javascript</strong>, <strong>HTML</strong>, <strong>CSS</strong>
+          brought to you by <a href="http://rbenitte.com">Raphaël Benitte</a>, all job is done on the <strong>client side</strong>.<br/>
+          It consume various <strong>API</strong> provided by great <strong>open source enthusiasts actors</strong> such as
+          <a href="https://github.com/">github</a> or <a href="http://stackoverflow.com/">Stack Overflow</a>.<br/><br/>
+
+          Don't expect the application to run on a legacy browser, it relies on modern technologies such as
+          <a href="http://www.css3.info/">CSS3</a>, <a href="http://www.html5rocks.com/">HTML5</a>, <strong>localStorage</strong>...<br/><br/>
+
+          If you like this app, please help improving it by contributing PRs on the <a href="https://github.com/plouc/dev-buddies">github project</a>!</p>
         </div>
       </div>
 
-      <div class="panel">
-        <div class="subpanel-container">
-          <div id="about" class="subpanel headered-panel">
-            <h1 class="header">About</h1>
-            <div class="panel-wrapper">
-              <p><strong>Dev Buddies</strong> is an application fully written in
-              <strong>javascript</strong>, <strong>HTML</strong>, <strong>CSS</strong>
-              brought to you by <a href="http://rbenitte.com">Raphaël Benitte</a>, all job is done on the <strong>client side</strong>.<br/>
-              It consume various <strong>API</strong> provided by great <strong>open source enthusiasts actors</strong> such as
-              <a href="https://github.com/">github</a> or <a href="http://stackoverflow.com/">Stack Overflow</a>.<br/><br/>
-
-              Don't expect the application to run on a legacy browser, it relies on modern technologies such as
-              <a href="http://www.css3.info/">CSS3</a>, <a href="http://www.html5rocks.com/">HTML5</a>, <strong>localStorage</strong>...<br/><br/>
-
-              If you like this app, please help improving it by contributing PRs on the <a href="https://github.com/plouc/dev-buddies">github project</a>!</p>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
   <div class="nav">
     <ul>
       <li class="home">
-        <a ng-click="goto('home')"><span>home</span><i class="icon-m"></i></a>
+        <a fast-click="goto('home')"><span>home</span><i class="icon-m"></i></a>
       </li>
       <li class="search-button">
-        <a ng-click="goto('search')"><span>search</span><i class="icon-m"></i></a>
+        <a fast-click="goto('search')"><span>search</span><i class="icon-m"></i></a>
       </li>
       <li class="buddies">
-        <a ng-click="goto('buddies-list')"><span>buddies</span><i class="icon-m"></i></a>
+        <a fast-click="goto('buddies')"><span>buddies</span><i class="icon-m"></i></a>
       </li>
       <li class="settings">
-        <a ng-click="goto('settings')"><span>settings</span><i class="icon-m"></i></a>
+        <a fast-click="goto('settings')"><span>settings</span><i class="icon-m"></i></a>
       </li>
       <li class="about">
-        <a ng-click="goto('about')"><span>about</span><i class="icon-m"></i></a>
+        <a fast-click="goto('about')"><span>about</span><i class="icon-m"></i></a>
       </li>
     </ul>
   </div>
@@ -181,7 +162,7 @@
   <div id="popin" class="popin" ng-show="message" ng-class="messageType" ng-cloak>
     <div class="popin-wrapper">
       <p>{{message}}</p>
-      <span class="popin-close" ng-click="emptyMessage()"></span>
+      <span class="popin-close" fast-click="emptyMessage()"></span>
     </div>
   </div>
 
@@ -189,7 +170,6 @@
   <div class="loader" ng-show="loading" ng-cloak>
   </div>
 </div>
-<!--
 <script src="js/vendors/underscore.js"></script>
 <script src="js/vendors/jquery-1.8.3.js"></script>
 <script src="js/vendors/angular.js"></script>
@@ -210,7 +190,8 @@
 <script src="js/Controller/BuddyController.js"></script>
 <script src="js/Controller/GithubProfileController.js"></script>
 <script src="js/Controller/SettingsController.js"></script>
--->
+<!--
 <script src="js/dev-buddies.pack.js"></script>
+-->
 </body>
 </html>

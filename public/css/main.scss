@@ -1,4 +1,6 @@
-// setup
+/*******************************************************************************
+ * Setup
+ ******************************************************************************/
 $darkGrey:     #554d4c;
 $lightGrey:    #9f9b9b;
 $removeColor:  #ff3726;
@@ -7,15 +9,17 @@ $lightYellow:  #fff6ba;
 $hSpacing:     12px;
 $headerHeight: 44px;
 $navHeight:    40px;
+$panelCountH:  5;
 
 html, body {
+  width:  100%;
   height: 100%;
 }
 body {
+  position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing:    antialiased;
   font-smoothing:         antialiased;
-  width: 100%;
   font-family: helvetica, arial;
   font-size: 15px;
   color: darken($darkGrey, 10);
@@ -57,10 +61,15 @@ h3 {
   display: none !important;
 }
 
+
+
+/*******************************************************************************
+ * Panels/Layout
+ ******************************************************************************/
 #container {
   position: relative;
   overflow: hidden;
-  width: 100%;
+  width:  100%;
   height: 100%;
   max-width: 600px;
   box-shadow: 0 0 3px rgba(0,0,0,0.8);
@@ -71,39 +80,106 @@ h3 {
 .panel-slider {
   position: relative;
   overflow: hidden;
-  width: 500%;
+  width:  100% * $panelCountH;
   height: 100%;
   -moz-box-sizing: border-box;
   box-sizing:      border-box;
 }
 .panel-container {
-  position: absolute;
-  width: 100%;
+  position: relative;
+  width:  100%;
   height: 100%;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform:         translate3d(0, 0, 0);
+  -webkit-transition: -webkit-transform 400ms ease;
+  -moz-transition:    -moz-transform    400ms ease;
+  -o-transition:      -o-transform      400ms ease;
+  transition:         transform         400ms ease;
+}
+.panel-container.home {
+  $x: 0;
+  -webkit-transform: translate3d($x, 0, 0);
+  transform:         translate3d($x, 0, 0);
+}
+.panel-container.search {
+  $x: 100% / $panelCountH * -1;
+  -webkit-transform: translate3d($x, 0, 0);
+  transform:         translate3d($x, 0, 0);
+}
+.panel-container.buddies,
+.panel-container.buddy {
+  $x: 100% / $panelCountH * -2;
+  -webkit-transform: translate3d($x, 0, 0);
+  transform:         translate3d($x, 0, 0);
+}
+.panel-container.settings {
+  $x: 100% / $panelCountH * -3;
+  -webkit-transform: translate3d($x, 0, 0);
+  transform:         translate3d($x, 0, 0);
+}
+.panel-container.about {
+  $x: 100% / $panelCountH * -4;
+  -webkit-transform: translate3d($x, 0, 0);
+  transform:         translate3d($x, 0, 0);
 }
 .panel {
-  position: relative;
+  position: absolute;
   background: #fff;
-  float: left;
   z-index: 10;
   height: 100%;
-  width: 20%;
+  width:  100% / $panelCountH;
   overflow: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform:         translate3d(0, 0, 0);
+  -webkit-transition: -webkit-transform 400ms ease;
+  -moz-transition:    -moz-transform    400ms ease;
+  -o-transition:      -o-transform      400ms ease;
+  transition:         transform         400ms ease;
 }
-.subpanel-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+#home {
+  $x: 0;
+  -webkit-transform: translate3d($x, 0, 0);
+  transform:         translate3d($x, 0, 0);
 }
-.subpanel {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  overflow: hidden;
+#search {
+  $x: 100% * 1;
+  -webkit-transform: translate3d($x, 0, 0);
+  transform:         translate3d($x, 0, 0);
+}
+#buddies {
+  $x: 100% * 2;
+  -webkit-transform: translate3d($x, 0, 0);
+  transform:         translate3d($x, 0, 0);
+}
+#buddy {
+  $x: 100% * 2;
+  $y: 100%;
+  -webkit-transform: translate3d($x, $y, 0);
+  transform:         translate3d($x, $y, 0);
+}
+.panel-container.buddy {
+  #buddies {
+    $x: 100% * 2;
+    $y: 100% * -1;
+    -webkit-transform: translate3d($x, $y, 0);
+    transform:         translate3d($x, $y, 0);
+  }
+  #buddy {
+    $x: 100% * 2;
+    $y: 0;
+    -webkit-transform: translate3d($x, $y, 0);
+    transform:         translate3d($x, $y, 0);
+  }
+}
+#settings {
+  $x: 100% * 3;
+  -webkit-transform: translate3d($x, 0, 0);
+  transform:         translate3d($x, 0, 0);
+}
+#about {
+  $x: 100% * 4;
+  -webkit-transform: translate3d($x, 0, 0);
+  transform:         translate3d($x, 0, 0);
 }
 .header {
   -moz-box-sizing: border-box;
@@ -164,13 +240,6 @@ h3 {
   margin: 0;
   font-style: italic;
   background: $lightYellow;
-}
-
-#buddies .subpanel-container {
-  height: 200%;
-}
-#buddies .subpanel {
-  height: 50%;
 }
 
 .icon-s {
@@ -397,7 +466,7 @@ ul.items {
 /*******************************************************************************
  * Buddy profile
  ******************************************************************************/
-#buddy-profile {
+#buddy {
   .header {
     font-size: 21px;
     font-weight: normal;
@@ -691,7 +760,7 @@ ul.items {
 /*******************************************************************************
  * Buddies panel
  ******************************************************************************/
-#buddies-list {
+#buddies {
   .header {
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
     z-index: 100;

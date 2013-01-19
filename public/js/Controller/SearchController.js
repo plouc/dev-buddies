@@ -59,7 +59,7 @@ function SearchController($scope, app, navigate) {
         $scope.$parent.$broadcast('buddies.refresh', buddies);
       });
       $scope.$parent.$broadcast('buddyselect', profile);
-      navigate('buddy-profile');
+      navigate('buddy');
       $scope.$parent.safeApply();
     });
   };

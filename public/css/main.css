@@ -1,11 +1,15 @@
+/*******************************************************************************
+ * Setup
+ ******************************************************************************/
 html, body {
+  width: 100%;
   height: 100%; }
 
 body {
+  position: relative;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   font-smoothing: antialiased;
-  width: 100%;
   font-family: helvetica, arial;
   font-size: 15px;
   color: #3a3534;
@@ -45,6 +49,9 @@ h3 {
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important; }
 
+/*******************************************************************************
+ * Panels/Layout
+ ******************************************************************************/
 #container {
   position: relative;
   overflow: hidden;
@@ -65,33 +72,81 @@ h3 {
   box-sizing: border-box; }
 
 .panel-container {
-  position: absolute;
+  position: relative;
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: -webkit-transform 400ms ease;
+  -moz-transition: -moz-transform    400ms ease;
+  -o-transition: -o-transform      400ms ease;
+  transition: transform         400ms ease; }
+
+.panel-container.home {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0); }
+
+.panel-container.search {
+  -webkit-transform: translate3d(-20%, 0, 0);
+  transform: translate3d(-20%, 0, 0); }
+
+.panel-container.buddies,
+.panel-container.buddy {
+  -webkit-transform: translate3d(-40%, 0, 0);
+  transform: translate3d(-40%, 0, 0); }
+
+.panel-container.settings {
+  -webkit-transform: translate3d(-60%, 0, 0);
+  transform: translate3d(-60%, 0, 0); }
+
+.panel-container.about {
+  -webkit-transform: translate3d(-80%, 0, 0);
+  transform: translate3d(-80%, 0, 0); }
 
 .panel {
-  position: relative;
+  position: absolute;
   background: #fff;
-  float: left;
   z-index: 10;
   height: 100%;
   width: 20%;
-  overflow: hidden; }
+  overflow: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: -webkit-transform 400ms ease;
+  -moz-transition: -moz-transform    400ms ease;
+  -o-transition: -o-transform      400ms ease;
+  transition: transform         400ms ease; }
 
-.subpanel-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%; }
+#home {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0); }
 
-.subpanel {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  overflow: hidden; }
+#search {
+  -webkit-transform: translate3d(100%, 0, 0);
+  transform: translate3d(100%, 0, 0); }
+
+#buddies {
+  -webkit-transform: translate3d(200%, 0, 0);
+  transform: translate3d(200%, 0, 0); }
+
+#buddy {
+  -webkit-transform: translate3d(200%, 100%, 0);
+  transform: translate3d(200%, 100%, 0); }
+
+.panel-container.buddy #buddies {
+  -webkit-transform: translate3d(200%, -100%, 0);
+  transform: translate3d(200%, -100%, 0); }
+.panel-container.buddy #buddy {
+  -webkit-transform: translate3d(200%, 0, 0);
+  transform: translate3d(200%, 0, 0); }
+
+#settings {
+  -webkit-transform: translate3d(300%, 0, 0);
+  transform: translate3d(300%, 0, 0); }
+
+#about {
+  -webkit-transform: translate3d(400%, 0, 0);
+  transform: translate3d(400%, 0, 0); }
 
 .header {
   -moz-box-sizing: border-box;
@@ -151,12 +206,6 @@ h3 {
   margin: 0;
   font-style: italic;
   background: #fff6ba; }
-
-#buddies .subpanel-container {
-  height: 200%; }
-
-#buddies .subpanel {
-  height: 50%; }
 
 .icon-s {
   display: block;
@@ -353,27 +402,27 @@ ul.items {
 /*******************************************************************************
  * Buddy profile
  ******************************************************************************/
-#buddy-profile .header {
+#buddy .header {
   font-size: 21px;
   font-weight: normal;
   color: #b8b5b5;
   text-transform: none;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   z-index: 100; }
-  #buddy-profile .header span {
+  #buddy .header span {
     text-shadow: none; }
-  #buddy-profile .header img {
+  #buddy .header img {
     margin-top: 6px;
     margin-right: 9px;
     max-height: 32px;
     float: left;
     border-radius: 2px; }
-#buddy-profile h2 {
+#buddy h2 {
   position: relative;
   padding-left: 36px;
   min-height: 24px;
   line-height: 24px; }
-  #buddy-profile h2 .icon-refresh {
+  #buddy h2 .icon-refresh {
     position: absolute;
     top: 6px;
     right: 12px;
@@ -381,21 +430,21 @@ ul.items {
     cursor: pointer;
     border-radius: 2px;
     background-position: -168px 0; }
-    #buddy-profile h2 .icon-refresh:hover {
+    #buddy h2 .icon-refresh:hover {
       background-color: #b8b5b5; }
-  #buddy-profile h2 .icon-s {
+  #buddy h2 .icon-s {
     position: absolute;
     top: 11px;
     left: 12px; }
-#buddy-profile .wrapper {
+#buddy .wrapper {
   height: 100%;
   overflow-y: auto; }
-#buddy-profile h3 {
+#buddy h3 {
   position: relative;
   cursor: pointer;
   color: #2d2828;
   border-bottom: 1px solid #b3b0b0; }
-  #buddy-profile h3 .count {
+  #buddy h3 .count {
     border-radius: 2px;
     display: inline-block;
     background: #554d4c;
@@ -405,7 +454,7 @@ ul.items {
     font-size: 13px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5) inset;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.85); }
-  #buddy-profile h3 i {
+  #buddy h3 i {
     position: absolute;
     top: 3px;
     right: 12px;
@@ -414,28 +463,28 @@ ul.items {
     background-position: center center;
     background-repeat: no-repeat;
     background-image: url("../imgs/collapse-icon.png"); }
-  #buddy-profile h3:hover {
+  #buddy h3:hover {
     background-color: #d1cfcf; }
-  #buddy-profile h3.collapsed i {
+  #buddy h3.collapsed i {
     background-image: url("../imgs/expand-icon.png"); }
-#buddy-profile ul.activity {
+#buddy ul.activity {
   font-size: 13px; }
-  #buddy-profile ul.activity a {
+  #buddy ul.activity a {
     text-decoration: none;
     font-weight: bold; }
-  #buddy-profile ul.activity .day {
+  #buddy ul.activity .day {
     font-size: 13px;
     font-weight: bold;
     padding: 3px 12px;
     background-color: #e2e1e1; }
-  #buddy-profile ul.activity .time {
+  #buddy ul.activity .time {
     color: #797474; }
-#buddy-profile ul.repositories {
+#buddy ul.repositories {
   font-size: 13px; }
-  #buddy-profile ul.repositories li {
+  #buddy ul.repositories li {
     padding: 5px 12px;
     border-bottom: none; }
-  #buddy-profile ul.repositories a {
+  #buddy ul.repositories a {
     text-decoration: none;
     font-weight: bold;
     color: #2d2828;
@@ -443,9 +492,9 @@ ul.items {
     display: inline-block;
     padding: 2px 6px;
     border-radius: 2px; }
-    #buddy-profile ul.repositories a:hover {
+    #buddy ul.repositories a:hover {
       background-color: #fff6ba; }
-  #buddy-profile ul.repositories .meta {
+  #buddy ul.repositories .meta {
     font-style: italic; }
 
 /*******************************************************************************
@@ -579,10 +628,10 @@ ul.items {
 /*******************************************************************************
  * Buddies panel
  ******************************************************************************/
-#buddies-list .header {
+#buddies .header {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   z-index: 100; }
-#buddies-list h1 a {
+#buddies h1 a {
   -webkit-transition: width 0.1s linear;
   -moz-transition: width 0.1s linear;
   transition: width 0.1s linear;
@@ -591,22 +640,22 @@ ul.items {
   text-align: center;
   background: #ff3726;
   box-shadow: 0 1px 1px #ff6f63 inset, 0 1px 2px rgba(0, 0, 0, 0.5); }
-  #buddies-list h1 a:hover {
+  #buddies h1 a:hover {
     background: #ff6659; }
-  #buddies-list h1 a.editing {
+  #buddies h1 a.editing {
     width: 70px; }
-#buddies-list ul.letters {
+#buddies ul.letters {
   margin: 0;
   padding: 0;
   background-color: #9f9b9b; }
-  #buddies-list ul.letters > li > span {
+  #buddies ul.letters > li > span {
     padding: 0 12px;
     display: block;
     height: 24px;
     line-height: 24px;
     font-size: 13px;
     font-weight: bold; }
-  #buddies-list ul.letters > li li {
+  #buddies ul.letters > li li {
     cursor: pointer;
     -webkit-transition: background-color 0.3s linear;
     -moz-transition: background-color 0.3s linear;
@@ -614,15 +663,15 @@ ul.items {
     position: relative;
     min-height: 24px;
     background-color: #fff; }
-    #buddies-list ul.letters > li li:hover {
+    #buddies ul.letters > li li:hover {
       background-color: #e2e1e1; }
-#buddies-list h3 {
+#buddies h3 {
   font-size: 16px;
   font-weight: bold;
   background: none;
   padding: 0;
   color: #2d2828; }
-#buddies-list .remove {
+#buddies .remove {
   -webkit-transition: width 0.1s linear, opacity 0.1s linear;
   -moz-transition: width 0.1s linear, opacity 0.1s linear;
   transition: width 0.1s linear, opacity 0.1s linear;
@@ -642,20 +691,20 @@ ul.items {
   text-align: center;
   color: #35302f;
   overflow: hidden; }
-  #buddies-list .remove.editing {
+  #buddies .remove.editing {
     opacity: 1; }
-  #buddies-list .remove span {
+  #buddies .remove span {
     line-height: 28px;
     height: 28px;
     width: 70px;
     display: block;
     visibility: hidden; }
-  #buddies-list .remove.pending {
+  #buddies .remove.pending {
     width: 70px;
     background: #ff3726; }
-    #buddies-list .remove.pending span {
+    #buddies .remove.pending span {
       visibility: visible; }
-  #buddies-list .remove:hover {
+  #buddies .remove:hover {
     background-color: #ff6659; }
 
 /*******************************************************************************
